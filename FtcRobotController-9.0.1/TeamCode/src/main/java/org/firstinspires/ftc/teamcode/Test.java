@@ -11,20 +11,14 @@ import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
-public class Test extends LinearOpMode {
-    private Gyroscope imu;
-    private DcMotor motorTest;
-    private DigitalChannel digitalTouch;
-    private DistanceSensor sensorColorRange;
-    private Servo servoTest;
+public class  Test extends LinearOpMode {
+    private DcMotor left_Drive;
+    private DcMotor right_Drive;
 
     @Override
     public void runOpMode(){
-        imu = hardwareMap.get(Gyroscope.class, "imu");
-        motorTest = hardwareMap.get(DcMotor.class, "motorTest");
-        digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
-        sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
-        servoTest = hardwareMap.get(Servo.class, "servoTest");
+        left_Drive = hardwareMap.get(DcMotor.class, "left_Drive");
+        right_Drive = hardwareMap.get(DcMotor.class, "right_Drive");
 
         telemetry.addData ("Status", "Initialized");
         telemetry.update();
@@ -33,6 +27,13 @@ public class Test extends LinearOpMode {
         while (opModeIsActive()){
             telemetry.addData("Status", "Running");
             telemetry.update();
+
+            float x = -gamepad1.left_stick_y;
+            float y = -gamepad1.left_stick_x;
+
+            right_Drive.setPower(y-x);
+            left_Drive.setPower(x+y);
+
         }
     }
 }
