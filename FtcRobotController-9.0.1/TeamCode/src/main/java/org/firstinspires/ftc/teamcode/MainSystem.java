@@ -15,5 +15,12 @@ public class MainSystem extends LinearOpMode {
         Elevator elevator = new Elevator();
         waitForStart();
 
+        while (opModeIsActive()) {
+            waitForStart();
+            new Chassis();
+            new Elevator();
+            telemetry.addData("Status", "Go");
+        }
+
     }
 }
