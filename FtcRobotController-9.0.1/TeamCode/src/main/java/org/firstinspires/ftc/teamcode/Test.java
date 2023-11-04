@@ -1,18 +1,38 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous (name="motor1")
-public class motor1 extends OpMode {
-    DcMotor motor;
+@TeleOp
+public class Test extends LinearOpMode {
+    private Gyroscope imu;
+    private DcMotor motorTest;
+    private DigitalChannel digitalTouch;
+    private DistanceSensor sensorColorRange;
+    private Servo servoTest;
+
     @Override
-    public void init() {
-        motor = hardwareMap.get(DcMotor.class, deviceName: "motor1");
-    }
-    @Override
-    public void loop() {
-        motor.setPower(1);
+    public void runOpMode(){
+        imu = hardwareMap.get(Gyroscope.class, "imu");
+        motorTest = hardwareMap.get(DcMotor.class, "motorTest");
+        digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
+        sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
+        servoTest = hardwareMap.get(Servo.class, "servoTest");
+
+        telemetry.addData ("Status", "Initialized");
+        telemetry.update();
+        waitForStart();
+
+        while (opModeIsActive()){
+            telemetry.addData("Status", "Running");
+            telemetry.update();
+        }
     }
 }
