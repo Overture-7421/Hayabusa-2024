@@ -13,7 +13,7 @@ public class Chassis {
         right_Drive = hardwareMap.get(DcMotor.class, "right_Drive");
     }
 
-    public void loopChassis() {
+    public void loop() {
         float x = -gamepad1.left_stick_y;
         float y = -gamepad1.right_stick_x;
         right_Drive.setPower(y-x);

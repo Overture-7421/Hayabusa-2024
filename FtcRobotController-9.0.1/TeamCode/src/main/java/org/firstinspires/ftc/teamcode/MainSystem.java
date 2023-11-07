@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
 import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 
@@ -16,9 +15,8 @@ public class MainSystem extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            waitForStart();
-            new Chassis();
-            new Elevator();
+            chassis.loop();
+            elevator.loop();
             telemetry.addData("Status", "Go");
         }
 

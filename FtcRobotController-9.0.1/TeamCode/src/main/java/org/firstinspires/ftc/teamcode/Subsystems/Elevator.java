@@ -16,7 +16,7 @@ public class Elevator {
         right_Elevator = hardwareMap.get(DcMotorEx.class, "right_Elevator");
     }
 
-    public void loopElevator() {
+    public void loop() {
        if (gamepad2.a) {
                 left_Elevator.setPower(0.5);
                 right_Elevator.setPower(-0.5);
