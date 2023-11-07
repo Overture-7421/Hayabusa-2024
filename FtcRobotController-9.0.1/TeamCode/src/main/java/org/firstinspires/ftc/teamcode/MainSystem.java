@@ -8,17 +8,14 @@ import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 @TeleOp
 public class MainSystem extends LinearOpMode {
 
+    Chassis chassis = new Obj;
+    Elevator elevator = new Obj;
+
     @Override
-    public void runOpMode() {
-        Chassis chassis = new Chassis();
-        Elevator elevator = new Elevator();
+    public static void Main() {
         waitForStart();
-
-        while (opModeIsActive()) {
-            chassis.loop();
-            elevator.loop();
+            chassis.chassisLoop();
+            elevator.elevatorLoop();
             telemetry.addData("Status", "Go");
-        }
-
     }
 }

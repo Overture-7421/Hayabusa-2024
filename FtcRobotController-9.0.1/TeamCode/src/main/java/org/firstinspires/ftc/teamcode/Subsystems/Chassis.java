@@ -8,12 +8,12 @@ public class Chassis {
     private DcMotor left_Drive;
     private DcMotor right_Drive;
 
-    public void declarationChassis() {
+    public void Chassis() {
         left_Drive = hardwareMap.get(DcMotor.class, "left_Drive");
         right_Drive = hardwareMap.get(DcMotor.class, "right_Drive");
     }
 
-    public void loop() {
+    public void chassisloop() {
         float x = -gamepad1.left_stick_y;
         float y = -gamepad1.right_stick_x;
         right_Drive.setPower(y-x);
