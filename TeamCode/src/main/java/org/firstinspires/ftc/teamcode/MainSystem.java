@@ -21,7 +21,7 @@ public class MainSystem extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            chassis.chassisLoop(gamepad1);
+            chassis.chassisLoop();
             elevator.elevatorLoop();
             telemetry.addData("Status", "Go");
             telemetry.update();
