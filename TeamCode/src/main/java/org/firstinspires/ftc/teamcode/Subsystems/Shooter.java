@@ -6,21 +6,21 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Shooter {
 
-    private Servo Shooter;
+    private Servo Shoot_Servo;
 
     private Gamepad operatorGamepad;
 
     public Shooter (HardwareMap hardwareMap, Gamepad operatorGamepad) {
         this.operatorGamepad = operatorGamepad;
 
-        Shooter = hardwareMap.get(Servo.class, "shooter");
+        Shoot_Servo = hardwareMap.get(Servo.class, "Shoot_Servo");
 
     }
     public void shooterLoop(){
         if (operatorGamepad.left_stick_button) {
-            Shooter.setPosition(1);
-        }   else if(operatorGamepad.right_stick_button) {
-            Shooter.setPosition(0);
+            Shoot_Servo.setPosition(1);
+        }   else {
+            Shoot_Servo.setPosition(0);
         }
 
     }
