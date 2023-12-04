@@ -3,88 +3,35 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.Gamepad;
+import org.firstinspires.ftc.teamcode.Autonomous.AutonomousCommands;
+import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
 
 @Autonomous
-public class Autonomous_One extends LinearOpMode{
+public class Autonomous_One extends LinearOpMode {
     private DcMotor right_Drive;
     private DcMotor left_Drive;
 
-    void turnRight90() {
-        right_Drive.setPower(0.5);
-        left_Drive.setPower(-0.5);
-        sleep(625);
-    }
+    AutonomousCommands autonomousCommands;
 
-    void turnLeft90() {
-        right_Drive.setPower(-0.5);
-        left_Drive.setPower(0.5);
-        sleep(625);
-    }
 
-    void turn180() {
-        right_Drive.setPower(-0.5);
-        left_Drive.setPower(0.5);
-        sleep(1313);
-    }
 
-    void forward2FT() {
-        right_Drive.setPower(1);
-        left_Drive.setPower(1);
-        sleep(245);
-    }
-
-    void forward1FT() {
-        right_Drive.setPower(1);
-        left_Drive.setPower(1);
-        sleep((long) 122.5);
-    }
-
-    void forwardHalfFT() {
-        right_Drive.setPower(1);
-        left_Drive.setPower(1);
-        sleep((long) 183.75);
-    }
-
-    void backwardHalfFT() {
-        right_Drive.setPower(-1);
-        left_Drive.setPower(-1);
-        sleep((long) 183.75);
-    }
-
-    void backward1FT() {
-        right_Drive.setPower(-1);
-        left_Drive.setPower(-1);
-        sleep((long)122.5);
-    }
-
-    void slow2FTForward() {
-        right_Drive.setPower(0.5);
-        left_Drive.setPower(0.5);
-        sleep(490);
-    }
-
-    void fullStop() {
-        right_Drive.setPower(0);
-        left_Drive.setPower(0);
-        sleep(1000);
-    }
 
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
         right_Drive = hardwareMap.get(DcMotor.class, "right_Drive");
         left_Drive = hardwareMap.get(DcMotor.class, "left_Drive");
-        left_Drive.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        autonomousCommands = new AutonomousCommands();
         waitForStart();
 
 
         // Red case 1, red spot, team prop in middle spike mark
             //Detectar en donde está el team prop (en este caso en el spike mark del centro)
-            backward1FT();
+
+            autonomousCommands.turnLeft90();
+
+        /* backward1FT();
             backward1FT();
             fullStop();
             sleep(1000); // Expulsa un pixel
@@ -100,7 +47,7 @@ public class Autonomous_One extends LinearOpMode{
             forward1FT(); //Se aleja hacia la derecha
             turnLeft90();
             forwardHalfFT(); // Llega al backstage
-            fullStop(); //Se estaciona y se apaga
+            fullStop(); //Se estaciona y se apaga */
 
 
         //Red case 2
