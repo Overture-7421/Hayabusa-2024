@@ -5,21 +5,22 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Intake {
-
     private DcMotor intake;
-
     private Gamepad driverGamepad;
-    public Intake(HardwareMap hardwareMap, Gamepad driverGamepad) {
-        this.driverGamepad = driverGamepad;
+    private  Gamepad operatorGamepad;
+
+    public Intake(HardwareMap hardwareMap, Gamepad operatorGamepad) {
+        this.operatorGamepad = operatorGamepad;
 
         intake = hardwareMap.get(DcMotor.class, "intake");
-
     }
 
     public void intakeLoop() {
-        if(driverGamepad.left_bumper) {
+        if(operatorGamepad.a) {
+            intake.setPower(-1);
+        } else if (operatorGamepad.b) {
             intake.setPower(1);
-        } else if (driverGamepad.right_bumper) {
+        } else{
             intake.setPower(0);
         }
     }

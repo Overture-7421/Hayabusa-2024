@@ -5,17 +5,15 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Band {
-
     private DcMotorEx belt_Spin;
-
     private Gamepad operatorGamepad;
 
     public Band (HardwareMap hardwareMap, Gamepad operatorGamepad) {
         this.operatorGamepad = operatorGamepad;
 
         belt_Spin = hardwareMap.get(DcMotorEx.class, "belt_Spin");
-
     }
+
     public void bandLoop() {
         belt_Spin.setPower(1);
 

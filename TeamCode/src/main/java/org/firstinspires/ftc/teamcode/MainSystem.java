@@ -38,8 +38,8 @@ public class MainSystem extends LinearOpMode {
 
         while (opModeIsActive()) {
             chassis.chassisLoop();
-            band.bandLoop();
             intake.intakeLoop();
+            band.bandLoop();
 
             telemetry.addData("Status", "Enabled.");
             telemetry.update();
