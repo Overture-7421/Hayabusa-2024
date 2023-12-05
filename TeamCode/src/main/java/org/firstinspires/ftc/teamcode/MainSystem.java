@@ -37,7 +37,6 @@ public class MainSystem extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            chassis.chassisLoop();
             intake.intakeLoop();
             band.bandLoop();
 
