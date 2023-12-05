@@ -12,7 +12,7 @@ public class Intake {
     public Intake(HardwareMap hardwareMap, Gamepad operatorGamepad) {
         this.operatorGamepad = operatorGamepad;
 
-        intake = hardwareMap.get(DcMotor.class, "intake");
+        intake = hardwareMap.get(DcMotor.class, "Intake");
     }
 
     public void intakeLoop() {
