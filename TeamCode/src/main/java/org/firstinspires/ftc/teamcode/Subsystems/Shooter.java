@@ -13,7 +13,7 @@ public class Shooter {
     public Shooter (HardwareMap hardwareMap, Gamepad operatorGamepad) {
         this.operatorGamepad = operatorGamepad;
 
-        Shoot_Servo = hardwareMap.get(Servo.class, "Shoot_Servo");
+        Shoot_Servo = hardwareMap.get(Servo.class, "shoot_Servo");
 
     }
     public void shooterLoop(){
