@@ -20,8 +20,8 @@ public class Autonomous_One extends LinearOpMode {
         waitForStart();
 
             // RED CASE 1- Red spot, team prop in middle spike mark
-            //autonomousCommands.forward4ft();
-            //autonomousCommands.stopMotors();
+            autonomousCommands.forward4ft();
+            autonomousCommands.stopMotors();
             autonomousCommands.turnLeft90();
     }
 }
