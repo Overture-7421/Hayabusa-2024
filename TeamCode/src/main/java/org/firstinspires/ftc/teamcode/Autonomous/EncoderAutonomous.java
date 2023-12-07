@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @Autonomous(name = "EncoderAutonomous", group = "Autonomous")
 public class EncoderAutonomous extends LinearOpMode {
 
-    private DcMotor leftMotor;
-    private DcMotor rightMotor;
+    private static DcMotor leftMotor;
+    private static DcMotor rightMotor;
 
     // Constants
     private static final double COUNTS_PER_MOTOR_REV = 465;  // Encoder counts per revolution
@@ -20,7 +20,7 @@ public class EncoderAutonomous extends LinearOpMode {
     private static final double DISTANCE_INCHES = 12.0;
 
     @Override
-    public  void runOpMode() {
+    public void runOpMode() {
         // Initialize hardware
         leftMotor = hardwareMap.get(DcMotor.class, "left_Drive");
         rightMotor = hardwareMap.get(DcMotor.class, "right_Drive");
@@ -46,7 +46,7 @@ public class EncoderAutonomous extends LinearOpMode {
         stopRobot();
     }
 
-    public  void encoderDrive(double speed, double leftInches, double rightInches, double timeout) {
+    public static void encoderDrive(double speed, double leftInches, double rightInches, double timeout) {
         int newLeftTarget;
         int newRightTarget;
 
@@ -66,7 +66,7 @@ public class EncoderAutonomous extends LinearOpMode {
         leftMotor.setPower(speed);
         rightMotor.setPower(speed);
 
-        // Continue until both motors reach the target position or timeout
+        /* Continue until both motors reach the target position or timeout
         long startTime = System.currentTimeMillis();
         while (opModeIsActive() &&
                 (System.currentTimeMillis() - startTime < timeout * 1000) &&
@@ -74,6 +74,7 @@ public class EncoderAutonomous extends LinearOpMode {
             // Wait for the motors to reach the target position
             idle();
         }
+        */
 
         // Stop the motors
         stopRobot();
@@ -83,7 +84,7 @@ public class EncoderAutonomous extends LinearOpMode {
         rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    private void stopRobot() {
+    private static void stopRobot() {
         // Stop both motors
         leftMotor.setPower(0);
         rightMotor.setPower(0);

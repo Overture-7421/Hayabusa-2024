@@ -6,7 +6,7 @@ public class AutonomousCommands {
 
     private DcMotor right_Drive;
     private DcMotor left_Drive;
-
+    private EncoderAutonomous encoderDrive;
 
     // Constructor to initialize motors
     public AutonomousCommands(DcMotor right_Drive, DcMotor left_Drive) {
@@ -28,17 +28,13 @@ public class AutonomousCommands {
         left_Drive.setPower(0);
     }
 
-    /*
-    public void forward4f() {
 
-
-            EncoderAutonomous.encoderDrive(0.5, 12, 12, 5.0);
-
-
+    public void forward4ft() {
+        EncoderAutonomous.encoderDrive(0.5, 12, 12, 5.0);
     }
 
 
-     */
+
 
     public void sleep(long millis) {
         try {
