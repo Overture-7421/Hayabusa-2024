@@ -11,11 +11,12 @@ public class EncoderAutonomous extends LinearOpMode {
     private DcMotor rightMotor;
 
     // Constants
-    private static final double COUNTS_PER_MOTOR_REV = 429;  // Encoder counts per revolution
+    private static final double COUNTS_PER_MOTOR_REV = 425;  // Encoder counts per revolution
     private static final double WHEEL_DIAMETER_INCHES = 3.5; // Diameter of the wheel
     private static final double COUNTS_PER_INCH = COUNTS_PER_MOTOR_REV / (WHEEL_DIAMETER_INCHES * Math.PI);
 
     // Distance to travel in inches
+            //12 in = 1 ft
     private static final double DISTANCE_INCHES = 12.0;
 
     @Override
@@ -45,7 +46,7 @@ public class EncoderAutonomous extends LinearOpMode {
         stopRobot();
     }
 
-    private void encoderDrive(double speed, double leftInches, double rightInches, double timeout) {
+    public void encoderDrive(double speed, double leftInches, double rightInches, double timeout) {
         int newLeftTarget;
         int newRightTarget;
 
