@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import org.firstinspires.ftc.teamcode.Autonomous.EncoderAutonomous;
 
 public class AutonomousCommands {
 
@@ -25,6 +26,14 @@ public class AutonomousCommands {
     public void stopMotors() {
         right_Drive.setPower(0);
         left_Drive.setPower(0);
+    }
+
+    public void forward4f() {
+
+
+            EncoderAutonomous.encoderDrive(0.5, 12, 12, 5.0);
+
+
     }
 
     public void sleep(long millis) {

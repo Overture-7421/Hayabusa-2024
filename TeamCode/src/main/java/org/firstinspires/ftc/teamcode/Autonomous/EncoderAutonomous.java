@@ -20,7 +20,7 @@ public class EncoderAutonomous extends LinearOpMode {
     private static final double DISTANCE_INCHES = 12.0;
 
     @Override
-    public void runOpMode() {
+    public  void runOpMode() {
         // Initialize hardware
         leftMotor = hardwareMap.get(DcMotor.class, "left_Drive");
         rightMotor = hardwareMap.get(DcMotor.class, "right_Drive");
@@ -46,7 +46,7 @@ public class EncoderAutonomous extends LinearOpMode {
         stopRobot();
     }
 
-    public void encoderDrive(double speed, double leftInches, double rightInches, double timeout) {
+    public  void encoderDrive(double speed, double leftInches, double rightInches, double timeout) {
         int newLeftTarget;
         int newRightTarget;
 
