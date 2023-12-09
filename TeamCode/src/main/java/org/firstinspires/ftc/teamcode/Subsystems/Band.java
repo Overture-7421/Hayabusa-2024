@@ -15,14 +15,14 @@ public class Band {
     }
 
     public void bandLoop() {
-        belt_Spin.setPower(0.5);
+        belt_Spin.setPower(1);
 
         if(operatorGamepad.dpad_down) {
             belt_Spin.setPower(-0.5);
-        } else if (operatorGamepad.dpad_left) {
+        } else if (operatorGamepad.b) {
             belt_Spin.setPower(0);
         } else {
-            belt_Spin.setPower(0.5);
+            belt_Spin.setPower(1);
         }
     }
 
