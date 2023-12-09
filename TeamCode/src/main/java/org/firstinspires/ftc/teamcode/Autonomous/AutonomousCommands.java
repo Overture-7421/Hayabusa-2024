@@ -29,9 +29,9 @@ public class AutonomousCommands {
     }
 
 
-    public void forward4ft() {
+    /*public void forward4ft() {
         EncoderAutonomous.encoderDrive(0.5, 12, 12, 5.0);
-    }
+    }*/
 
 
 

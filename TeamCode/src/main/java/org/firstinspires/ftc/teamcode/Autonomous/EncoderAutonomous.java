@@ -7,16 +7,16 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @Autonomous(name = "EncoderAutonomous", group = "Autonomous")
 public class EncoderAutonomous extends LinearOpMode {
 
-    private static DcMotor leftMotor;
-    private static DcMotor rightMotor;
+    private DcMotor leftMotor;
+    private DcMotor rightMotor;
 
     // Constants
-    private static final double COUNTS_PER_MOTOR_REV = 465;  // Encoder counts per revolution
+    private static final double COUNTS_PER_MOTOR_REV = 425;  // Encoder counts per revolution
     private static final double WHEEL_DIAMETER_INCHES = 3.5; // Diameter of the wheel
     private static final double COUNTS_PER_INCH = COUNTS_PER_MOTOR_REV / (WHEEL_DIAMETER_INCHES * Math.PI);
 
     // Distance to travel in inches
-            //12 in = 1 ft
+    //12 in = 1 ft
     private static final double DISTANCE_INCHES = 12.0;
 
     @Override
@@ -40,13 +40,13 @@ public class EncoderAutonomous extends LinearOpMode {
         waitForStart();
 
         // Move the robot forward using encoders
-        encoderDrive(0.3, DISTANCE_INCHES, DISTANCE_INCHES, 5.0);
+        encoderDrive(0.7, DISTANCE_INCHES, DISTANCE_INCHES, 5.0);
 
         // Stop the robot
         stopRobot();
     }
 
-    public static void encoderDrive(double speed, double leftInches, double rightInches, double timeout) {
+    public void encoderDrive(double speed, double leftInches, double rightInches, double timeout) {
         int newLeftTarget;
         int newRightTarget;
 
@@ -66,7 +66,7 @@ public class EncoderAutonomous extends LinearOpMode {
         leftMotor.setPower(speed);
         rightMotor.setPower(speed);
 
-        /* Continue until both motors reach the target position or timeout
+        // Continue until both motors reach the target position or timeout
         long startTime = System.currentTimeMillis();
         while (opModeIsActive() &&
                 (System.currentTimeMillis() - startTime < timeout * 1000) &&
@@ -74,7 +74,6 @@ public class EncoderAutonomous extends LinearOpMode {
             // Wait for the motors to reach the target position
             idle();
         }
-        */
 
         // Stop the motors
         stopRobot();
@@ -84,7 +83,7 @@ public class EncoderAutonomous extends LinearOpMode {
         rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    private static void stopRobot() {
+    private void stopRobot() {
         // Stop both motors
         leftMotor.setPower(0);
         rightMotor.setPower(0);
