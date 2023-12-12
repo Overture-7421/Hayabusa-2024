@@ -4,7 +4,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+/*
 @Autonomous //(name = "DistanceCalculations", group = "Autonomous")
+
 
 public class DistanceCalculations extends LinearOpMode{
     private DcMotor leftMotor;
@@ -40,3 +42,5 @@ public class DistanceCalculations extends LinearOpMode{
         sleep(5000);
     }
 }
+
+*/

@@ -11,12 +11,11 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 @TeleOp
 public class MainSystem extends LinearOpMode {
     Chassis chassis;
-    Intake intake;
-    Band band;
+    //Intake intake;
+    //Band band;
     //Claw claw;
     //Elevator elevator;
-    //Shooter shooter;
-
+    //Shooter shooter
 
     private Gamepad driverGamepad;
     private Gamepad operatorGamepad;
@@ -26,9 +25,9 @@ public class MainSystem extends LinearOpMode {
         driverGamepad = gamepad1;
         operatorGamepad = gamepad2;
 
-        chassis     = new Chassis(hardwareMap, driverGamepad);     // Create an instance of Chassis
-        intake      = new Intake(hardwareMap, driverGamepad);      // Create an instance of Intake
-        band        = new Band(hardwareMap, operatorGamepad);      // Create an instance of Band
+        chassis     = new Chassis(hardwareMap);     // Create an instance of Chassis
+        //intake      = new Intake(hardwareMap, driverGamepad);      // Create an instance of Intake
+        //band        = new Band(hardwareMap, operatorGamepad);      // Create an instance of Band
         //claw        = new Claw(hardwareMap, operatorGamepad);      // Create an instance of Claw
         //elevator    = new Elevator(hardwareMap, operatorGamepad);  // Create an instance of Elevator
         //shooter     = new Shooter(hardwareMap, operatorGamepad);   // Create an instance of Shooter
@@ -36,12 +35,36 @@ public class MainSystem extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            chassis.chassisLoop();
-            intake.intakeLoop();
-            band.bandLoop();
+
+            // Chassis
+            chassis.setSpeed(-driverGamepad.left_stick_y, -driverGamepad.right_stick_x);
+
+            // Intake
+
+            // Band
+
+            // Claw
+
+            // Elevator
+
+            // Shooter
+
+
+            // -- TELEMETRY -- //
 
             telemetry.addData("Status", "Enabled.");
+
+            // Velocities
+            telemetry.addData("LinearVel", -driverGamepad.left_stick_y);
+            telemetry.addData("AngularVel", -driverGamepad.right_stick_x);
+
+            // Distance per side in CM
+            telemetry.addData("RightDistance", chassis.rightDistance());
+            telemetry.addData("LeftDistance", chassis.leftDistance());
+
+            // Update Telemetry
             telemetry.update();
+
         }
     }
 }
