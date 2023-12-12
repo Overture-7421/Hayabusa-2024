@@ -1,34 +1,20 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.Gamepad;
 
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Elevator {
-
+    // Motors Declaration
     private DcMotorEx left_Elevator;
     private DcMotorEx right_Elevator;
 
-    private Gamepad operatorGamepad;
-
-
-    public  Elevator (HardwareMap hardwareMap, Gamepad operatorGamepad) {
-        this.operatorGamepad = operatorGamepad;
-
-        left_Elevator = hardwareMap.get(DcMotorEx.class, "left_Elevator");
+    public Elevator(HardwareMap hardwareMap) {
         right_Elevator = hardwareMap.get(DcMotorEx.class, "right_Elevator");
+        left_Elevator = hardwareMap.get(DcMotorEx.class, "left_Elevator");
     }
 
-    public void elevatorLoop() {
-       if (operatorGamepad.a) {
-                left_Elevator.setPower(0.5);
-                right_Elevator.setPower(-0.5);
-            } else if (operatorGamepad.b) {
-                left_Elevator.setPower(-0.5);
-                right_Elevator.setPower((0.5));
-            } else {
-                left_Elevator.setPower(0);
-                right_Elevator.setPower(0);
-            }
+    public void ElevatorVoltage(double ElevatorMotorsSpeed) {
+        right_Elevator.setPower(ElevatorMotorsSpeed);
+        left_Elevator.setPower(ElevatorMotorsSpeed);
     }
 }

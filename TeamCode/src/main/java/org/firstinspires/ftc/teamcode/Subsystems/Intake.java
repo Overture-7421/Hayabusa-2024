@@ -1,28 +1,18 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Intake {
+    // Motor Declaration
     private DcMotor intake;
-    private Gamepad driverGamepad;
-    private  Gamepad operatorGamepad;
 
-    public Intake(HardwareMap hardwareMap, Gamepad operatorGamepad) {
-        this.operatorGamepad = operatorGamepad;
-
+    public Intake(HardwareMap hardwareMap) {
         intake = hardwareMap.get(DcMotor.class, "intake");
     }
 
-    public void intakeLoop() {
-        if(operatorGamepad.a) {
-            intake.setPower(-1);
-        } else if (operatorGamepad.b) {
-            intake.setPower(1);
-        } else{
-            intake.setPower(0);
-        }
+    // Set Intake Voltage Function
+    public void IntakeVoltage (double IntakeMotorSpeed){
+        intake.setPower(IntakeMotorSpeed);
     }
-
 }

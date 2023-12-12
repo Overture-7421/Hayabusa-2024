@@ -1,33 +1,21 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Claw {
 
-    private Servo grab_LeftServo;
+    // Motor Declaration
     private Servo grab_RightServo;
+    private Servo grab_LeftServo;
 
-    private Gamepad operatorGamepad;
-
-    public Claw (HardwareMap hardwareMap, Gamepad operatorGamepad) {
-        this.operatorGamepad = operatorGamepad;
-
-        grab_LeftServo = hardwareMap.get(Servo.class, "grab_RightServo");
-        grab_RightServo = hardwareMap.get(Servo.class, "grab_LeftServo");
-
-    }
-    public void clawLoop() {
-
-        if (operatorGamepad.x) {
-            grab_RightServo.setPosition(1);
-            grab_LeftServo.setPosition(1);
-        }
-        else if(operatorGamepad.y) {
-            grab_RightServo.setPosition(0);
-            grab_LeftServo.setPosition(0);
-        }
+    public Claw (HardwareMap hardwareMap){
+        grab_RightServo = hardwareMap.get(Servo.class, "grab_RightServo");
+        grab_LeftServo = hardwareMap.get(Servo.class, "grab_LeftServo");
     }
 
+    public void ClawVoltage(double ClawMotorPosition) {
+        grab_RightServo.setPosition(ClawMotorPosition);
+        grab_LeftServo.setPosition(ClawMotorPosition);
+    }
 }
