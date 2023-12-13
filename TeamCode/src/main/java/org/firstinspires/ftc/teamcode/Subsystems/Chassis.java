@@ -41,16 +41,6 @@ public class Chassis {
 
     // -- ODOMETRY -- //
 
-    /*
-    public List<Double> getWheelVelocities() {
-        return Arrays.asList(
-      2
-                 * (parallelEncoder.getCorrectedVelocity()),
-                encoderTicksToInches(perpendicularEncoder.getCorrectedVelocity())
-        );
-    }
-
-     */
 
 }
 
