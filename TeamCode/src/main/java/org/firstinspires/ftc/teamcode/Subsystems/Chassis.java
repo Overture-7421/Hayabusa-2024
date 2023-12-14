@@ -11,7 +11,7 @@ public class Chassis {
     private DcMotor left_Drive;
 
     // Cm per tick constant
-    private final double CM_PER_TICK = 1.0  / 540.0 * 9.0 * Math.PI;
+    private final double IN_PER_TICK = 1.0  / 540.0 * 3.54 * Math.PI;
 
     public Chassis(HardwareMap hardwareMap) {
         // Motor ID
@@ -31,12 +31,12 @@ public class Chassis {
 
     // Get Right Distance (Position)
     public double rightDistance(){
-        return right_Drive.getCurrentPosition() * CM_PER_TICK;
+        return right_Drive.getCurrentPosition() * IN_PER_TICK;
     }
 
     // Get Left Distance (Position)
     public double leftDistance(){
-        return left_Drive.getCurrentPosition() * CM_PER_TICK;
+        return left_Drive.getCurrentPosition() * IN_PER_TICK;
     }
 
     // -- ODOMETRY -- //

@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Band;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
+import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Shooter;
 
 @TeleOp
@@ -18,7 +19,8 @@ public class MainSystem extends LinearOpMode {
     //Elevator elevator;
     //Intake intake;
     //Band band;
-    //Claw claw;
+    Claw claw;
+    Arm arm;
     //Shooter shooter;
 
     private Gamepad driverGamepad;
@@ -33,7 +35,8 @@ public class MainSystem extends LinearOpMode {
         //elevator    = new Elevator(hardwareMap);    // Create an instance of Elevator
         //intake      = new Intake(hardwareMap);      // Create an instance of Intake
         //band        = new Band(hardwareMap);        // Create an instance of Band
-        //claw        = new Claw(hardwareMap);        // Create an instance of Claw
+        claw        = new Claw(hardwareMap);        // Create an instance of Claw
+        arm         = new Arm(hardwareMap);         // Create an instance of Arm
         //shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
 
         waitForStart();
@@ -72,6 +75,10 @@ public class MainSystem extends LinearOpMode {
                 band.BandVoltage(0); // Voltage Pendant to Adjust
             }
 
+
+
+             */
+
             // Claw
             if (operatorGamepad.x) {
                 claw.ClawVoltage(1); // Voltage Pendant to Adjust
@@ -81,14 +88,23 @@ public class MainSystem extends LinearOpMode {
                 claw.ClawVoltage(0); // Voltage Pendant to Adjust
             }
 
+            //Arm
+            if (operatorGamepad.a) {
+                arm.ArmVoltage(1);
+            }
+            else if (operatorGamepad.b) {
+                arm.ArmVoltage(0);
+            }
+
+/*
             // Shooter
             if (driverGamepad.right_bumper) {
                 shooter.ShooterVoltage(1); // Voltage Pendant to Adjust
             }   else {
                 shooter.ShooterVoltage(0); // Voltage Pendant to Adjust
             }
+*/
 
-             */
 
 
             // -- TELEMETRY -- //
