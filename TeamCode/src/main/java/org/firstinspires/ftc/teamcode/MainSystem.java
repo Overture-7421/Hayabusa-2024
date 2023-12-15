@@ -35,8 +35,8 @@ public class MainSystem extends LinearOpMode {
         //elevator    = new Elevator(hardwareMap);    // Create an instance of Elevator
         //intake      = new Intake(hardwareMap);      // Create an instance of Intake
         //band        = new Band(hardwareMap);        // Create an instance of Band
-        claw        = new Claw(hardwareMap);        // Create an instance of Claw
-        arm         = new Arm(hardwareMap);         // Create an instance of Arm
+        //claw        = new Claw(hardwareMap);        // Create an instance of Claw
+        //arm         = new Arm(hardwareMap);         // Create an instance of Arm
         //shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
 
         waitForStart();
@@ -77,7 +77,7 @@ public class MainSystem extends LinearOpMode {
 
 
 
-             */
+
 
             // Claw
             if (operatorGamepad.x) {
@@ -96,7 +96,7 @@ public class MainSystem extends LinearOpMode {
                 arm.ArmVoltage(0);
             }
 
-/*
+
             // Shooter
             if (driverGamepad.right_bumper) {
                 shooter.ShooterVoltage(1); // Voltage Pendant to Adjust
