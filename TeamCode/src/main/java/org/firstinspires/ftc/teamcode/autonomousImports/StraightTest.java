@@ -30,7 +30,7 @@ public class StraightTest extends LinearOpMode {
                 .build();
 
         waitForStart();
-        sleep(0);
+        sleep(3);
 
         if (isStopRequested()) return;
 

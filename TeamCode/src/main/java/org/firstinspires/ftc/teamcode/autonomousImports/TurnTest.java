@@ -20,11 +20,8 @@ public class TurnTest extends LinearOpMode {
 
         waitForStart();
 
-        drive.turn(Math.toRadians(ANGLE));
-
         if (isStopRequested()) return;
 
-        sleep(1000);
-
+        drive.turn(Math.toRadians(ANGLE));
     }
 }

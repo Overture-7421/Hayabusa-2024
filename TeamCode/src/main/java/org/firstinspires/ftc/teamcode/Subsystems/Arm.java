@@ -20,7 +20,6 @@ public class Arm {
     }
 
     public void ArmVoltage(double ArmMotorPosition) {
-
         left_Twist.setPosition(ArmMotorPosition);
         right_Twist.setPosition(ArmMotorPosition);
     }

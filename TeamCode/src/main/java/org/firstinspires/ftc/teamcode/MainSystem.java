@@ -68,9 +68,9 @@ public class MainSystem extends LinearOpMode {
 
             // Band
             if (operatorGamepad.dpad_up) {
-                band.BandVoltage(0.5); // Voltage Pendant to Adjust
+                band.BandVoltage(1); // Voltage Pendant to Adjust
             } else if (operatorGamepad.dpad_down) {
-                band.BandVoltage(-0.5); // Voltage Pendant to Adjust
+                band.BandVoltage(-1); // Voltage Pendant to Adjust
             } else{
                 band.BandVoltage(0); // Voltage Pendant to Adjust
             }
@@ -118,6 +118,7 @@ public class MainSystem extends LinearOpMode {
             // Distance per side in CM
             telemetry.addData("RightDistance", chassis.rightDistance());
             telemetry.addData("LeftDistance", chassis.leftDistance());
+
 
             // Update Telemetry
             telemetry.update();

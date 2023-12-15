@@ -63,8 +63,10 @@ public class SampleTankDrive extends TankDrive {
 
     private TrajectorySequenceRunner trajectorySequenceRunner;
 
-    private static final TrajectoryVelocityConstraint VEL_CONSTRAINT = getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
-    private static final TrajectoryAccelerationConstraint accelConstraint = getAccelerationConstraint(MAX_ACCEL);
+    private static final TrajectoryVelocityConstraint VEL_CONSTRAINT = getVelocityConstraint
+            (MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
+    private static final TrajectoryAccelerationConstraint accelConstraint
+            = getAccelerationConstraint(MAX_ACCEL);
 
     private TrajectoryFollower follower;
 
@@ -165,7 +167,7 @@ public class SampleTankDrive extends TankDrive {
 
     public void turn(double angle) {
         turnAsync(angle);
-        waitForIdle();
+        //waitForIdle();
     }
 
     public void followTrajectoryAsync(Trajectory trajectory) {
