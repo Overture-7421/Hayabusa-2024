@@ -12,11 +12,12 @@ import org.firstinspires.ftc.teamcode.Subsystems.Band;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Shooter;
+import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 
 @TeleOp
 public class MainSystem extends LinearOpMode {
     Chassis chassis;
-    //Elevator elevator;
+    Elevator elevator;
     //Intake intake;
     //Band band;
     Claw claw;
@@ -32,7 +33,7 @@ public class MainSystem extends LinearOpMode {
         operatorGamepad = gamepad2;
 
         chassis     = new Chassis(hardwareMap);     // Create an instance of Chassis
-        //elevator    = new Elevator(hardwareMap);    // Create an instance of Elevator
+        elevator    = new Elevator(hardwareMap);    // Create an instance of Elevator
         //intake      = new Intake(hardwareMap);      // Create an instance of Intake
         //band        = new Band(hardwareMap);        // Create an instance of Band
         //claw        = new Claw(hardwareMap);        // Create an instance of Claw
@@ -48,14 +49,15 @@ public class MainSystem extends LinearOpMode {
             chassis.setSpeed(-driverGamepad.left_stick_y, -driverGamepad.right_stick_x);
 
             // Elevator
-            /*if (operatorGamepad.right_bumper) {
-                elevator.ElevatorVoltage(0.5); // Voltage Pendant to Adjust
+            if (operatorGamepad.right_bumper) {
+                elevator.ElevatorVoltage(1); // Voltage Pendant to Adjust
             } else if (operatorGamepad.left_bumper) {
-                elevator.ElevatorVoltage(-0.5); // Voltage Pendant to Adjust
+                elevator.ElevatorVoltage(-1); // Voltage Pendant to Adjust
             } else {
                 elevator.ElevatorVoltage(0);
             }
 
+            /*
             // Intake
             if(operatorGamepad.right_stick_button){
                 intake.IntakeVoltage(1); // Voltage Pendant to Adjust
