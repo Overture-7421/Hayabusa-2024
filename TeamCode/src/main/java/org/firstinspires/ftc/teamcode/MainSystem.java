@@ -43,30 +43,34 @@ public class MainSystem extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-
-
             // Chassis
-            chassis.setSpeed(-driverGamepad.left_stick_y, -driverGamepad.right_stick_x);
+                chassis.setSpeed(-driverGamepad.left_stick_y, -driverGamepad.right_stick_x);
+                    //SlowMode
+                    if (driverGamepad.left_bumper) {
+                        chassis.setSpeed(-driverGamepad.left_stick_y*0.3, -driverGamepad.right_stick_x*0.3);
+                    } else{
+                        chassis.setSpeed(-driverGamepad.left_stick_y, -driverGamepad.right_stick_x);
+                    }
 
             // Elevator
-            if (operatorGamepad.right_bumper) {
-                elevator.ElevatorVoltage(1); // Voltage Pendant to Adjust
-            } else if (operatorGamepad.left_bumper) {
-                elevator.ElevatorVoltage(-1); // Voltage Pendant to Adjust
-            } else {
-                elevator.ElevatorVoltage(0);
-            }
+                if (operatorGamepad.right_bumper) {
+                    elevator.ElevatorVoltage(1); // Voltage Pendant to Adjust
+                } else if (operatorGamepad.left_bumper) {
+                    elevator.ElevatorVoltage(-1); // Voltage Pendant to Adjust
+                } else {
+                    elevator.ElevatorVoltage(0);
+                }
 
             /*
             // Intake
-            if(operatorGamepad.right_stick_button){
-                intake.IntakeVoltage(1); // Voltage Pendant to Adjust
-            } else if (operatorGamepad.left_stick_button) {
-                intake.IntakeVoltage(-1); // Voltage Pendant to Adjust
-            }
-            else{
-                intake.IntakeVoltage(0);
-            }
+                if(operatorGamepad.right_stick_button){
+                    intake.IntakeVoltage(1); // Voltage Pendant to Adjust
+                } else if (operatorGamepad.left_stick_button) {
+                    intake.IntakeVoltage(-1); // Voltage Pendant to Adjust
+                }
+                else{
+                    intake.IntakeVoltage(0);
+                }
 
             // Band
             if (operatorGamepad.dpad_up) {
