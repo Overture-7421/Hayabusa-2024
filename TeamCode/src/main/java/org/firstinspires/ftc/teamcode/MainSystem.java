@@ -45,7 +45,6 @@ public class MainSystem extends LinearOpMode {
         while (opModeIsActive()) {
             // Chassis
                 chassis.setSpeed(-driverGamepad.left_stick_y, -driverGamepad.right_stick_x);
-
                     //SlowMode
                     if (driverGamepad.left_bumper) {
                         chassis.setSpeed(-driverGamepad.left_stick_y*0.3, -driverGamepad.right_stick_x*0.3);
