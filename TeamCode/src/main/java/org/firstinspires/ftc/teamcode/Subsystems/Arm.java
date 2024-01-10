@@ -1,28 +1,29 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class Arm {
 
-    private Servo arm;
+    private Servo right_Twist;
 
-    private Gamepad operatorGamepad;
+    private Servo left_Twist;
 
-    public Arm(HardwareMap hardwareMap, Gamepad operatorGamepad){
-        this.operatorGamepad = operatorGamepad;
+    public Arm (HardwareMap hardwareMap) {
 
-        arm = hardwareMap.get(Servo.class, "arm");
+        left_Twist = hardwareMap.get(Servo.class, "leftTwist");
+        right_Twist = hardwareMap.get(Servo.class, "rightTwist");
+
+        left_Twist.setDirection(Servo.Direction.FORWARD);
+        right_Twist.setDirection(Servo.Direction.REVERSE);
 
     }
 
-    public void armLoop(){
-        if (operatorGamepad.left_bumper) {
-            arm.setPosition(1);
-        }   else if (operatorGamepad.right_bumper) {
-            arm.setPosition(0);
-        }
+    public void ArmVoltage(double ArmMotorPosition) {
+        left_Twist.setPosition(ArmMotorPosition);
+        right_Twist.setPosition(ArmMotorPosition);
     }
+
+
 
 }

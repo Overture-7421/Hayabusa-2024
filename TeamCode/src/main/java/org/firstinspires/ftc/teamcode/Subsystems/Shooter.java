@@ -1,27 +1,17 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Shooter {
+    // Motor Declaration
+    private Servo Shoot_Servo;
 
-    private Servo Shooter;
-
-    private Gamepad operatorGamepad;
-
-    public Shooter (HardwareMap hardwareMap, Gamepad operatorGamepad) {
-        this.operatorGamepad = operatorGamepad;
-
-        Shooter = hardwareMap.get(Servo.class, "shooter");
-
+    public Shooter (HardwareMap hardwareMap){
+        Shoot_Servo = hardwareMap.get(Servo.class, "shoot_Servo");
     }
-    public void shooterLoop(){
-        if (operatorGamepad.left_stick_button) {
-            Shooter.setPosition(1);
-        }   else if(operatorGamepad.right_stick_button) {
-            Shooter.setPosition(0);
-        }
 
+    public void ShooterVoltage(double ShooterMotorPosition) {
+       Shoot_Servo.setPosition(ShooterMotorPosition);
     }
 }
