@@ -1,27 +1,38 @@
 package org.firstinspires.ftc.teamcode.autonomousImports;
 
-import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.acmerobotics.roadrunner.drive.MecanumDrive;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.acmerobotics.roadrunner.drive.TankDrive;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
 import org.firstinspires.ftc.teamcode.autonomousImports.SampleTankDrive;
 
-/*
- * This is a simple routine to test turning capabilities.
- */
-@Config
-@Autonomous(group = "drive")
-public class TurnTest extends LinearOpMode {
-    public static double ANGLE = 90; // deg
-
+public final class SplineTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-        SampleTankDrive drive = new SampleTankDrive(hardwareMap);
+        Pose2d beginPose = new Pose2d(0, 0, 0);
+        if (TuningOpModes.DRIVE_CLASS.equals(MecanumDrive.class)) {
+            MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
 
-        waitForStart();
+            waitForStart();
 
-        if (isStopRequested()) return;
+            Actions.runBlocking(
+                    drive.actionBuilder(beginPose)
+                            .splineTo(new Vector2d(30, 30), Math.PI / 2)
+                            .splineTo(new Vector2d(0, 60), Math.PI)
+                            .build());
+        } else if (TuningOpModes.DRIVE_CLASS.equals(TankDrive.class)) {
+            TankDrive drive = new TankDrive(hardwareMap, beginPose);
 
-        drive.turn(Math.toRadians(ANGLE));
+            waitForStart();
+
+            Actions.runBlocking(
+                    drive.actionBuilder(beginPose)
+                            .splineTo(new Vector2d(30, 30), Math.PI / 2)
+                            .splineTo(new Vector2d(0, 60), Math.PI)
+                            .build());
+        } else {
+            throw new RuntimeException();
+        }
     }
 }
