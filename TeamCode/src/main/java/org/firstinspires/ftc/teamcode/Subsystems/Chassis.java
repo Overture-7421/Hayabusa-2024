@@ -1,5 +1,11 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
+import com.arcrobotics.ftclib.geometry.Pose2d;
+import com.arcrobotics.ftclib.geometry.Rotation2d;
+import com.arcrobotics.ftclib.kinematics.wpilibkinematics.ChassisSpeeds;
+import com.arcrobotics.ftclib.kinematics.wpilibkinematics.DifferentialDriveKinematics;
+import com.arcrobotics.ftclib.kinematics.wpilibkinematics.DifferentialDriveOdometry;
+import com.arcrobotics.ftclib.kinematics.wpilibkinematics.DifferentialDriveWheelSpeeds;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -39,10 +45,36 @@ public class Chassis {
         return left_Drive.getCurrentPosition() * IN_PER_TICK;
     }
 
-    }
     // -- ODOMETRY -- //
 
+    // Creating my kinematics object: track width of 15 inches
+    DifferentialDriveKinematics kinematics =
+            new DifferentialDriveKinematics(15.0 / 254.0);
 
+    // Example differential drive wheel speeds: 2 meters per second
+// for the left side, 3 meters per second for the right side.
+    DifferentialDriveWheelSpeeds wheelSpeeds =
+            new DifferentialDriveWheelSpeeds(2.0, 3.0);
+
+    // Convert to chassis speeds.
+    ChassisSpeeds chassisSpeeds = kinematics.toChassisSpeeds(wheelSpeeds);
+
+    // Linear velocity
+    double linearVelocity = chassisSpeeds.vxMetersPerSecond;
+
+    // Angular velocity
+    double angularVelocity = chassisSpeeds.omegaRadiansPerSecond;
+
+    // Creating my odometry object. Here,
+    // our starting pose is 5 meters along the long end of the field
+    // and in the center of the field along the short end,
+    // facing forward.
+    DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry
+            (
+                    getGyroHeading(), new Pose2d(5.0, 13.5, new Rotation2d()
+            );
+
+    }
 
 
 
