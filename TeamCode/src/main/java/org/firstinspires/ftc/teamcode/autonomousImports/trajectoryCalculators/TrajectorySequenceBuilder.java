@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autonomousImports;
+package org.firstinspires.ftc.teamcode.autonomousImports.trajectoryCalculators;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
@@ -19,10 +19,9 @@ import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAcceleration
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.acmerobotics.roadrunner.util.Angle;
 
-import org.firstinspires.ftc.teamcode.autonomousImports.SequenceSegment;
-import org.firstinspires.ftc.teamcode.autonomousImports.TrajectorySegment;
-import org.firstinspires.ftc.teamcode.autonomousImports.TurnSegment;
-import org.firstinspires.ftc.teamcode.autonomousImports.WaitSegment;
+import org.firstinspires.ftc.teamcode.autonomousImports.segments.SequenceSegment;
+import org.firstinspires.ftc.teamcode.autonomousImports.segments.TurnSegment;
+import org.firstinspires.ftc.teamcode.autonomousImports.segments.WaitSegment;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -28,9 +28,9 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.autonomousImports.TrajectorySequence;
-import org.firstinspires.ftc.teamcode.autonomousImports.TrajectorySequenceBuilder;
-import org.firstinspires.ftc.teamcode.autonomousImports.TrajectorySequenceRunner;
+import org.firstinspires.ftc.teamcode.autonomousImports.trajectoryCalculators.TrajectorySequence;
+import org.firstinspires.ftc.teamcode.autonomousImports.trajectoryCalculators.TrajectorySequenceBuilder;
+import org.firstinspires.ftc.teamcode.autonomousImports.trajectoryCalculators.TrajectorySequenceRunner;
 import org.firstinspires.ftc.teamcode.util.LynxModuleUtil;
 
 import java.util.ArrayList;

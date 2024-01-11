@@ -1,12 +1,11 @@
-package org.firstinspires.ftc.teamcode.autonomousImports;
+package org.firstinspires.ftc.teamcode.autonomousImports.tests;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.autonomousImports.TwoWheelTrackingLocalizer;
 import org.firstinspires.ftc.teamcode.autonomousImports.SampleTankDrive;
+import org.firstinspires.ftc.teamcode.autonomousImports.localizers.TwoWheelTrackingLocalizer;
 
 /*
  * This is a simple routine to test turning capabilities.
@@ -22,9 +21,12 @@ public class TurnTest extends LinearOpMode {
 
         waitForStart();
 
+        drive.turn(Math.toRadians(ANGLE));
+
+
         if (isStopRequested()) return;
 
-        TwoWheelTrackingLocalizer(HardwareMap hardwareMap, SampleTankDrive drive);
-        //drive.turn(Math.toRadians(ANGLE));
+
+
     }
 }

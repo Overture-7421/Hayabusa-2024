@@ -1,6 +1,8 @@
-package org.firstinspires.ftc.teamcode.autonomousImports;
+package org.firstinspires.ftc.teamcode.autonomousImports.trajectoryCalculators;
 
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
+
+import org.firstinspires.ftc.teamcode.autonomousImports.segments.SequenceSegment;
 
 import java.util.Collections;
 

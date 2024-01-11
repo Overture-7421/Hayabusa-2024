@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode.autonomousImports;
+package org.firstinspires.ftc.teamcode.autonomousImports.trajectoryCalculators;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
-import org.firstinspires.ftc.teamcode.autonomousImports.SequenceSegment;
+import org.firstinspires.ftc.teamcode.autonomousImports.segments.SequenceSegment;
 
 import java.util.Collections;
 import java.util.List;
