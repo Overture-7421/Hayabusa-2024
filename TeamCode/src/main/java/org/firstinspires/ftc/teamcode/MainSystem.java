@@ -15,11 +15,11 @@ import org.firstinspires.ftc.teamcode.Subsystems.Shooter;
 @TeleOp
 public class MainSystem extends LinearOpMode {
     Chassis chassis;
-    Elevator elevator;
-    Intake intake;
-    Band band;
-    Claw claw;
-    Shooter shooter;
+    //Elevator elevator;
+    //Intake intake;
+    //Band band;
+    //Claw claw;
+    //Shooter shooter;
 
     private Gamepad driverGamepad;
     private Gamepad operatorGamepad;
@@ -30,11 +30,11 @@ public class MainSystem extends LinearOpMode {
         operatorGamepad = gamepad2;
 
         chassis     = new Chassis(hardwareMap);     // Create an instance of Chassis
-        elevator    = new Elevator(hardwareMap);    // Create an instance of Elevator
-        intake      = new Intake(hardwareMap);      // Create an instance of Intake
-        band        = new Band(hardwareMap);        // Create an instance of Band
-        claw        = new Claw(hardwareMap);        // Create an instance of Claw
-        shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
+        //elevator    = new Elevator(hardwareMap);    // Create an instance of Elevator
+        //intake      = new Intake(hardwareMap);      // Create an instance of Intake
+        //band        = new Band(hardwareMap);        // Create an instance of Band
+        //claw        = new Claw(hardwareMap);        // Create an instance of Claw
+        //shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
 
         waitForStart();
 
@@ -48,7 +48,7 @@ public class MainSystem extends LinearOpMode {
                     } else {
                         chassis.setSpeed(-driverGamepad.left_stick_y, -driverGamepad.right_stick_x);
                     }
-
+            /*
             // Elevator
                 if (operatorGamepad.right_bumper) {
                     elevator.ElevatorVoltage(1); // Voltage TBD
@@ -92,7 +92,7 @@ public class MainSystem extends LinearOpMode {
                     shooter.ShooterVoltage(1); // Voltage Pendant to Adjust
                 }   else {
                     shooter.ShooterVoltage(0); // Voltage Pendant to Adjust
-                }
+                }*/
 
 
             // -- TELEMETRY -- //
