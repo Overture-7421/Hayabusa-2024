@@ -10,19 +10,16 @@ import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Band;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
-import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Shooter;
-import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 
 @TeleOp
 public class MainSystem extends LinearOpMode {
     Chassis chassis;
     Elevator elevator;
-    //Intake intake;
-    //Band band;
+    Intake intake;
+    Band band;
     Claw claw;
-    Arm arm;
-    //Shooter shooter;
+    Shooter shooter;
 
     private Gamepad driverGamepad;
     private Gamepad operatorGamepad;
@@ -34,11 +31,10 @@ public class MainSystem extends LinearOpMode {
 
         chassis     = new Chassis(hardwareMap);     // Create an instance of Chassis
         elevator    = new Elevator(hardwareMap);    // Create an instance of Elevator
-        //intake      = new Intake(hardwareMap);      // Create an instance of Intake
-        //band        = new Band(hardwareMap);        // Create an instance of Band
-        //claw        = new Claw(hardwareMap);        // Create an instance of Claw
-        //arm         = new Arm(hardwareMap);         // Create an instance of Arm
-        //shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
+        intake      = new Intake(hardwareMap);      // Create an instance of Intake
+        band        = new Band(hardwareMap);        // Create an instance of Band
+        claw        = new Claw(hardwareMap);        // Create an instance of Claw
+        shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
 
         waitForStart();
 
@@ -62,7 +58,7 @@ public class MainSystem extends LinearOpMode {
                     elevator.ElevatorVoltage(0);
                 }
 
-            /*
+
             // Intake
                 if(operatorGamepad.right_stick_button){
                     intake.IntakeVoltage(1); // Voltage Pendant to Adjust
@@ -74,44 +70,29 @@ public class MainSystem extends LinearOpMode {
                 }
 
             // Band
-            if (operatorGamepad.dpad_up) {
-                band.BandVoltage(1); // Voltage Pendant to Adjust
-            } else if (operatorGamepad.dpad_down) {
-                band.BandVoltage(-1); // Voltage Pendant to Adjust
-            } else{
-                band.BandVoltage(0); // Voltage Pendant to Adjust
-            }
-
-
-
-
+                if (operatorGamepad.dpad_up) {
+                    band.BandVoltage(1); // Voltage Pendant to Adjust
+                } else if (operatorGamepad.dpad_down) {
+                    band.BandVoltage(-1); // Voltage Pendant to Adjust
+                } else{
+                    band.BandVoltage(0); // Voltage Pendant to Adjust
+                }
 
             // Claw
-            if (operatorGamepad.x) {
-                claw.ClawVoltage(1); // Voltage Pendant to Adjust
+                if (operatorGamepad.x) {
+                    claw.ClawVoltage(1); // Voltage Pendant to Adjust
 
-            }
-            else if(operatorGamepad.y) {
-                claw.ClawVoltage(0); // Voltage Pendant to Adjust
-            }
-
-            //Arm
-            if (operatorGamepad.a) {
-                arm.ArmVoltage(1);
-            }
-            else if (operatorGamepad.b) {
-                arm.ArmVoltage(0);
-            }
-
+                }
+                else if(operatorGamepad.y) {
+                    claw.ClawVoltage(0); // Voltage Pendant to Adjust
+                }
 
             // Shooter
-            if (driverGamepad.right_bumper) {
-                shooter.ShooterVoltage(1); // Voltage Pendant to Adjust
-            }   else {
-                shooter.ShooterVoltage(0); // Voltage Pendant to Adjust
-            }
-*/
-
+                if (driverGamepad.right_bumper) {
+                    shooter.ShooterVoltage(1); // Voltage Pendant to Adjust
+                }   else {
+                    shooter.ShooterVoltage(0); // Voltage Pendant to Adjust
+                }
 
 
             // -- TELEMETRY -- //
@@ -129,7 +110,6 @@ public class MainSystem extends LinearOpMode {
 
             // Update Telemetry
             telemetry.update();
-
         }
     }
 }
