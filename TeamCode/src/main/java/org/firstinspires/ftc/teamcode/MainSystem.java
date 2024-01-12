@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Shooter;
 public class MainSystem extends LinearOpMode {
     Chassis chassis;
     //Elevator elevator;
-    //Intake intake;
+    Intake intake;
     //Band band;
     //Claw claw;
     //Shooter shooter;
@@ -29,9 +29,9 @@ public class MainSystem extends LinearOpMode {
         driverGamepad = gamepad1;
         operatorGamepad = gamepad2;
 
-        chassis     = new Chassis(hardwareMap);     // Create an instance of Chassis
+        chassis = new Chassis(hardwareMap);     // Create an instance of Chassis
         //elevator    = new Elevator(hardwareMap);    // Create an instance of Elevator
-        //intake      = new Intake(hardwareMap);      // Create an instance of Intake
+        intake = new Intake(hardwareMap);      // Create an instance of Intake
         //band        = new Band(hardwareMap);        // Create an instance of Band
         //claw        = new Claw(hardwareMap);        // Create an instance of Claw
         //shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
@@ -40,14 +40,24 @@ public class MainSystem extends LinearOpMode {
 
         while (opModeIsActive()) {
             // Chassis
+            chassis.setSpeed(-driverGamepad.left_stick_y, -driverGamepad.right_stick_x);
+            //SlowMode
+            if (driverGamepad.left_bumper) {
+                chassis.setSpeed(-driverGamepad.left_stick_y * 0.3,
+                        -driverGamepad.right_stick_x * 0.3);
+            } else {
                 chassis.setSpeed(-driverGamepad.left_stick_y, -driverGamepad.right_stick_x);
-                    //SlowMode
-                    if (driverGamepad.left_bumper) {
-                        chassis.setSpeed(-driverGamepad.left_stick_y * 0.3,
-                                -driverGamepad.right_stick_x*0.3);
-                    } else {
-                        chassis.setSpeed(-driverGamepad.left_stick_y, -driverGamepad.right_stick_x);
-                    }
+            }
+
+            // Intake
+            if (operatorGamepad.left_bumper) {
+                intake.IntakeVoltage(1); // Voltage Pendant to Adjust
+            } else if (operatorGamepad.right_bumper) {
+                intake.IntakeVoltage(-1); // Voltage Pendant to Adjust
+            } else {
+                intake.IntakeVoltage(0);
+            }
+
             /*
             // Elevator
                 if (operatorGamepad.right_bumper) {
@@ -56,17 +66,6 @@ public class MainSystem extends LinearOpMode {
                     elevator.ElevatorVoltage(-1); // Voltage TBD
                 } else {
                     elevator.ElevatorVoltage(0);
-                }
-
-
-            // Intake
-                if(operatorGamepad.right_stick_button){
-                    intake.IntakeVoltage(1); // Voltage Pendant to Adjust
-                } else if (operatorGamepad.left_stick_button) {
-                    intake.IntakeVoltage(-1); // Voltage Pendant to Adjust
-                }
-                else{
-                    intake.IntakeVoltage(0);
                 }
 
             // Band
