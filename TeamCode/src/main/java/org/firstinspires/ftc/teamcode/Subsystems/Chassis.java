@@ -62,7 +62,11 @@ public class Chassis {
         double linearVelocity = chassisSpeeds.vxMetersPerSecond;
         // Angular velocity
         double angularVelocity = chassisSpeeds.omegaRadiansPerSecond;
-    }
+        private Rotation2d getGyroHeading() {
+            return getGyroHeading();
+        }
+        DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(getGyroHeading(), new Pose2d(5.0, 13.5, new Rotation2d()));
+}
 
 
 
