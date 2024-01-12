@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.arcrobotics.ftclib.geometry.Pose2d;
+import com.arcrobotics.ftclib.geometry.Rotation2d;
+import com.arcrobotics.ftclib.kinematics.wpilibkinematics.DifferentialDriveOdometry;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -10,18 +13,15 @@ import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Band;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
-import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Shooter;
-import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 
 @TeleOp
 public class MainSystem extends LinearOpMode {
     Chassis chassis;
-    Elevator elevator;
-    //Intake intake;
+    //Elevator elevator;
+    Intake intake;
     //Band band;
-    Claw claw;
-    Arm arm;
+    //Claw claw;
     //Shooter shooter;
 
     private Gamepad driverGamepad;
@@ -32,81 +32,71 @@ public class MainSystem extends LinearOpMode {
         driverGamepad = gamepad1;
         operatorGamepad = gamepad2;
 
-        chassis     = new Chassis(hardwareMap);     // Create an instance of Chassis
-        elevator    = new Elevator(hardwareMap);    // Create an instance of Elevator
-        //intake      = new Intake(hardwareMap);      // Create an instance of Intake
+        chassis = new Chassis(hardwareMap);     // Create an instance of Chassis
+        //elevator    = new Elevator(hardwareMap);    // Create an instance of Elevator
+        intake = new Intake(hardwareMap);      // Create an instance of Intake
         //band        = new Band(hardwareMap);        // Create an instance of Band
         //claw        = new Claw(hardwareMap);        // Create an instance of Claw
-        //arm         = new Arm(hardwareMap);         // Create an instance of Arm
         //shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
 
         waitForStart();
 
         while (opModeIsActive()) {
-
-
             // Chassis
             chassis.setSpeed(-driverGamepad.left_stick_y, -driverGamepad.right_stick_x);
-
-            // Elevator
-            if (operatorGamepad.right_bumper) {
-                elevator.ElevatorVoltage(1); // Voltage Pendant to Adjust
-            } else if (operatorGamepad.left_bumper) {
-                elevator.ElevatorVoltage(-1); // Voltage Pendant to Adjust
+            //SlowMode
+            if (driverGamepad.left_bumper) {
+                chassis.setSpeed(-driverGamepad.left_stick_y * 0.3,
+                        -driverGamepad.right_stick_x * 0.3);
             } else {
-                elevator.ElevatorVoltage(0);
+                chassis.setSpeed(-driverGamepad.left_stick_y, -driverGamepad.right_stick_x);
             }
 
-            /*
+
+
             // Intake
-            if(operatorGamepad.right_stick_button){
+            if (operatorGamepad.left_bumper) {
                 intake.IntakeVoltage(1); // Voltage Pendant to Adjust
-            } else if (operatorGamepad.left_stick_button) {
+            } else if (operatorGamepad.right_bumper) {
                 intake.IntakeVoltage(-1); // Voltage Pendant to Adjust
-            }
-            else{
+            } else {
                 intake.IntakeVoltage(0);
             }
 
+            /*
+            // Elevator
+                if (operatorGamepad.right_bumper) {
+                    elevator.ElevatorVoltage(1); // Voltage TBD
+                } else if (operatorGamepad.left_bumper) {
+                    elevator.ElevatorVoltage(-1); // Voltage TBD
+                } else {
+                    elevator.ElevatorVoltage(0);
+                }
+
             // Band
-            if (operatorGamepad.dpad_up) {
-                band.BandVoltage(1); // Voltage Pendant to Adjust
-            } else if (operatorGamepad.dpad_down) {
-                band.BandVoltage(-1); // Voltage Pendant to Adjust
-            } else{
-                band.BandVoltage(0); // Voltage Pendant to Adjust
-            }
-
-
-
-
+                if (operatorGamepad.dpad_up) {
+                    band.BandVoltage(1); // Voltage Pendant to Adjust
+                } else if (operatorGamepad.dpad_down) {
+                    band.BandVoltage(-1); // Voltage Pendant to Adjust
+                } else{
+                    band.BandVoltage(0); // Voltage Pendant to Adjust
+                }
 
             // Claw
-            if (operatorGamepad.x) {
-                claw.ClawVoltage(1); // Voltage Pendant to Adjust
+                if (operatorGamepad.x) {
+                    claw.ClawVoltage(1); // Voltage Pendant to Adjust
 
-            }
-            else if(operatorGamepad.y) {
-                claw.ClawVoltage(0); // Voltage Pendant to Adjust
-            }
-
-            //Arm
-            if (operatorGamepad.a) {
-                arm.ArmVoltage(1);
-            }
-            else if (operatorGamepad.b) {
-                arm.ArmVoltage(0);
-            }
-
+                }
+                else if(operatorGamepad.y) {
+                    claw.ClawVoltage(0); // Voltage Pendant to Adjust
+                }
 
             // Shooter
-            if (driverGamepad.right_bumper) {
-                shooter.ShooterVoltage(1); // Voltage Pendant to Adjust
-            }   else {
-                shooter.ShooterVoltage(0); // Voltage Pendant to Adjust
-            }
-*/
-
+                if (driverGamepad.right_bumper) {
+                    shooter.ShooterVoltage(1); // Voltage Pendant to Adjust
+                }   else {
+                    shooter.ShooterVoltage(0); // Voltage Pendant to Adjust
+                }*/
 
 
             // -- TELEMETRY -- //
@@ -124,7 +114,6 @@ public class MainSystem extends LinearOpMode {
 
             // Update Telemetry
             telemetry.update();
-
         }
     }
 }
