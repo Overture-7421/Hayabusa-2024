@@ -1,8 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.arcrobotics.ftclib.geometry.Pose2d;
-import com.arcrobotics.ftclib.geometry.Rotation2d;
-import com.arcrobotics.ftclib.kinematics.wpilibkinematics.DifferentialDriveOdometry;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -22,7 +19,7 @@ public class MainSystem extends LinearOpMode {
     Band band;
     //Elevator elevator;
     //Band band;
-    //Claw claw;
+    Claw claw;
     //Shooter shooter;
 
     private Gamepad driverGamepad;
@@ -34,26 +31,24 @@ public class MainSystem extends LinearOpMode {
         operatorGamepad = gamepad2;
 
         chassis     = new Chassis(hardwareMap);     // Create an instance of Chassis
-        elevator    = new Elevator(hardwareMap);    // Create an instance of Elevator
+        //elevator    = new Elevator(hardwareMap);    // Create an instance of Elevator
         intake      = new Intake(hardwareMap);      // Create an instance of Intake
         band        = new Band(hardwareMap);        // Create an instance of Band
-        //claw        = new Claw(hardwareMap);        // Create an instance of Claw
+        claw        = new Claw(hardwareMap);        // Create an instance of Claw
         //shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
 
         waitForStart();
 
         while (opModeIsActive()) {
             // Chassis
-            chassis.setSpeed(-driverGamepad.left_stick_y, -driverGamepad.right_stick_x);
-            //SlowMode
-            if (driverGamepad.left_bumper) {
-                chassis.setSpeed(-driverGamepad.left_stick_y * 0.3,
-                        -driverGamepad.right_stick_x * 0.3);
-            } else {
-                chassis.setSpeed(-driverGamepad.left_stick_y, -driverGamepad.right_stick_x);
-            }
-
-
+            chassis.setSpeed(driverGamepad.left_stick_y, driverGamepad.right_stick_x);
+                //SlowMode
+                if (driverGamepad.left_bumper) {
+                    chassis.setSpeed(-driverGamepad.left_stick_y * 0.3,
+                            -driverGamepad.right_stick_x * 0.3);
+                } else {
+                    chassis.setSpeed(-driverGamepad.left_stick_y, -driverGamepad.right_stick_x);
+                }
 
             // Intake
             if (operatorGamepad.left_bumper) {
@@ -62,6 +57,15 @@ public class MainSystem extends LinearOpMode {
                 intake.IntakeVoltage(-1); // Voltage Pendant to Adjust
             } else {
                 intake.IntakeVoltage(0);
+            }
+
+            // Claw
+            if (operatorGamepad.x) {
+                claw.ClawVoltage(1); // Voltage Pendant to Adjust
+
+            }
+            else if(operatorGamepad.y) {
+                claw.ClawVoltage(0); // Voltage Pendant to Adjust
             }
 
             /*
@@ -97,15 +101,6 @@ public class MainSystem extends LinearOpMode {
                     band.BandVoltage(-1); // Voltage Pendant to Adjust
                 } else{
                     band.BandVoltage(0); // Voltage Pendant to Adjust
-                }
-
-            // Claw
-                if (operatorGamepad.x) {
-                    claw.ClawVoltage(1); // Voltage Pendant to Adjust
-
-                }
-                else if(operatorGamepad.y) {
-                    claw.ClawVoltage(0); // Voltage Pendant to Adjust
                 }
 
             // Shooter
