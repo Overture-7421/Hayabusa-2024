@@ -10,16 +10,17 @@ import com.arcrobotics.ftclib.kinematics.wpilibkinematics.DifferentialDriveWheel
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import java.util.List;
-
 public class Chassis {
     // Motors Declaration
     private DcMotor right_Drive;
     private DcMotor left_Drive;
 
     // Cm per tick constant
-
     private final double IN_PER_TICK = 1.0  / 540.0 * 3.54 * Math.PI;
+
+    // Odometry variables
+    private DifferentialDriveOdometry odometry;
+
 
     public Chassis(HardwareMap hardwareMap) {
         // Motor ID
@@ -29,6 +30,9 @@ public class Chassis {
         // Invert one motor
         right_Drive.setDirection(DcMotor.Direction.REVERSE);
         left_Drive.setDirection(DcMotor.Direction.FORWARD);
+
+        // Odometry initialization
+        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getGyroHeading()), new Pose2d());
     }
 
     // Set Speed Function
@@ -48,24 +52,26 @@ public class Chassis {
         return left_Drive.getCurrentPosition() * IN_PER_TICK;
     }
 
-    // -- ODOMETRY -- //
-        // Creating my kinematics object: track width of 15 inches
-        DifferentialDriveKinematics kinematics =
-                new DifferentialDriveKinematics(17.662201 / 254.0);
-        // Example differential drive wheel speeds: 2 meters per second
-        // for the left side, 3 meters per second for the right side.
+    // -- KINEMATICS -- //
+        DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(17.662201 / 254.0);
         DifferentialDriveWheelSpeeds wheelSpeeds =
                 new DifferentialDriveWheelSpeeds(2.0, 3.0);
+
         // Convert to chassis speeds.
         ChassisSpeeds chassisSpeeds = kinematics.toChassisSpeeds(wheelSpeeds);
+
         // Linear velocity
         double linearVelocity = chassisSpeeds.vxMetersPerSecond;
+
         // Angular velocity
         double angularVelocity = chassisSpeeds.omegaRadiansPerSecond;
-        private Rotation2d getGyroHeading() {
+
+
+        // -- ODOMETRY -- //
+        private double getGyroHeading() {
+
             return getGyroHeading();
         }
-        DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(getGyroHeading(), new Pose2d(5.0, 13.5, new Rotation2d()));
 }
 
 
