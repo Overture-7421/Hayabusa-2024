@@ -6,14 +6,16 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Elevator {
     // Motors Declaration
-    private DcMotor elevatorMotor;
+    private DcMotorEx elevatorMotor1;
+    private DcMotorEx elevatorMotor2;
 
     public Elevator(HardwareMap hardwareMap) {
-        elevatorMotor = hardwareMap.get(DcMotor.class, "elevatorMotor");
-        elevatorMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // Set the motor mode as needed
+        elevatorMotor1 = hardwareMap.get(DcMotorEx.class, "elevatorMotor1");
+        elevatorMotor2 = hardwareMap.get(DcMotorEx.class, "elevatorMotor2");
     }
 
     public void ElevatorVoltage(double ElevatorMotorsSpeed) {
-        elevatorMotor.setPower(ElevatorMotorsSpeed);
+        elevatorMotor1.setPower(ElevatorMotorsSpeed);
+        elevatorMotor2.setPower(ElevatorMotorsSpeed);
     }
 }
