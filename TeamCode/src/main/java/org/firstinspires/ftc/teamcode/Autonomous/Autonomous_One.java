@@ -8,8 +8,9 @@ import org.firstinspires.ftc.teamcode.MainSystem;
 @Autonomous
 public class Autonomous_One extends LinearOpMode {
 
-    public void runOpMode(){
+    public void runOpMode() {
         waitForStart();
+
 
         // AUTO
 

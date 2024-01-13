@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.arcrobotics.ftclib.geometry.Pose2d;
+import com.arcrobotics.ftclib.geometry.Rotation2d;
+import com.arcrobotics.ftclib.kinematics.wpilibkinematics.DifferentialDriveOdometry;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -15,9 +18,10 @@ import org.firstinspires.ftc.teamcode.Subsystems.Shooter;
 @TeleOp
 public class MainSystem extends LinearOpMode {
     Chassis chassis;
-    Elevator elevator;
     Intake intake;
     Band band;
+    //Elevator elevator;
+    //Band band;
     //Claw claw;
     //Shooter shooter;
 
@@ -49,6 +53,8 @@ public class MainSystem extends LinearOpMode {
                 chassis.setSpeed(-driverGamepad.left_stick_y, -driverGamepad.right_stick_x);
             }
 
+
+
             // Intake
             if (operatorGamepad.left_bumper) {
                 intake.IntakeVoltage(1); // Voltage Pendant to Adjust
@@ -57,6 +63,16 @@ public class MainSystem extends LinearOpMode {
             } else {
                 intake.IntakeVoltage(0);
             }
+
+            /*
+            // Elevator
+                if (operatorGamepad.right_bumper) {
+                    elevator.ElevatorVoltage(1); // Voltage TBD
+                } else if (operatorGamepad.left_bumper) {
+                    elevator.ElevatorVoltage(-1); // Voltage TBD
+                } else {
+                    elevator.ElevatorVoltage(0);
+                }
 
             // Band
             if (operatorGamepad.dpad_up) {
@@ -75,7 +91,29 @@ public class MainSystem extends LinearOpMode {
             } else {
                 elevator.ElevatorVoltage(0);
             }
+                if (operatorGamepad.dpad_up) {
+                    band.BandVoltage(1); // Voltage Pendant to Adjust
+                } else if (operatorGamepad.dpad_down) {
+                    band.BandVoltage(-1); // Voltage Pendant to Adjust
+                } else{
+                    band.BandVoltage(0); // Voltage Pendant to Adjust
+                }
 
+            // Claw
+                if (operatorGamepad.x) {
+                    claw.ClawVoltage(1); // Voltage Pendant to Adjust
+
+                }
+                else if(operatorGamepad.y) {
+                    claw.ClawVoltage(0); // Voltage Pendant to Adjust
+                }
+
+            // Shooter
+                if (driverGamepad.right_bumper) {
+                    shooter.ShooterVoltage(1); // Voltage Pendant to Adjust
+                }   else {
+                    shooter.ShooterVoltage(0); // Voltage Pendant to Adjust
+                }*/
 
             // -- TELEMETRY -- //
 
@@ -89,9 +127,9 @@ public class MainSystem extends LinearOpMode {
             telemetry.addData("RightDistance", chassis.rightDistance());
             telemetry.addData("LeftDistance", chassis.leftDistance());
 
+
             // Update Telemetry
             telemetry.update();
-
         }
     }
 }
