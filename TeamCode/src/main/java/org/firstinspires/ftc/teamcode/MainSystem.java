@@ -68,9 +68,9 @@ public class MainSystem extends LinearOpMode {
             }
 
             // Elevator
-            if (operatorGamepad.right_bumper) {
+            if (operatorGamepad.triangle) {
                 elevator.ElevatorVoltage(1); // Voltage TBD
-            } else if (operatorGamepad.left_bumper) {
+            } else if (operatorGamepad.circle) {
                 elevator.ElevatorVoltage(-1); // Voltage TBD
             } else {
                 elevator.ElevatorVoltage(0);
