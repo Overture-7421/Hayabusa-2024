@@ -20,6 +20,5 @@ public class Elevator {
     public void ElevatorVoltage(double ElevatorMotorsSpeed) {
         elevatorMotor1.setPower(ElevatorMotorsSpeed);
         elevatorMotor2.setPower(ElevatorMotorsSpeed);
-
     }
 }
