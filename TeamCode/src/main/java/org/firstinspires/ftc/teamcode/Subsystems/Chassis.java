@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
-import static org.apache.commons.math3.util.FastMath.main;
 import static org.firstinspires.ftc.teamcode.Utils.JoystickHandler.handleJoystickInput;
 
 import com.arcrobotics.ftclib.geometry.Pose2d;
@@ -12,8 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.arcrobotics.ftclib.kinematics.wpilibkinematics.DifferentialDriveKinematics;
 import org.firstinspires.ftc.teamcode.Utils.JoystickHandler;
-import org.firstinspires.ftc.teamcode.Utils.JoystickHandler;
-
+import com.arcrobotics.ftclib.kinematics.DifferentialOdometry;
 
 
 public class Chassis {
@@ -38,6 +36,10 @@ public class Chassis {
     private double LeftAxis;
     private double RightAxis;
 
+
+
+
+
     public Chassis(HardwareMap hardwareMap) {
         // Motor ID
         right_Drive = hardwareMap.get(DcMotor.class, "right_Drive");
@@ -48,19 +50,7 @@ public class Chassis {
         left_Drive.setDirection(DcMotor.Direction.FORWARD);
     }
 
-    // Set Speed Function
-    public void setSpeed(double linearSpeed, double angularSpeed) {
 
-
-        LeftAxis = linearSpeed - angularSpeed;
-        RightAxis= linearSpeed + angularSpeed;
-
-        handleJoystickInput(LeftAxis);
-        handleJoystickInput(RightAxis);
-
-        right_Drive.setPower(RightAxis);
-        left_Drive.setPower(LeftAxis);
-    }
 
     // Get Right Distance (Position)
     public double rightDistance() {
@@ -73,20 +63,40 @@ public class Chassis {
     }
 
     // -- KINEMATICS -- //
-        DifferentialDriveKinematics kinematics =
-                new DifferentialDriveKinematics(15.0 / 254.0);
 
-        ChassisSpeeds chassisSpeeds = new ChassisSpeeds(2.0, 0, 1.0);
+    // Creating my kinematics object: track width of 15 inches
+    DifferentialDriveKinematics kinematics =
+            new DifferentialDriveKinematics(15.0 / 254.0);
 
-        DifferentialDriveWheelSpeeds wheelSpeeds =
-                kinematics.toWheelSpeeds(chassisSpeeds);
+    // Example differential drive wheel speeds: 2 meters per second
+    // for the left side, 3 meters per second for the right side.
+    DifferentialDriveWheelSpeeds wheelSpeeds =
+            new DifferentialDriveWheelSpeeds(2.0, 3.0);
 
-        double leftVelocity = wheelSpeeds.leftMetersPerSecond;
+    // Convert to chassis speeds.
+    ChassisSpeeds chassisSpeeds = kinematics.toChassisSpeeds(wheelSpeeds);
 
-        double rightVelocity = wheelSpeeds.rightMetersPerSecond;
+
+    // Set Speed Function
+    public void setSpeed(double linearSpeed, double angularSpeed) {
+
+        LeftAxis = linearSpeed - angularSpeed;
+        RightAxis = linearSpeed + angularSpeed;
+
+        handleJoystickInput(LeftAxis);
+        handleJoystickInput(RightAxis);
+
+        right_Drive.setPower(RightAxis);
+        left_Drive.setPower(LeftAxis);
+    }
+
 
     // -- ODOMETRY -- //
 
+    DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry
+            (
+                    getGyroHeading(), new Pose2d(5.0, 13.5, new Rotation2d())
+            );
 
 
 }
