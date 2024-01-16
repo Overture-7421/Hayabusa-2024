@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.Utils;
 
+import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
+
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
 public class JoystickHandler {
-    private static final double DEADZONE = 0.05;  // Set your deadzone threshold
-    private static final double EXPONENTIAL_GAIN = 2.0;  // Set your exponential gain
+    private static final double DEADZONE = 0.15;  // Set your deadzone threshold
+    private static final double EXPONENTIAL_GAIN = 0.15;  // Set your exponential gain
 
     public static double handleJoystickInput(double axisValue) {
         if (Math.abs(axisValue) < DEADZONE) {
@@ -16,10 +18,5 @@ public class JoystickHandler {
         return axisValue;
     }
 
-    public static void main(String[] args) {
-        double rawAxisValue = 0.3;
-        double processedValue = handleJoystickInput(rawAxisValue);
 
-        telemetry.addData("Joystick Processed Value", processedValue);
-    }
 }

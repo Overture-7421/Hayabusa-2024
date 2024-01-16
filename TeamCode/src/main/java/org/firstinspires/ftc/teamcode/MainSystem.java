@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -41,7 +43,7 @@ public class MainSystem extends LinearOpMode {
 
         while (opModeIsActive()) {
             // Chassis
-            chassis.setSpeed(driverGamepad.left_stick_y, driverGamepad.right_stick_x);
+            /*chassis.setSpeed(driverGamepad.left_stick_y, driverGamepad.right_stick_x);
                 //SlowMode
                 if (driverGamepad.left_bumper) {
                     chassis.setSpeed(-driverGamepad.left_stick_y * 0.3,
@@ -49,7 +51,7 @@ public class MainSystem extends LinearOpMode {
                 } else {
                     chassis.setSpeed(-driverGamepad.left_stick_y, -driverGamepad.right_stick_x);
                 }
-
+*/
             // Intake
             if (operatorGamepad.left_bumper) {
                 intake.IntakeVoltage(1); // Voltage Pendant to Adjust
@@ -121,6 +123,7 @@ public class MainSystem extends LinearOpMode {
             // Distance per side in CM
             telemetry.addData("RightDistance", chassis.rightDistance());
             telemetry.addData("LeftDistance", chassis.leftDistance());
+
 
 
             // Update Telemetry

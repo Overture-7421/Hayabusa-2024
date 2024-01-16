@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
+import static org.apache.commons.math3.util.FastMath.main;
+import static org.firstinspires.ftc.teamcode.Utils.JoystickHandler.handleJoystickInput;
+
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.arcrobotics.ftclib.kinematics.wpilibkinematics.ChassisSpeeds;
@@ -9,9 +12,14 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.arcrobotics.ftclib.kinematics.wpilibkinematics.DifferentialDriveKinematics;
 import org.firstinspires.ftc.teamcode.Utils.JoystickHandler;
+import org.firstinspires.ftc.teamcode.Utils.JoystickHandler;
+
+
 
 public class Chassis {
     // Motors Declaration
+
+    JoystickHandler joystickHandler;
     private DcMotor right_Drive;
     private DcMotor left_Drive;
 
@@ -27,6 +35,9 @@ public class Chassis {
     private double m_prevLeftDistance;
     private double m_prevRightDistance;
 
+    private double LeftAxis;
+    private double RightAxis;
+
     public Chassis(HardwareMap hardwareMap) {
         // Motor ID
         right_Drive = hardwareMap.get(DcMotor.class, "right_Drive");
@@ -39,8 +50,16 @@ public class Chassis {
 
     // Set Speed Function
     public void setSpeed(double linearSpeed, double angularSpeed) {
-        right_Drive.setPower(linearSpeed + angularSpeed);
-        left_Drive.setPower(linearSpeed - angularSpeed);
+
+
+        LeftAxis = linearSpeed - angularSpeed;
+        RightAxis= linearSpeed + angularSpeed;
+
+        handleJoystickInput(LeftAxis);
+        handleJoystickInput(RightAxis);
+
+        right_Drive.setPower(RightAxis);
+        left_Drive.setPower(LeftAxis);
     }
 
     // Get Right Distance (Position)
