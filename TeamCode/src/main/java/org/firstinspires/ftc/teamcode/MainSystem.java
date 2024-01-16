@@ -43,7 +43,7 @@ public class MainSystem extends LinearOpMode {
 
         while (opModeIsActive()) {
             // Chassis
-            /*chassis.setSpeed(driverGamepad.left_stick_y, driverGamepad.right_stick_x);
+            chassis.setSpeed(driverGamepad.left_stick_y, driverGamepad.right_stick_x);
                 //SlowMode
                 if (driverGamepad.left_bumper) {
                     chassis.setSpeed(-driverGamepad.left_stick_y * 0.3,
@@ -51,7 +51,7 @@ public class MainSystem extends LinearOpMode {
                 } else {
                     chassis.setSpeed(-driverGamepad.left_stick_y, -driverGamepad.right_stick_x);
                 }
-*/
+
             // Intake
             if (operatorGamepad.left_bumper) {
                 intake.IntakeVoltage(1); // Voltage Pendant to Adjust
@@ -70,6 +70,15 @@ public class MainSystem extends LinearOpMode {
                 claw.ClawVoltage(0); // Voltage Pendant to Adjust
             }
 
+            // Band
+            if (operatorGamepad.dpad_up) {
+                band.BandVoltage(1); // Voltage Pendant to Adjust
+            } else if (operatorGamepad.dpad_down) {
+                band.BandVoltage(-1); // Voltage Pendant to Adjust
+            } else{
+                band.BandVoltage(0); // Voltage Pendant to Adjust
+            }
+
             /*
             // Elevator
                 if (operatorGamepad.right_bumper) {
@@ -79,15 +88,6 @@ public class MainSystem extends LinearOpMode {
                 } else {
                     elevator.ElevatorVoltage(0);
                 }
-
-            // Band
-            if (operatorGamepad.dpad_up) {
-                band.BandVoltage(1); // Voltage Pendant to Adjust
-            } else if (operatorGamepad.dpad_down) {
-                band.BandVoltage(-1); // Voltage Pendant to Adjust
-            } else{
-                band.BandVoltage(0); // Voltage Pendant to Adjust
-            }
 
             // Elevator
             if (operatorGamepad.triangle) {
