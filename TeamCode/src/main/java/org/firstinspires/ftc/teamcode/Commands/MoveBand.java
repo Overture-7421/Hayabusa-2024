@@ -19,6 +19,7 @@ public class MoveBand extends CommandBase {
     @Override
     public void initialize(){
         band.Voltage(voltage);
+
     }
 
     @Override

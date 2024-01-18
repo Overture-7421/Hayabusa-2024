@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.button.Button;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -40,15 +41,21 @@ public class MainSystem extends LinearOpMode {
          driverOp = new GamepadEx(gamepad1);
          toolOp = new GamepadEx(gamepad2);
 
+         // Intake and Band in
         Button buttonA = driverOp.getGamepadButton(GamepadKeys.Button.A);
+        buttonA.whileHeld(new MoveIntake(intake,1));
+        buttonA.whileHeld(new MoveBand(band,-1));
 
-        buttonA.whenPressed(new MoveIntake(intake,1));
-
+        Button buttonB = driverOp.getGamepadButton(GamepadKeys.Button.B);
+        buttonB.whileHeld(new MoveIntake(intake,-1));
+        buttonB.whileHeld(new MoveBand(band,1));
 
 
         waitForStart();
 
         while (opModeIsActive()) {
+
+            CommandScheduler.getInstance().run();
             // Chassis
 //            chassis.setSpeed(driverGamepad.left_stick_y, driverGamepad.right_stick_x);
 //                //SlowMode
