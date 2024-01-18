@@ -4,11 +4,12 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
+import org.firstinspires.ftc.teamcode.Utils.JoystickHandler;
 
 
 public class MoveChassis extends CommandBase {
-    private Chassis chassis;
-    private Gamepad driverGamepad;
+    private final Chassis chassis;
+    private final Gamepad driverGamepad;
 
 
     public MoveChassis(Chassis subsystem, Gamepad driverGamepad) {
@@ -19,17 +20,12 @@ public class MoveChassis extends CommandBase {
 
     @Override
     public void execute(){
-         double right = driverGamepad.right_stick_x;
-         double left = driverGamepad.left_stick_y;
+         double right = -driverGamepad.right_stick_x;
+         double left = -driverGamepad.left_stick_y;
 
-
+        right = JoystickHandler.handleJoystickInput(right);
+        left = JoystickHandler.handleJoystickInput(left);
 
         chassis.setSpeed(left, right);
     }
-
-    @Override
-    public void end(boolean interrupted) {
-        band.Voltage(0);
-    }
-
 }

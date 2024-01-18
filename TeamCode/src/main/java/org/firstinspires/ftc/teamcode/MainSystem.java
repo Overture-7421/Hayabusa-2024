@@ -11,12 +11,15 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 // Mechanisms Import
 import org.firstinspires.ftc.teamcode.Commands.MoveBand;
+import org.firstinspires.ftc.teamcode.Commands.MoveChassis;
 import org.firstinspires.ftc.teamcode.Commands.MoveIntake;
+import org.firstinspires.ftc.teamcode.Commands.MoveShooter;
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
 import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.Subsystems.Band;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
+import org.firstinspires.ftc.teamcode.Subsystems.Shooter;
 
 @TeleOp
 public class MainSystem extends LinearOpMode {
@@ -25,6 +28,7 @@ public class MainSystem extends LinearOpMode {
     Elevator elevator;
     Claw claw;
     Intake intake;
+    Shooter shooter;
     GamepadEx driverOp;
     GamepadEx toolOp;
 
@@ -37,19 +41,23 @@ public class MainSystem extends LinearOpMode {
         intake      = new Intake(hardwareMap, "intake");      // Create an instance of Intake
         band        = new Band(hardwareMap);        // Create an instance of Band
         claw        = new Claw(hardwareMap);        // Create an instance of Claw
-        //shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
-         driverOp = new GamepadEx(gamepad1);
-         toolOp = new GamepadEx(gamepad2);
+        shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
+        driverOp = new GamepadEx(gamepad1);         // Create an instance of DriverGamepad
+        toolOp = new GamepadEx(gamepad2);           //Create an instance of Opa
 
          // Intake and Band in
         Button buttonA = driverOp.getGamepadButton(GamepadKeys.Button.A);
         buttonA.whileHeld(new MoveIntake(intake,1));
         buttonA.whileHeld(new MoveBand(band,-1));
-
+        // Intake and Band out
         Button buttonB = driverOp.getGamepadButton(GamepadKeys.Button.B);
         buttonB.whileHeld(new MoveIntake(intake,-1));
         buttonB.whileHeld(new MoveBand(band,1));
-
+        // Intake Movement
+        chassis.setDefaultCommand(new MoveChassis(chassis,gamepad1));
+        // Shooter
+        Button rightBumper = toolOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
+        rightBumper.whileHeld(new MoveShooter(shooter,1));
 
         waitForStart();
 
