@@ -12,7 +12,7 @@ public class Shooter extends SubsystemBase {
         Shoot_Servo = hardwareMap.get(Servo.class, "shoot_Servo");
     }
 
-    public void Voltage(double ShooterMotorPosition) {
+    public void Position(double ShooterMotorPosition) {
        Shoot_Servo.setPosition(ShooterMotorPosition);
     }
 }

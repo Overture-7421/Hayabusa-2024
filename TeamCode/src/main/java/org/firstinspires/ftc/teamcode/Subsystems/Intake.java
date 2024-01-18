@@ -8,8 +8,8 @@ public class Intake extends SubsystemBase {
 
     private DcMotor intake;
 
-        public Intake(final HardwareMap hMap, final String IntakeSubsystem) {
-            intake = hMap.get(DcMotor.class, IntakeSubsystem);
+        public Intake(HardwareMap hardwareMap) {
+            intake = hardwareMap.get(DcMotor.class, "IntakeSubsystem");
         }
 
         public void Voltage (double IntakeMotorSpeed){

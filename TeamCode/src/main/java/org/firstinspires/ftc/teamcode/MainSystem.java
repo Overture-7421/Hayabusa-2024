@@ -7,7 +7,6 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.Gamepad;
 
 // Mechanisms Import
 import org.firstinspires.ftc.teamcode.Commands.MoveBand;
@@ -36,7 +35,7 @@ public class MainSystem extends LinearOpMode {
     public void runOpMode() {
         chassis     = new Chassis(hardwareMap);     // Create an instance of Chassis
         elevator    = new Elevator(hardwareMap);    // Create an instance of Elevator
-        intake      = new Intake(hardwareMap, "intake");      // Create an instance of Intake
+        intake      = new Intake(hardwareMap);      // Create an instance of Intake
         band        = new Band(hardwareMap);        // Create an instance of Band
         claw        = new Claw(hardwareMap);        // Create an instance of Claw
         shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
@@ -66,12 +65,7 @@ public class MainSystem extends LinearOpMode {
             CommandScheduler.getInstance().run();
 
             // -- TELEMETRY -- //
-
             telemetry.addData("Status", "Enabled.");
-
-//            // Velocities
-//            telemetry.addData("LinearVel", -driverGamepad.left_stick_y);
-//            telemetry.addData("AngularVel", -driverGamepad.right_stick_x);
 
             // Distance per side in CM
             telemetry.addData("RightDistance", chassis.rightDistance());

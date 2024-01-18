@@ -7,22 +7,22 @@ import org.firstinspires.ftc.teamcode.Subsystems.Shooter;
 
 public class MoveShooter extends CommandBase {
     private Shooter shooter;
-    private double voltage;
+    private double position;
 
-    public MoveShooter(Shooter subsystem, double voltage) {
-        this.voltage = voltage;
+    public MoveShooter(Shooter subsystem, double position) {
+        this.position = position;
         shooter = subsystem;
         addRequirements(subsystem);
     }
 
     @Override
     public void initialize(){
-        shooter.Voltage(voltage);
+        shooter.Position(position);
     }
 
     @Override
     public void end(boolean interrupted) {
-        shooter.Voltage(0);
+        shooter.Position(0);
     }
 
 }
