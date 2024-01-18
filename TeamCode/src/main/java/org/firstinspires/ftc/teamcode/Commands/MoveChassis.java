@@ -19,11 +19,12 @@ public class MoveChassis extends CommandBase {
 
     @Override
     public void execute(){
-         double right;
-         double left;
+         double right = driverGamepad.right_stick_x;
+         double left = driverGamepad.left_stick_y;
 
 
-        chassis.setSpeed(driverGamepad.right_stick_x, driverGamepad.left_stick_y);
+
+        chassis.setSpeed(left, right);
     }
 
     @Override
