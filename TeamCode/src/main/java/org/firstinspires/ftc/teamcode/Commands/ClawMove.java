@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands;
+package org.firstinspires.ftc.teamcode.Commands;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
@@ -6,7 +6,6 @@ import com.arcrobotics.ftclib.util.Timing;
 import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,12 +14,10 @@ public class ClawMove extends CommandBase {
     private Claw claw;
     private double ClawMotorPosition;
     private double ArmAnglePos;
-
     private Servo grab_RightServo;
     private Servo grab_LeftServo;
     private Servo twist_Right;
     private Servo twist_Left;
-
     private Timing.Timer timer;
 
 
