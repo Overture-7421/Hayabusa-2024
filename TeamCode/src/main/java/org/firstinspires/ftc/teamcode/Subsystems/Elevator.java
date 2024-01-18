@@ -14,8 +14,11 @@ public class Elevator {
         elevatorMotor2 = hardwareMap.get(DcMotorEx.class, "elevatorMotor2");
     }
 
-    public void ElevatorVoltage(double ElevatorMotorsSpeed) {
+    public void ElevatorVoltageMotor1(double ElevatorMotorsSpeed) {
         elevatorMotor1.setPower(ElevatorMotorsSpeed);
+    }
+
+    public void ElevatorVoltageMotor2(double ElevatorMotorsSpeed) {
         elevatorMotor2.setPower(ElevatorMotorsSpeed);
     }
 }
