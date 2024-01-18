@@ -12,6 +12,11 @@ import org.firstinspires.ftc.teamcode.Subsystems.Band;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.Subsystems.Shooter;
 
+import org.firstinspires.ftc.teamcode.commands.ClawMove;
+import org.firstinspires.ftc.teamcode.commands.ElevatorMove;
+
+import java.util.Timer;
+
 @TeleOp
 public class MainSystem extends LinearOpMode {
     Chassis chassis;
@@ -76,17 +81,15 @@ public class MainSystem extends LinearOpMode {
             }
 
             // Elevator
-            if (operatorGamepad.triangle) {
-                elevator.ElevatorVoltageMotor1(1); // Voltage TBD
-                elevator.ElevatorVoltageMotor2(1); // Voltage TBD
+            /*if (operatorGamepad.triangle) {
+                elevator.ElevatorVoltageMotor(1); // Voltage TBD
 
             } else if (operatorGamepad.circle) {
-                elevator.ElevatorVoltageMotor1(-1); // Voltage TBD
-                elevator.ElevatorVoltageMotor2(-1); // Voltage TBD
+                elevator.ElevatorVoltageMotor(-1); // Voltage TBD
             } else {
-                elevator.ElevatorVoltageMotor1(0);
-                elevator.ElevatorVoltageMotor2(0);
-            }
+                elevator.ElevatorVoltageMotor(0);
+
+            }*/
 
             /*
             // Shooter
