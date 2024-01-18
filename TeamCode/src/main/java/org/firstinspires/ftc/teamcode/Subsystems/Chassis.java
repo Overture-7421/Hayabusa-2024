@@ -13,7 +13,7 @@ public class Chassis {
 
 
     // Odometry variables
-    private DifferentialDriveOdometry odometry;
+    //private DifferentialDriveOdometry odometry;
 
 
     public Chassis(HardwareMap hardwareMap) {
@@ -26,7 +26,7 @@ public class Chassis {
         left_Drive.setDirection(DcMotor.Direction.FORWARD);
 
         // Odometry initialization
-        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getGyroHeading()), new Pose2d());
+       //odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getGyroHeading()), new Pose2d());
     }
 
     // Set Speed Function
@@ -46,7 +46,7 @@ public class Chassis {
     }
 
     // -- KINEMATICS -- //
-        DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(17.662201 / 254.0);
+        /*DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(17.662201 / 254.0);
         DifferentialDriveWheelSpeeds wheelSpeeds =
                 new DifferentialDriveWheelSpeeds(2.0, 3.0);
 
@@ -64,8 +64,8 @@ public class Chassis {
         private double getGyroHeading() {
 
             return getGyroHeading();
-        }
+        }*/
 }
-}
+
 
 
