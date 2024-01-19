@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
+import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class Chassis {
+public class Chassis extends SubsystemBase {
     // Motors Declaration
     private DcMotor right_Drive;
     private DcMotor left_Drive;
@@ -27,6 +28,7 @@ public class Chassis {
 
         // Odometry initialization
        //odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getGyroHeading()), new Pose2d());
+
     }
 
     // Set Speed Function
@@ -45,8 +47,8 @@ public class Chassis {
         return left_Drive.getCurrentPosition() * CM_PER_TICK;
     }
 
-    // -- KINEMATICS -- //
-        /*DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(17.662201 / 254.0);
+
+    /*/ -- KINEMATICS -- //
         DifferentialDriveWheelSpeeds wheelSpeeds =
                 new DifferentialDriveWheelSpeeds(2.0, 3.0);
 
