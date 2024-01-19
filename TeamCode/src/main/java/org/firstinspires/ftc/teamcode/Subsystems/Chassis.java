@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Chassis extends SubsystemBase {
@@ -23,8 +24,8 @@ public class Chassis extends SubsystemBase {
         left_Drive = hardwareMap.get(DcMotor.class, "left_Drive");
 
         // Invert one motor
-        right_Drive.setDirection(DcMotor.Direction.REVERSE);
-        left_Drive.setDirection(DcMotor.Direction.FORWARD);
+        right_Drive.setDirection(DcMotor.Direction.FORWARD);
+        left_Drive.setDirection(DcMotor.Direction.REVERSE);
 
         // Odometry initialization
        //odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getGyroHeading()), new Pose2d());

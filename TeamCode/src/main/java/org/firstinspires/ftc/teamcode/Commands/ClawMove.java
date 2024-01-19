@@ -14,10 +14,6 @@ public class ClawMove extends CommandBase {
     private Claw claw;
     private double ClawMotorPosition;
     private double ArmAnglePos;
-    private Servo grab_RightServo;
-    private Servo grab_LeftServo;
-    private Servo twist_Right;
-    private Servo twist_Left;
     private Timing.Timer timer;
 
 
@@ -33,14 +29,9 @@ public class ClawMove extends CommandBase {
 
     @Override
     public void initialize() {
-        grab_RightServo.setPosition(ClawMotorPosition);
-        grab_LeftServo.setPosition(ClawMotorPosition);
-
-        twist_Right.setPosition(ArmAnglePos);
-        twist_Left.setPosition(ArmAnglePos);
-
+        claw.ClawVoltage(ClawMotorPosition);
+        claw.ArmVoltage(ArmAnglePos);
         timer.start();
-        telemetry.addData("Time elapsed", timer);
     }
 
 

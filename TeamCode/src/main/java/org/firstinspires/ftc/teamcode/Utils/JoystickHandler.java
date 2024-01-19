@@ -13,6 +13,6 @@ public class JoystickHandler {
 
         double res = EXPONENTIAL_GAIN * pow
                 (( axisMag - DEADZONE) / (1-DEADZONE), 3) + (1 - EXPONENTIAL_GAIN) * (axisMag - DEADZONE) / (1 - DEADZONE);
-        return res;
+        return  Math.copySign(res, axisValue);
     }
 }
