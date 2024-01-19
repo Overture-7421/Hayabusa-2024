@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Commands;
+package org.firstinspires.ftc.teamcode.commands;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
@@ -23,7 +23,7 @@ public class ClawMove extends CommandBase {
 
 
 
-    public void ClawMove(Claw subsystem, double ClawMotorPosition, double ArmAnglePos) {
+    public ClawMove(Claw subsystem, double ClawMotorPosition, double ArmAnglePos) {
         claw = subsystem;
         this.ClawMotorPosition = ClawMotorPosition;
         this.ArmAnglePos = ArmAnglePos;
