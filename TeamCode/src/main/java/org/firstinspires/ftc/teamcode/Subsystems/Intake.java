@@ -1,18 +1,18 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class Intake {
-    // Motor Declaration
+public class Intake extends SubsystemBase {
+
     private DcMotor intake;
 
-    public Intake(HardwareMap hardwareMap) {
-        intake = hardwareMap.get(DcMotor.class, "intake");
-    }
+        public Intake(HardwareMap hardwareMap) {
+            intake = hardwareMap.get(DcMotor.class, "intake");
+        }
 
-    // Set Intake Voltage Function
-    public void IntakeVoltage (double IntakeMotorSpeed){
-        intake.setPower(IntakeMotorSpeed);
-    }
+        public void Voltage (double IntakeMotorSpeed){
+            intake.setPower(IntakeMotorSpeed);
+        }
 }

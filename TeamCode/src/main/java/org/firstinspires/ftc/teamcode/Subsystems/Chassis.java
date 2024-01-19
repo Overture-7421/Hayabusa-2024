@@ -1,17 +1,10 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
-import com.arcrobotics.ftclib.geometry.Pose2d;
-import com.arcrobotics.ftclib.geometry.Rotation2d;
-import com.arcrobotics.ftclib.kinematics.wpilibkinematics.ChassisSpeeds;
-import com.arcrobotics.ftclib.kinematics.wpilibkinematics.DifferentialDriveKinematics;
-import com.arcrobotics.ftclib.kinematics.wpilibkinematics.DifferentialDriveOdometry;
-import com.arcrobotics.ftclib.kinematics.wpilibkinematics.DifferentialDriveWheelSpeeds;
+import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.arcrobotics.ftclib.drivebase.DifferentialDrive;
-import com.arcrobotics.ftclib.kinematics.DifferentialOdometry;
 
-public class Chassis {
+public class Chassis extends SubsystemBase {
     // Motors Declaration
     private DcMotor right_Drive;
     private DcMotor left_Drive;
@@ -21,7 +14,7 @@ public class Chassis {
 
 
     // Odometry variables
-    private DifferentialDriveOdometry odometry;
+    //private DifferentialDriveOdometry odometry;
 
 
     public Chassis(HardwareMap hardwareMap) {
@@ -34,7 +27,7 @@ public class Chassis {
         left_Drive.setDirection(DcMotor.Direction.FORWARD);
 
         // Odometry initialization
-        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getGyroHeading()), new Pose2d());
+        //odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getGyroHeading()), new Pose2d());
     }
 
     // Set Speed Function
@@ -53,7 +46,7 @@ public class Chassis {
         return left_Drive.getCurrentPosition() * CM_PER_TICK;
     }
 
-    // -- KINEMATICS -- //
+    /*
         DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(17.662201 / 254.0);
         DifferentialDriveWheelSpeeds wheelSpeeds =
                 new DifferentialDriveWheelSpeeds(2.0, 3.0);
@@ -67,12 +60,12 @@ public class Chassis {
         // Angular velocity
         double angularVelocity = chassisSpeeds.omegaRadiansPerSecond;
 
+
         // -- ODOMETRY -- //
         private double getGyroHeading() {
 
             return getGyroHeading();
-        }
-
+        }*/
 }
 
 
