@@ -6,7 +6,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.Servo;
+
 
 // Mechanisms Import
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
@@ -14,19 +14,15 @@ import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Band;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
-import org.firstinspires.ftc.teamcode.Subsystems.Shooter;
 
-import org.firstinspires.ftc.teamcode.commands.ClawMove;
-import org.firstinspires.ftc.teamcode.commands.ElevatorMove;
+
+import org.firstinspires.ftc.teamcode.Commands.ClawMove;
+
 
 //Controllers import
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
-import com.arcrobotics.ftclib.command.button.GamepadButton;
-import com.arcrobotics.ftclib.gamepad.GamepadKeys;
-import static com.arcrobotics.ftclib.gamepad.GamepadKeys.Button.A;
 import com.arcrobotics.ftclib.command.button.Button;
-import com.arcrobotics.ftclib.command.CommandScheduler;
-import java.util.Timer;
+
 
 @TeleOp
 public class MainSystem extends LinearOpMode {
