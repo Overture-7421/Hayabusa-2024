@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.button.Button;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
@@ -7,6 +8,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
 
 // Mechanisms Import
 import org.firstinspires.ftc.teamcode.Commands.MoveBand;
@@ -17,8 +19,20 @@ import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
 import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.Subsystems.Band;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
+
+
+
+import org.firstinspires.ftc.teamcode.Commands.ClawMove;
+
+
+//Controllers import
+import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.arcrobotics.ftclib.command.button.Button;
+
+
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Shooter;
+
 
 @TeleOp
 public class MainSystem extends LinearOpMode {
@@ -38,6 +52,19 @@ public class MainSystem extends LinearOpMode {
         intake      = new Intake(hardwareMap);      // Create an instance of Intake
         band        = new Band(hardwareMap);        // Create an instance of Band
         claw        = new Claw(hardwareMap);        // Create an instance of Claw
+        shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
+        driverOp    = new GamepadEx(gamepad1);      // Create an instance of DriverGamepad
+        toolOp      = new GamepadEx(gamepad2);      // Create an instance of OperatorGamepad
+
+        //Claw will open and close
+        Button buttonX = toolOp.getGamepadButton(GamepadKeys.Button.X);
+        buttonX.whenPressed(new ClawMove(claw,1,0));
+        buttonX.whenReleased(new ClawMove(claw,0,0));
+
+        Button buttonY = toolOp.getGamepadButton(GamepadKeys.Button.Y);
+        buttonY.whenPressed(new ClawMove(claw,3,0));
+        buttonY.whenReleased(new ClawMove(claw,0,0));
+
         shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
         driverOp    = new GamepadEx(gamepad1);         // Create an instance of DriverGamepad
         toolOp      = new GamepadEx(gamepad2);           //Create an instance of Opa
@@ -61,6 +88,7 @@ public class MainSystem extends LinearOpMode {
 
         waitForStart();
 
+
         while (opModeIsActive()) {
             CommandScheduler.getInstance().run();
 
@@ -68,8 +96,8 @@ public class MainSystem extends LinearOpMode {
             telemetry.addData("Status", "Enabled.");
 
             // Distance per side in CM
-            telemetry.addData("RightDistance", chassis.rightDistance());
-            telemetry.addData("LeftDistance", chassis.leftDistance());
+            //telemetry.addData("RightDistance", chassis.rightDistance());
+            //telemetry.addData("LeftDistance", chassis.leftDistance());
 
 
             // Update Telemetry

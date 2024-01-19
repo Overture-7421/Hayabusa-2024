@@ -27,7 +27,8 @@ public class Chassis extends SubsystemBase {
         left_Drive.setDirection(DcMotor.Direction.FORWARD);
 
         // Odometry initialization
-        //odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getGyroHeading()), new Pose2d());
+       //odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getGyroHeading()), new Pose2d());
+
     }
 
     // Set Speed Function
@@ -46,8 +47,8 @@ public class Chassis extends SubsystemBase {
         return left_Drive.getCurrentPosition() * CM_PER_TICK;
     }
 
-    /*
-        DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(17.662201 / 254.0);
+
+    /*/ -- KINEMATICS -- //
         DifferentialDriveWheelSpeeds wheelSpeeds =
                 new DifferentialDriveWheelSpeeds(2.0, 3.0);
 
