@@ -61,7 +61,7 @@ public class MainSystem extends LinearOpMode {
 
         Button buttonB = toolOp.getGamepadButton(GamepadKeys.Button.B);
         buttonB.whenPressed(new ClawMove(claw,3,0));
-        buttonB.whenReleased((new ClawMove(claw,0,0));
+        buttonB.whenReleased(new ClawMove(claw,0,0));
 
 
 
