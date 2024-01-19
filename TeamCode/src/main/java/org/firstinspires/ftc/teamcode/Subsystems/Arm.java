@@ -21,5 +21,5 @@ public class Arm extends SubsystemBase {
         twist_Right.setPosition(ArmAnglePos);
         twist_Left.setPosition(ArmAnglePos);
     }
-
+//    public void ArmPosition(double ArmAnglePos) {
 }
