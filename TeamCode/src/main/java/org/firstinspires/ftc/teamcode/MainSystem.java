@@ -47,28 +47,23 @@ public class MainSystem extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-
-
-        GamepadEx toolOp = new GamepadEx(gamepad2);
-        driverGamepad = gamepad1;
-        //operatorGamepad = gamepad2;
-      
         chassis     = new Chassis(hardwareMap);     // Create an instance of Chassis
         elevator    = new Elevator(hardwareMap);    // Create an instance of Elevator
         intake      = new Intake(hardwareMap);      // Create an instance of Intake
         band        = new Band(hardwareMap);        // Create an instance of Band
         claw        = new Claw(hardwareMap);        // Create an instance of Claw
-
-        //shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
+        shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
+        driverOp    = new GamepadEx(gamepad1);      // Create an instance of DriverGamepad
+        toolOp      = new GamepadEx(gamepad2);      // Create an instance of OperatorGamepad
 
         //Claw will open and close
-        Button buttonA = toolOp.getGamepadButton(GamepadKeys.Button.A);
-        buttonA.whenPressed(new ClawMove(claw,1,0));
-        buttonA.whenReleased(new ClawMove(claw,0,0));
+        Button buttonX = toolOp.getGamepadButton(GamepadKeys.Button.X);
+        buttonX.whenPressed(new ClawMove(claw,1,0));
+        buttonX.whenReleased(new ClawMove(claw,0,0));
 
-        Button buttonB = toolOp.getGamepadButton(GamepadKeys.Button.B);
-        buttonB.whenPressed(new ClawMove(claw,3,0));
-        buttonB.whenReleased(new ClawMove(claw,0,0));
+        Button buttonY = toolOp.getGamepadButton(GamepadKeys.Button.Y);
+        buttonY.whenPressed(new ClawMove(claw,3,0));
+        buttonY.whenReleased(new ClawMove(claw,0,0));
 
         shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
         driverOp    = new GamepadEx(gamepad1);         // Create an instance of DriverGamepad
@@ -97,9 +92,6 @@ public class MainSystem extends LinearOpMode {
         while (opModeIsActive()) {
             CommandScheduler.getInstance().run();
 
-        waitForStart();
-
-        while (opModeIsActive()) {
             // -- TELEMETRY -- //
             telemetry.addData("Status", "Enabled.");
 

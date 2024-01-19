@@ -16,14 +16,6 @@ public class Elevator extends SubsystemBase {
         elevatorMotor2 = hardwareMap.get(DcMotorEx.class, "elevatorMotor2");
     }
 
-   /*¨ public void ElevatorVoltageMotor1(double ElevatorMotorsSpeed) {
-        elevatorMotor1.setPower(ElevatorMotorsSpeed);
-    }
-
-    public void ElevatorVoltageMotor2(double ElevatorMotorsSpeed) {
-        elevatorMotor2.setPower(ElevatorMotorsSpeed);
-    }*/
-
     public void ElevatorHeight(double elevatorHeight) {
         //elevatorHeight.set...();
 
