@@ -1,25 +1,27 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.arcrobotics.ftclib.hardware.ServoEx;
+import com.arcrobotics.ftclib.hardware.SimpleServo;
+import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Arm extends SubsystemBase {
-    private Servo twist_Right; //Declare right arm
-    private Servo twist_Left; //Declare left arm
+    private ServoEx twist_Right; //Declare right arm
+    private ServoEx twist_Left; //Declare left arm
 
     public Arm (HardwareMap hardwareMap) {
         // Servos IDs
-        twist_Right = hardwareMap.get(Servo.class, "twist_Right");
-        twist_Left = hardwareMap.get(Servo.class, "twist_Left");
+        twist_Right = new SimpleServo(hardwareMap, "twist_Right", 0, 1);
+        twist_Left = new SimpleServo(hardwareMap, "twist_Left", 0, 1);
+
         // Reverse the reversed Servo
-        twist_Right.setDirection(Servo.Direction.FORWARD);
-        twist_Left.setDirection(Servo.Direction.REVERSE);
+        twist_Left.setInverted(true);;
     }
 
     public void ArmPosition(double ArmAnglePos) {
         twist_Right.setPosition(ArmAnglePos);
         twist_Left.setPosition(ArmAnglePos);
     }
-//    public void ArmPosition(double ArmAnglePos) {
 }
