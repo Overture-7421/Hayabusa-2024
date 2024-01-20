@@ -12,12 +12,12 @@ public class Arm extends SubsystemBase {
     private ServoEx twist_Left; //Declare left arm
 
     public Arm (HardwareMap hardwareMap) {
+        // Reverse the reversed Servo
+        twist_Left.setInverted(true);
+
         // Servos IDs
         twist_Right = new SimpleServo(hardwareMap, "twist_Right", 0, 1);
         twist_Left = new SimpleServo(hardwareMap, "twist_Left", 0, 1);
-
-        // Reverse the reversed Servo
-        twist_Left.setInverted(true);;
     }
 
     public void ArmPosition(double ArmAnglePos) {

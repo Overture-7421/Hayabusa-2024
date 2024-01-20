@@ -60,10 +60,12 @@ public class MainSystem extends LinearOpMode {
         //Claw will open/close
         Button buttonX = toolOp.getGamepadButton(GamepadKeys.Button.X);
         buttonX.whileHeld(new MoveClaw(claw,1));
+        buttonX.whenReleased(new MoveClaw(claw, 0));
 
         // Arm change angle
         Button buttonY = toolOp.getGamepadButton(GamepadKeys.Button.Y);
         buttonY.whileHeld(new MoveArm(arm,1));
+        buttonY.whenReleased(new MoveArm(arm,0));
 
          // Intake and Band in
         Button buttonA = driverOp.getGamepadButton(GamepadKeys.Button.A);
