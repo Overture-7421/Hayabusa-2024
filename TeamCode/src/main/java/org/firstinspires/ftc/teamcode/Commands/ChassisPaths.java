@@ -5,35 +5,30 @@ import com.arcrobotics.ftclib.util.Timing;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
 
-import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
 
 public class ChassisPaths extends CommandBase {
     private final Chassis chassis;
-    private Timing.Timer timer;
-    private long remainingTime;
-    private double right;
-    private double left;
+    private double angularVel;
+    private double linearVel;
 
 
-    public ChassisPaths(Chassis subsystem, Time time ) {
-        timer = new Timing.Timer(5, TimeUnit.SECONDS);
+    public ChassisPaths(Chassis subsystem, double angularVel, double linearVel) {
+        this.angularVel = angularVel;
+        this.linearVel = linearVel;
         chassis = subsystem;
-        addRequirements(subsystem);
+
+        addRequirements(chassis);
     }
 
     @Override
-    public void execute() {
-        timer.start();
+    public void initialize() {
+        chassis.setSpeed(linearVel, angularVel);
+    }
 
-        while (remainingTime > 0) {
-            right = 1;
-            left = 1;
-            return;
-        }
-
-
-        chassis.setSpeed(left, right);
+    @Override
+    public void end(boolean interrupted) {
+        chassis.setSpeed(0, 0);
     }
 }

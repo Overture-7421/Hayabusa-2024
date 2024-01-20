@@ -13,7 +13,7 @@ public class MoveBand extends CommandBase {
     public MoveBand(Band subsystem, double voltage) {
         this.voltage = voltage;
         band = subsystem;
-        addRequirements(subsystem);
+        addRequirements(band);
     }
 
     @Override

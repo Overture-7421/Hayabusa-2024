@@ -12,7 +12,7 @@ public class MoveIntake extends CommandBase {
     public MoveIntake(Intake subsystem, double voltage) {
         this.voltage = voltage;
         intake = subsystem;
-        addRequirements(subsystem);
+        addRequirements(intake);
     }
 
     @Override

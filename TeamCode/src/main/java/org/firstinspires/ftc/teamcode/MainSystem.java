@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.button.Button;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -8,27 +7,20 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-
-// Mechanisms Import
+// Commands Import
 import org.firstinspires.ftc.teamcode.Commands.MoveArm;
 import org.firstinspires.ftc.teamcode.Commands.MoveBand;
 import org.firstinspires.ftc.teamcode.Commands.MoveChassis;
 import org.firstinspires.ftc.teamcode.Commands.MoveIntake;
 import org.firstinspires.ftc.teamcode.Commands.MoveShooter;
+import org.firstinspires.ftc.teamcode.Commands.MoveClaw;
+
+// Subsystems Import
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
 import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.Subsystems.Band;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
-
-
-
-import org.firstinspires.ftc.teamcode.Commands.MoveClaw;
-
-
-//Controllers import
-
-
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Shooter;
 
@@ -68,12 +60,12 @@ public class MainSystem extends LinearOpMode {
         buttonY.whenReleased(new MoveArm(arm,0));
 
          // Intake and Band in
-        Button buttonA = driverOp.getGamepadButton(GamepadKeys.Button.A);
+        Button buttonA = toolOp.getGamepadButton(GamepadKeys.Button.A);
         buttonA.whileHeld(new MoveIntake(intake,1));
         buttonA.whileHeld(new MoveBand(band,-1));
 
         // Intake and Band out
-        Button buttonB = driverOp.getGamepadButton(GamepadKeys.Button.B);
+        Button buttonB = toolOp.getGamepadButton(GamepadKeys.Button.B);
         buttonB.whileHeld(new MoveIntake(intake,-1));
         buttonB.whileHeld(new MoveBand(band,1));
 
