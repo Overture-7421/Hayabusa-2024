@@ -13,23 +13,22 @@ public class MoveClaw extends CommandBase {
     private Timing.Timer timer;
 
     public MoveClaw(Claw subsystem, double ClawMotorPosition) {
-        claw = subsystem;
         this.ClawMotorPosition = ClawMotorPosition;
-        timer = new Timing.Timer(1, TimeUnit.SECONDS);
+        claw = subsystem;
+        timer = new Timing.Timer(2, TimeUnit.SECONDS);
         addRequirements(subsystem);
     }
 
     @Override
     public void initialize() {
         claw.ClawPosition(ClawMotorPosition);
-        //timer.start();
+        timer.start();
     }
 
 
     @Override
     public boolean isFinished() {
-        claw.ClawPosition(0);
-        return timer.done(); //Will not be done as timer has been disabled
+        return timer.done();
     }
 }
 

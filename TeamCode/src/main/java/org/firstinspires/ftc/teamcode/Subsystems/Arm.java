@@ -13,7 +13,7 @@ public class Arm extends SubsystemBase {
 
     public Arm (HardwareMap hardwareMap) {
         // Reverse the reversed Servo
-        twist_Left.setInverted(true);
+        //twist_Left.setInverted(true);
 
         // Servos IDs
         twist_Right = new SimpleServo(hardwareMap, "twist_Right", 0, 1);

@@ -82,7 +82,8 @@ public class MainSystem extends LinearOpMode {
 
         // Shooter
         Button rightBumper = toolOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
-        rightBumper.toggleWhenPressed(new MoveShooter(shooter,1));
+        rightBumper.whileHeld(new MoveShooter(shooter,1));
+        rightBumper.whenReleased(new MoveShooter(shooter,0));
 
         waitForStart();
 

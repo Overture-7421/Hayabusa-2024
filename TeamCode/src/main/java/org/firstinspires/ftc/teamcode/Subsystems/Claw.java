@@ -3,11 +3,7 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
-import com.qualcomm.robotcore.hardware.HardwareDevice;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class Claw extends SubsystemBase {
 
@@ -21,11 +17,11 @@ public class Claw extends SubsystemBase {
         grab_LeftServo = new SimpleServo(hardwareMap, "grab_LeftServo", 0, 1);
 
         // Reverse the reversed Servo
-        grab_RightServo.setInverted(false);
-        grab_LeftServo.setInverted(true);
-
-        grab_LeftServo.setRange(0, 1);
-        grab_RightServo.setRange(0, 1);
+        //grab_RightServo.setInverted(false);
+        //grab_LeftServo.setInverted(true);
+//
+//        grab_LeftServo.setRange(0, 1);
+//        grab_RightServo.setRange(0, 1);
 
     }
 
