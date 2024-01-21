@@ -28,7 +28,6 @@ public class RamseteCommand extends CommandBase {
     @Override
     public void initialize() {
         timer.start();
-       chassis.resetPose(trajectory.getInitialPose());
     }
 
     @Override

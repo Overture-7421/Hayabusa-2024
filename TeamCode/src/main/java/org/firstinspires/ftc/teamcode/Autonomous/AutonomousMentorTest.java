@@ -43,7 +43,8 @@ Intake intake;
         );
 
         waitForStart();
-        chassis.resetPose(new Pose2d(0,0, Rotation2d.fromDegrees(0)));
+
+        chassis.resetPose(testTrajectory.getInitialPose());
 
         CommandScheduler.getInstance().schedule(testCommandGroup);
 
