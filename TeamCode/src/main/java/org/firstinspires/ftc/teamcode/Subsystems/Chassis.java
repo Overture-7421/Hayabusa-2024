@@ -1,34 +1,57 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.arcrobotics.ftclib.geometry.Pose2d;
+import com.arcrobotics.ftclib.geometry.Rotation2d;
+import com.arcrobotics.ftclib.kinematics.wpilibkinematics.DifferentialDriveOdometry;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
+
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 public class Chassis extends SubsystemBase {
     // Motors Declaration
-    private DcMotor right_Drive;
-    private DcMotor left_Drive;
+    private DcMotorEx right_Drive;
+    private DcMotorEx left_Drive;
 
     // Cm per tick constant
-    private final double CM_PER_TICK = 1.0  / 540.0 * 9.0 * Math.PI;
+    private final double M_PER_TICK = 1.0  / 54000.0 * 9.0 * Math.PI;
+    static final double TRACKWIDTH = 1;
 
+    private DifferentialDriveOdometry diffOdom;
 
+    private IMU imu;
     // Odometry variables
     //private DifferentialDriveOdometry odometry;
+
+    private int leftOffset = 0, rightOffset = 0;
 
 
     public Chassis(HardwareMap hardwareMap) {
         // Motor ID
-        right_Drive = hardwareMap.get(DcMotor.class, "right_Drive");
-        left_Drive = hardwareMap.get(DcMotor.class, "left_Drive");
+        right_Drive = (DcMotorEx) hardwareMap.get(DcMotor.class, "right_Drive");
+        left_Drive = (DcMotorEx) hardwareMap.get(DcMotor.class, "left_Drive");
 
         // Invert one motor
         right_Drive.setDirection(DcMotor.Direction.FORWARD);
         left_Drive.setDirection(DcMotor.Direction.REVERSE);
 
         // Odometry initialization
-       //odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getGyroHeading()), new Pose2d());
+        diffOdom = new DifferentialDriveOdometry(new Rotation2d());
+        imu = hardwareMap.get(IMU.class, "imu");
+
+
+        IMU.Parameters imuParameters = new IMU.Parameters(
+                new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.FORWARD, RevHubOrientationOnRobot.UsbFacingDirection.UP)
+        );
+
+        imu.initialize(imuParameters);
+
+        imu.resetYaw();
 
     }
 
@@ -40,35 +63,37 @@ public class Chassis extends SubsystemBase {
 
     // Get Right Distance (Position)
     public double rightDistance(){
-        return right_Drive.getCurrentPosition() * CM_PER_TICK;
+        return (right_Drive.getCurrentPosition() - rightOffset) * M_PER_TICK;
     }
 
     // Get Left Distance (Position)
     public double leftDistance(){
-        return left_Drive.getCurrentPosition() * CM_PER_TICK;
+        return (left_Drive.getCurrentPosition() - leftOffset) * M_PER_TICK;
     }
 
+    public void resetPose(Pose2d pose) {
+        leftOffset = left_Drive.getCurrentPosition();
+        rightOffset = right_Drive.getCurrentPosition();
+        diffOdom.resetPosition(pose, getIMUHeading());
+    }
 
-    /*/ -- KINEMATICS -- //
-        DifferentialDriveWheelSpeeds wheelSpeeds =
-                new DifferentialDriveWheelSpeeds(2.0, 3.0);
+    public Pose2d getPose() {
+        return diffOdom.getPoseMeters();
+    }
 
-        // Convert to chassis speeds.
-        ChassisSpeeds chassisSpeeds = kinematics.toChassisSpeeds(wheelSpeeds);
+    @Override
+    public void periodic() {
+        diffOdom.update(getIMUHeading(), leftDistance(), rightDistance());
+    }
 
-        // Linear velocity
-        double linearVelocity = chassisSpeeds.vxMetersPerSecond;
+    private Rotation2d getIMUHeading(){
+        YawPitchRollAngles robotOrientation;
+        robotOrientation = imu.getRobotYawPitchRollAngles();
 
-        // Angular velocity
-        double angularVelocity = chassisSpeeds.omegaRadiansPerSecond;
-
-
-        // -- ODOMETRY -- //
-        private double getGyroHeading() {
-
-            return getGyroHeading();
-        }*/
+        return Rotation2d.fromDegrees(robotOrientation.getYaw(AngleUnit.DEGREES));
+    }
 }
+
 
 
 

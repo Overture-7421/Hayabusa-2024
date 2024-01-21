@@ -4,6 +4,8 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.button.Button;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.arcrobotics.ftclib.geometry.Pose2d;
+import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -79,15 +81,22 @@ public class MainSystem extends LinearOpMode {
 
         waitForStart();
 
+        chassis.resetPose(new Pose2d(0,0, Rotation2d.fromDegrees(0)));
+
         while (opModeIsActive()) {
             CommandScheduler.getInstance().run();
 
+
+            Pose2d pose = chassis.getPose();
+
             // -- TELEMETRY -- //
-            telemetry.addData("Status", "Enabled.");
+            telemetry.addData("X", pose.getX());
+            telemetry.addData("Y", pose.getY());
+            telemetry.addData("Heading", pose.getRotation().getDegrees());
 
             // Distance per side in CM
-            //telemetry.addData("RightDistance", chassis.rightDistance());
-            //telemetry.addData("LeftDistance", chassis.leftDistance());
+            telemetry.addData("RightDistance", chassis.rightDistance());
+            telemetry.addData("LeftDistance", chassis.leftDistance());
 
 
             // Update Telemetry
