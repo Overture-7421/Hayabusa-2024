@@ -24,6 +24,7 @@ public class TurnToAngle extends CommandBase {
         this.targetHeading = targetHeading;
 
         pidController = new FRCPIDController(0.01, 0.0, 0.0);
+        addRequirements(chassis);
     }
 
     @Override
