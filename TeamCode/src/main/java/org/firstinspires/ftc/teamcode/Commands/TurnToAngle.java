@@ -23,7 +23,7 @@ public class TurnToAngle extends CommandBase {
         this.chassis = chassis;
         this.targetHeading = targetHeading;
 
-        pidController = new FRCPIDController(0.01, 0.0, 0.0);
+        pidController = new FRCPIDController(0.11, 0.0, 0);
         addRequirements(chassis);
     }
 
@@ -37,7 +37,7 @@ public class TurnToAngle extends CommandBase {
         TrapezoidProfile.State targetState = new TrapezoidProfile.State(targetDegrees, 0);
         TrapezoidProfile.State currentState = new TrapezoidProfile.State(currentDegrees, 0);
 
-        profile = new TrapezoidProfile(new TrapezoidProfile.Constraints(90, 180), targetState, currentState);
+        profile = new TrapezoidProfile(new TrapezoidProfile.Constraints(190, 200), targetState, currentState);
 
         timer = new Timing.Timer((long) profile.totalTime() * 1000, TimeUnit.MILLISECONDS);
         timer.start();
@@ -59,6 +59,8 @@ public class TurnToAngle extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        return timer.done();
+        double currentDegrees = chassis.getPose().getRotation().getDegrees();
+        double targetDegrees = targetHeading.getDegrees();
+        return Math.abs(targetDegrees - currentDegrees) < 0.5;
     }
 }
