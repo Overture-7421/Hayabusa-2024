@@ -14,8 +14,6 @@ public class Elevator extends SubsystemBase {
     private DcMotorEx elevatorMotor1;
     private DcMotorEx elevatorMotor2;
     private ProfiledPIDController elevatorMotor1PID;
-    private ProfiledPIDController elevatorMotor2PID;
-
     public static final double COUNTS_PER_REVOLUTION = 288;
     public static final double ELEVATOR_WINCH_CIRCUMFERENCE = 0.10868277; // In Meters
 
@@ -25,8 +23,7 @@ public class Elevator extends SubsystemBase {
         elevatorMotor1 = (DcMotorEx) hardwareMap.get(DcMotor.class, "elevatorMotor1");
         elevatorMotor2 = (DcMotorEx) hardwareMap.get(DcMotor.class, "elevatorMotor2");
 
-        elevatorMotor1PID = new ProfiledPIDController(0.5, 0.0, 0.0, new TrapezoidProfile.Constraints(1, 1));
-        elevatorMotor2PID = new ProfiledPIDController(0.5, 0.0, 0.0, new TrapezoidProfile.Constraints(1, 1));
+        elevatorMotor1PID = new ProfiledPIDController(3, 0.0, 0.0, new TrapezoidProfile.Constraints(100, 50));
 
         elevatorMotor1.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -60,15 +57,13 @@ public class Elevator extends SubsystemBase {
 
     public void setGoal(double goalHeight) {
         elevatorMotor1PID.reset(elevatorMotor1getCurrentHeight());
-        elevatorMotor2PID.reset(elevatorMotor2getCurrentHeight());
 
         elevatorMotor1PID.setGoal(goalHeight);
-        elevatorMotor2PID.setGoal(goalHeight);
     }
 
     @Override
     public void periodic() {
-        double outputMotor1 = elevatorMotor1PID.calculate(elevatorMotor1getCurrentHeight());
+        double outputMotor1 = elevatorMotor1PID.calculate(getHeight());
 
         elevatorMotor1.setPower(outputMotor1);
         elevatorMotor2.setPower(outputMotor1);

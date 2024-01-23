@@ -44,8 +44,8 @@ Intake intake;
         );
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
-                new RamseteCommand(chassis, testTrajectory)
-                //new TurnToAngle(chassis, Rotation2d.fromDegrees(-90)),
+                new RamseteCommand(chassis, testTrajectory),
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(-90))
                 //moveIntakeBand
         );
 

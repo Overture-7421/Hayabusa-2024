@@ -53,6 +53,9 @@ public class MainSystem extends LinearOpMode {
         driverOp    = new GamepadEx(gamepad1);      // Create an instance of DriverGamepad
         toolOp      = new GamepadEx(gamepad2);      // Create an instance of OperatorGamepad
 
+        // Chassis Movement
+        chassis.setDefaultCommand(new MoveChassis(chassis,gamepad1));
+
         //Claw will open/close
         Button buttonX = toolOp.getGamepadButton(GamepadKeys.Button.X);
         buttonX.whileHeld(new MoveClaw(claw,1));
@@ -65,16 +68,13 @@ public class MainSystem extends LinearOpMode {
 
          // Intake and Band in
         Button buttonA = toolOp.getGamepadButton(GamepadKeys.Button.A);
-        buttonA.whileHeld(new MoveIntake(intake,1));
+        buttonA.whileHeld(new MoveIntake(intake,-1));
         buttonA.whileHeld(new MoveBand(band,-1));
 
         // Intake and Band out
         Button buttonB = toolOp.getGamepadButton(GamepadKeys.Button.B);
-        buttonB.whileHeld(new MoveIntake(intake,-1));
+        buttonB.whileHeld(new MoveIntake(intake,1));
         buttonB.whileHeld(new MoveBand(band,1));
-
-        // Chassis Movement
-        chassis.setDefaultCommand(new MoveChassis(chassis,gamepad1));
 
         // Shooter
         Button rightBumper = toolOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);

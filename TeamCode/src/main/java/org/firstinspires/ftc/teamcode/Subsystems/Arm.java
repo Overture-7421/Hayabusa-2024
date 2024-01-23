@@ -16,8 +16,8 @@ public class Arm extends SubsystemBase {
         //twist_Left.setInverted(true);
 
         // Servos IDs
-        twist_Right = new SimpleServo(hardwareMap, "twist_Right", 0, 1);
-        twist_Left = new SimpleServo(hardwareMap, "twist_Left", 0, 1);
+        twist_Right = new SimpleServo(hardwareMap, "twist_Right", 0.5, 1);
+        twist_Left = new SimpleServo(hardwareMap, "twist_Left", 0.5, 1);
     }
 
     public void ArmPosition(double ArmAnglePos) {
