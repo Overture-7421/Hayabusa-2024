@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.arcrobotics.ftclib.trajectory.TrapezoidProfile;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Elevator extends SubsystemBase {
@@ -18,12 +19,16 @@ public class Elevator extends SubsystemBase {
     public static final double COUNTS_PER_REVOLUTION = 288;
     public static final double ELEVATOR_WINCH_CIRCUMFERENCE = 0.10868277; // In Meters
 
+
+
     public Elevator(HardwareMap hardwareMap) {
         elevatorMotor1 = (DcMotorEx) hardwareMap.get(DcMotor.class, "elevatorMotor1");
         elevatorMotor2 = (DcMotorEx) hardwareMap.get(DcMotor.class, "elevatorMotor2");
 
-        elevatorMotor1PID = new ProfiledPIDController(0.1, 0.001, 0.0, new TrapezoidProfile.Constraints(10.0, 10.0));
-        elevatorMotor2PID = new ProfiledPIDController(0.1, 0.001, 0.0, new TrapezoidProfile.Constraints(10.0, 10.0));
+        elevatorMotor1PID = new ProfiledPIDController(0.5, 0.0, 0.0, new TrapezoidProfile.Constraints(1, 1));
+        elevatorMotor2PID = new ProfiledPIDController(0.5, 0.0, 0.0, new TrapezoidProfile.Constraints(1, 1));
+
+        elevatorMotor1.setDirection(DcMotorSimple.Direction.REVERSE);
 
         elevatorMotor1.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         elevatorMotor2.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
@@ -64,10 +69,9 @@ public class Elevator extends SubsystemBase {
     @Override
     public void periodic() {
         double outputMotor1 = elevatorMotor1PID.calculate(elevatorMotor1getCurrentHeight());
-        double outputMotor2 = elevatorMotor2PID.calculate(elevatorMotor2getCurrentHeight());
 
         elevatorMotor1.setPower(outputMotor1);
-        elevatorMotor2.setPower(outputMotor2);
+        elevatorMotor2.setPower(outputMotor1);
     }
 
 }

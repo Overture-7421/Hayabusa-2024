@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.button.Button;
+import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.geometry.Pose2d;
@@ -10,6 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 // Commands Import
+import org.firstinspires.ftc.teamcode.Commands.ElevatorMove;
 import org.firstinspires.ftc.teamcode.Commands.MoveArm;
 import org.firstinspires.ftc.teamcode.Commands.MoveBand;
 import org.firstinspires.ftc.teamcode.Commands.MoveChassis;
@@ -78,6 +80,14 @@ public class MainSystem extends LinearOpMode {
         Button rightBumper = toolOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
         rightBumper.whileHeld(new MoveShooter(shooter,1));
         rightBumper.whenReleased(new MoveShooter(shooter,0));
+
+        //Elevator
+        Button Dpad_up = toolOp.getGamepadButton(GamepadKeys.Button.DPAD_UP);
+        Dpad_up.whenPressed(new ElevatorMove(elevator,1));
+
+        Button Dpad_down = toolOp.getGamepadButton(GamepadKeys.Button.DPAD_DOWN);
+        Dpad_down.whenPressed(new ElevatorMove(elevator,0));
+
 
         waitForStart();
 
