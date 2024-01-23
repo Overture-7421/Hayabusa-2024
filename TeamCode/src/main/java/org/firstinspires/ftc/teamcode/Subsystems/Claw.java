@@ -13,16 +13,8 @@ public class Claw extends SubsystemBase {
 
     public Claw (HardwareMap hardwareMap) {
         //Servos IDs
-        grab_RightServo = new SimpleServo(hardwareMap, "grab_RightServo", 0, 1);
-        grab_LeftServo = new SimpleServo(hardwareMap, "grab_LeftServo", 0, 1);
-
-        // Reverse the reversed Servo
-        //grab_RightServo.setInverted(false);
-        //grab_LeftServo.setInverted(true);
-//
-//        grab_LeftServo.setRange(0, 1);
-//        grab_RightServo.setRange(0, 1);
-
+        grab_RightServo = new SimpleServo(hardwareMap, "grab_RightServo", 0, 0.5);
+        grab_LeftServo = new SimpleServo(hardwareMap, "grab_LeftServo", 0, 0.5);
     }
 
     public void ClawPosition(double ClawMotorPosition) {

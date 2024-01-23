@@ -1,37 +1,30 @@
 package org.firstinspires.ftc.teamcode.Commands;
 
-
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.command.Subsystem;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 
 public class ElevatorMove extends CommandBase {
 
-    private Elevator elevator;
+    private final Elevator elevator;
+    private final double targetHeight;
 
-    //Este double va a ser parte del calculo para saber que tanto se tiene que extender
-
-    private double elevatorHeight;
-
-
-
-    public ElevatorMove(Elevator subsystem, double elevatorHeight) {
-        this.elevatorHeight = elevatorHeight;
-        elevator = subsystem;
-        addRequirements(subsystem);
+    public ElevatorMove(Elevator elevator, double targetHeight) {
+        this.elevator = elevator;
+        this.targetHeight = targetHeight;
+        addRequirements(elevator);
     }
 
     @Override
     public void initialize() {
-        elevator.ElevatorHeight(elevatorHeight);
+        elevator.setGoal(targetHeight);
     }
+
 
     @Override
     public boolean isFinished() {
-        return true;
+        double currentHeight = elevator.getHeight();
+        return Math.abs(currentHeight - targetHeight) < 0.05;
     }
-
-
-
-
 }
