@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
-import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.geometry.Pose2d;
@@ -20,7 +19,7 @@ import org.firstinspires.ftc.teamcode.AutonomousCommands.Drop_pixels;
 import java.util.Arrays;
 
 @Autonomous
-public class AutonomousFour extends LinearOpMode {
+public class AutonomousBlueTop extends LinearOpMode {
     Chassis chassis;
     Band band;
     Intake intake;
@@ -46,9 +45,9 @@ public class AutonomousFour extends LinearOpMode {
 
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
-                (Command) new RamseteCommand(chassis, testTrajectory),
-                (Command) new Drop_pixels(elevator,arm,claw),
-                (Command) new Drop_pixels(elevator,arm,claw)
+                 new RamseteCommand(chassis, testTrajectory),
+                 new Drop_pixels(elevator,arm,claw),
+                 new Drop_pixels(elevator,arm,claw)
                 //moveIntakeBand
         );
 
