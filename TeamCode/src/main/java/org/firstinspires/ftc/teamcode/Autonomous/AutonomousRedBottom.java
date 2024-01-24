@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
-import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.geometry.Pose2d;
@@ -20,7 +19,7 @@ import org.firstinspires.ftc.teamcode.AutonomousCommands.Drop_pixels;
 import java.util.Arrays;
 
 @Autonomous
-public class AutonomousTwo extends LinearOpMode {
+public class AutonomousRedBottom extends LinearOpMode {
 Chassis chassis;
 Band band;
 Intake intake;
@@ -40,15 +39,15 @@ Elevator elevator;
 
         Trajectory testTrajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                 new Pose2d(0,0,Rotation2d.fromDegrees(0)),
-                new Pose2d(1.7,1,Rotation2d.fromDegrees(90)),
-                new Pose2d(0.6,0.5,Rotation2d.fromDegrees(-90)))
+                new Pose2d(1.7,-1,Rotation2d.fromDegrees(-90)),
+                new Pose2d(0.6,-0.5,Rotation2d.fromDegrees(-90)))
                 , new TrajectoryConfig(1, 0.8));
 
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
-                (Command) new RamseteCommand(chassis, testTrajectory),
-                (Command) new Drop_pixels(elevator,arm,claw),
-                (Command) new Drop_pixels(elevator,arm,claw)
+                 new RamseteCommand(chassis, testTrajectory),
+                 new Drop_pixels(elevator,arm,claw),
+                 new Drop_pixels(elevator,arm,claw)
         );
 
         waitForStart();
