@@ -25,7 +25,8 @@ public class Elevator extends SubsystemBase {
 
         elevatorMotor1PID = new ProfiledPIDController(3, 0.0, 0.0, new TrapezoidProfile.Constraints(100, 50));
 
-        elevatorMotor1.setDirection(DcMotorSimple.Direction.REVERSE);
+        elevatorMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
         elevatorMotor1.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         elevatorMotor2.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
