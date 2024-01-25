@@ -41,14 +41,17 @@ public class AutonomousBlueBottom extends LinearOpMode {
 
         Trajectory blueBottom = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                         new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
-                        new Pose2d(1.7, 1, Rotation2d.fromDegrees(90)),
-                        new Pose2d(0.25, 1.7, Rotation2d.fromDegrees(90)))
+                        new Pose2d(2.14, 0, Rotation2d.fromDegrees(90)),
+                        new Pose2d(1.829, 1.219, Rotation2d.fromDegrees(90)),
+                        new Pose2d(1.7,1.219, Rotation2d.fromDegrees(0)))
                 , new TrajectoryConfig(1, 0.8));
+
+
 
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
                  new RamseteCommand(chassis, blueBottom),
-                 new TurnToAngle(chassis, Rotation2d.fromDegrees(-90))
+                 new TurnToAngle(chassis, Rotation2d.fromDegrees(90))
                 // new Drop_pixels(elevator,arm,claw),
                 //new Drop_pixels(elevator,arm,claw)
         );
