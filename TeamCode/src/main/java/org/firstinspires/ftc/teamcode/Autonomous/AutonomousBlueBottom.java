@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.AutonomousCommands.Drop_pixels;
+import org.firstinspires.ftc.teamcode.AutonomousCommands.SpitPixels;
 import org.firstinspires.ftc.teamcode.Commands.RamseteCommand;
 import org.firstinspires.ftc.teamcode.Commands.TurnToAngle;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
@@ -51,7 +52,8 @@ public class AutonomousBlueBottom extends LinearOpMode {
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
                  new RamseteCommand(chassis, blueBottom),
-                 new TurnToAngle(chassis, Rotation2d.fromDegrees(90))
+                 new TurnToAngle(chassis, Rotation2d.fromDegrees(90)),
+                 new SpitPixels(band, intake).withTimeout(2000)
                 // new Drop_pixels(elevator,arm,claw),
                 //new Drop_pixels(elevator,arm,claw)
         );
