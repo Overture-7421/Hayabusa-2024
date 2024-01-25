@@ -53,35 +53,43 @@ public class MainSystem extends LinearOpMode {
         driverOp    = new GamepadEx(gamepad1);      // Create an instance of DriverGamepad
         toolOp      = new GamepadEx(gamepad2);      // Create an instance of OperatorGamepad
 
-        // Chassis Movement
+        // Chassis Movement //Chassis
         chassis.setDefaultCommand(new MoveChassis(chassis,gamepad1));
 
-        //Claw will open/close
+        //Claw will open/close //Operator
+        Button rightBumper = toolOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
+        rightBumper.whileHeld(new MoveClaw(claw,1));
+        rightBumper.whenReleased(new MoveClaw(claw, 0));
+
+        //All mechanisms will close //Operator
         Button buttonX = toolOp.getGamepadButton(GamepadKeys.Button.X);
-        buttonX.whileHeld(new MoveClaw(claw,1));
-        buttonX.whenReleased(new MoveClaw(claw, 0));
+        buttonX.whenPressed(new MoveArm(arm, 0));
+        buttonX.whenPressed(new MoveClaw(claw, 0));
+        buttonX.whenPressed(new ElevatorMove(elevator, 0));
+        buttonX.whenPressed(new MoveShooter(shooter, 0));
 
-        // Arm change angle
+
+        // Arm change angle //Operator
         Button buttonY = toolOp.getGamepadButton(GamepadKeys.Button.Y);
-        buttonY.whileHeld(new MoveArm(arm,1));
-        buttonY.whenReleased(new MoveArm(arm,0));
+        buttonY.toggleWhenPressed(new MoveArm(arm,1));
+        buttonY.toggleWhenPressed(new MoveArm(arm,0));
 
-         // Intake and Band in
-        Button buttonA = toolOp.getGamepadButton(GamepadKeys.Button.A);
+         // Intake and Band in //Chassis
+        Button buttonA = driverOp.getGamepadButton(GamepadKeys.Button.A);
         buttonA.whileHeld(new MoveIntake(intake,-1));
         buttonA.whileHeld(new MoveBand(band,-1));
 
-        // Intake and Band out
-        Button buttonB = toolOp.getGamepadButton(GamepadKeys.Button.B);
+        // Intake and Band out //Chassis
+        Button buttonB = driverOp.getGamepadButton(GamepadKeys.Button.B);
         buttonB.whileHeld(new MoveIntake(intake,1));
         buttonB.whileHeld(new MoveBand(band,1));
 
-        // Shooter
-        Button rightBumper = toolOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
-        rightBumper.whileHeld(new MoveShooter(shooter,1));
-        rightBumper.whenReleased(new MoveShooter(shooter,0));
+        // Shooter //Operator
+        Button leftBumper = toolOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER);
+        leftBumper.whileHeld(new MoveShooter(shooter,1));
+        leftBumper.whenReleased(new MoveShooter(shooter,0));
 
-        //Elevator
+        //Elevator //Operator
         Button Dpad_up = toolOp.getGamepadButton(GamepadKeys.Button.DPAD_UP);
         Dpad_up.whenPressed(new ElevatorMove(elevator,1));
 
