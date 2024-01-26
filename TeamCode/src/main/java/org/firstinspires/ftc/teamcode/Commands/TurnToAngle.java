@@ -1,29 +1,22 @@
 package org.firstinspires.ftc.teamcode.Commands;
 
 import com.arcrobotics.ftclib.command.CommandBase;
-import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.arcrobotics.ftclib.trajectory.TrapezoidProfile;
-import com.arcrobotics.ftclib.util.Timing;
 
-import org.firstinspires.ftc.teamcode.Controllers.FRCPIDController;
+import org.firstinspires.ftc.teamcode.Controllers.FRCProfiledPIDController;
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
-
-import java.util.concurrent.TimeUnit;
 
 public class TurnToAngle extends CommandBase {
     private final Chassis chassis;
-    private final FRCPIDController pidController;
-
-    private TrapezoidProfile profile;
+    private final FRCProfiledPIDController pidController;
     private final Rotation2d targetHeading;
 
-    private Timing.Timer timer;
     public TurnToAngle(Chassis chassis, Rotation2d targetHeading){
         this.chassis = chassis;
         this.targetHeading = targetHeading;
 
-        pidController = new FRCPIDController(0.11, 0.0, 0);
+        pidController = new FRCProfiledPIDController(0.11, 0.0, 0, new TrapezoidProfile.Constraints(190, 200));
         addRequirements(chassis);
     }
 
@@ -31,24 +24,18 @@ public class TurnToAngle extends CommandBase {
     public void initialize() {
         pidController.setTolerance(3);
         pidController.enableContinuousInput(-180.0, 180.0);
+
         double targetDegrees = targetHeading.getDegrees();
         double currentDegrees = chassis.getPose().getRotation().getDegrees();
 
-        TrapezoidProfile.State targetState = new TrapezoidProfile.State(targetDegrees, 0);
-        TrapezoidProfile.State currentState = new TrapezoidProfile.State(currentDegrees, 0);
-
-        profile = new TrapezoidProfile(new TrapezoidProfile.Constraints(190, 200), targetState, currentState);
-
-        timer = new Timing.Timer((long) profile.totalTime() * 1000, TimeUnit.MILLISECONDS);
-        timer.start();
+        pidController.reset(currentDegrees, targetDegrees);
     }
 
     @Override
     public void execute() {
         double currentDegrees = chassis.getPose().getRotation().getDegrees();
-        TrapezoidProfile.State targetState = profile.calculate(timer.elapsedTime() / 1000.0);
 
-        double angularVel = pidController.calculate(currentDegrees, targetState.position);
+        double angularVel = pidController.calculate(currentDegrees);
         chassis.setSpeed(0.0, angularVel);
     }
 
