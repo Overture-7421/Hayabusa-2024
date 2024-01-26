@@ -40,21 +40,20 @@ public class AutonomousBasicCenter extends LinearOpMode {
 
         Trajectory basicCenter = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                         new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
-                        new Pose2d(0.6, 0, Rotation2d.fromDegrees(0)))
-                        , new TrajectoryConfig(1, 0.8));
+                        new Pose2d(0.6, 0, Rotation2d.fromDegrees(0))),
+                        new TrajectoryConfig(1, 0.8));
 
         Trajectory returnTrajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                         new Pose2d(0.6, 0, Rotation2d.fromDegrees(0)),
-                        new Pose2d(0,0, Rotation2d.fromDegrees(0)))
-                ,new TrajectoryConfig(1,0.8));
+                        new Pose2d(0.1,0, Rotation2d.fromDegrees(0))),
+                        new TrajectoryConfig(1,0.8));
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
                 new RamseteCommand(chassis, basicCenter),
-                new SpitPixels(band, intake).withTimeout(2000),
-                new RamseteCommand(chassis, returnTrajectory)
-        );
+                new SpitPixels(band, intake).withTimeout(4000),
+                new RamseteCommand(chassis, returnTrajectory));
 
-        waitForStart();
+                waitForStart();
 
         chassis.resetPose(basicCenter.getInitialPose());
 

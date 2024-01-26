@@ -45,7 +45,7 @@ public class AutonomousBlueBottom extends LinearOpMode {
                         new Pose2d(1,0, Rotation2d.fromDegrees(0)),
                         new Pose2d(1.6, 1.4, Rotation2d.fromDegrees(90)),
                         new Pose2d(0.8,2.0, Rotation2d.fromDegrees(0)),
-                        new Pose2d(0.8,0.5, Rotation2d.fromDegrees(90))),
+                        new Pose2d(1,1, Rotation2d.fromDegrees(90))),
                         new TrajectoryConfig(1, 0.8));
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
