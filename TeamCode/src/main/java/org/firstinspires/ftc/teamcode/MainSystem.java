@@ -109,6 +109,7 @@ public class MainSystem extends LinearOpMode {
             telemetry.addData("LeftDistance", chassis.leftDistance());
 
             telemetry.addData("Elevator height", ElevatorMove);
+            //Not working yet
 
             // Update Telemetry
             telemetry.update();
