@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static android.opengl.ETC1.getHeight;
+
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.button.Button;
 import com.arcrobotics.ftclib.command.button.Trigger;
@@ -83,7 +85,7 @@ public class MainSystem extends LinearOpMode {
 
         //Elevator
         Button Dpad_up = toolOp.getGamepadButton(GamepadKeys.Button.DPAD_UP);
-        Dpad_up.whileHeld(new ElevatorMove(elevator,1));
+        Dpad_up.whileHeld(new ElevatorMove(elevator,0.5));
 
         Button Dpad_down = toolOp.getGamepadButton(GamepadKeys.Button.DPAD_DOWN);
         Dpad_down.whileHeld(new ElevatorMove(elevator,0));
@@ -108,7 +110,8 @@ public class MainSystem extends LinearOpMode {
             telemetry.addData("RightDistance", chassis.rightDistance());
             telemetry.addData("LeftDistance", chassis.leftDistance());
 
-            telemetry.addData("Elevator height", ElevatorMove);
+            telemetry.addData("Elevator 1 Height", elevator.elevatorMotor1getCurrentHeight());
+            telemetry.addData("Elevator 2 Height", elevator.elevatorMotor2getCurrentHeight());
             //Not working yet
 
             // Update Telemetry
