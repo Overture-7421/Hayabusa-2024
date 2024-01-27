@@ -8,7 +8,10 @@ import com.arcrobotics.ftclib.trajectory.TrajectoryConfig;
 import com.arcrobotics.ftclib.trajectory.TrajectoryGenerator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import org.firstinspires.ftc.teamcode.AutonomousCommands.SpitPixels;
 import org.firstinspires.ftc.teamcode.Commands.RamseteCommand;
+import org.firstinspires.ftc.teamcode.Commands.TurnToAngle;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Band;
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
@@ -37,22 +40,25 @@ Elevator elevator;
         arm = new Arm(hardwareMap);
         elevator = new Elevator(hardwareMap);
 
-        Trajectory testTrajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+        Trajectory redBottom = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                 new Pose2d(0,0,Rotation2d.fromDegrees(0)),
-                new Pose2d(1.7,-1,Rotation2d.fromDegrees(-90)),
-                new Pose2d(0.6,-0.5,Rotation2d.fromDegrees(-90)))
+                new Pose2d(2.6,0,Rotation2d.fromDegrees(90)),
+                new Pose2d(1.829,1.219,Rotation2d.fromDegrees(90)),
+                new Pose2d(1.7,1.219,Rotation2d.fromDegrees(0)))
                 , new TrajectoryConfig(1, 0.8));
 
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
-                 new RamseteCommand(chassis, testTrajectory),
-                 new Drop_pixels(elevator,arm,claw),
-                 new Drop_pixels(elevator,arm,claw)
+                 new RamseteCommand(chassis, redBottom),
+                 new TurnToAngle(chassis,Rotation2d.fromDegrees(-90)),
+                 new SpitPixels(band, intake).withTimeout(2000)
+                 //new Drop_pixels(elevator,arm,claw),
+                 //new Drop_pixels(elevator,arm,claw)
         );
 
         waitForStart();
 
-        chassis.resetPose(testTrajectory.getInitialPose());
+        chassis.resetPose(redBottom.getInitialPose());
 
         CommandScheduler.getInstance().schedule(testCommandGroup);
 
