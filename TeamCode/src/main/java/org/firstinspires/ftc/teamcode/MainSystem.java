@@ -57,14 +57,14 @@ public class MainSystem extends LinearOpMode {
         chassis.setDefaultCommand(new MoveChassis(chassis,gamepad1));
 
         //Claw will open/close
-        Button buttonX = toolOp.getGamepadButton(GamepadKeys.Button.X);
-        buttonX.whileHeld(new MoveClaw(claw,1));
-        buttonX.whenReleased(new MoveClaw(claw, 0));
+        Button rightBumper = toolOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
+        rightBumper.whenHeld(new MoveClaw(claw,-1));
+        rightBumper.whenReleased(new MoveClaw(claw, 0.56));
 
         // Arm change angle
         Button buttonY = toolOp.getGamepadButton(GamepadKeys.Button.Y);
-        buttonY.whileHeld(new MoveArm(arm,1));
-        buttonY.whenReleased(new MoveArm(arm,0));
+        buttonY.whileHeld(new MoveArm(arm,-0.5));
+        buttonY.whenReleased(new MoveArm(arm,0.3));
 
          // Intake and Band in
         Button buttonA = toolOp.getGamepadButton(GamepadKeys.Button.A);
@@ -77,9 +77,9 @@ public class MainSystem extends LinearOpMode {
         buttonB.whileHeld(new MoveBand(band,1));
 
         // Shooter
-        Button rightBumper = toolOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
-        rightBumper.whileHeld(new MoveShooter(shooter,1));
-        rightBumper.whenReleased(new MoveShooter(shooter,0));
+        Button leftBumper = toolOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER);
+        leftBumper.whileHeld(new MoveShooter(shooter,1));
+        leftBumper.whenReleased(new MoveShooter(shooter,0));
 
         //Elevator
         Button Dpad_up = toolOp.getGamepadButton(GamepadKeys.Button.DPAD_UP);
