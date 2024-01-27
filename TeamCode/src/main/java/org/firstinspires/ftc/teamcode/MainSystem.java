@@ -83,10 +83,10 @@ public class MainSystem extends LinearOpMode {
 
         //Elevator
         Button Dpad_up = toolOp.getGamepadButton(GamepadKeys.Button.DPAD_UP);
-        Dpad_up.whenPressed(new ElevatorMove(elevator,1));
+        Dpad_up.whileHeld(new ElevatorMove(elevator,1));
 
         Button Dpad_down = toolOp.getGamepadButton(GamepadKeys.Button.DPAD_DOWN);
-        Dpad_down.whenPressed(new ElevatorMove(elevator,0));
+        Dpad_down.whileHeld(new ElevatorMove(elevator,0));
 
 
         waitForStart();
@@ -108,6 +108,7 @@ public class MainSystem extends LinearOpMode {
             telemetry.addData("RightDistance", chassis.rightDistance());
             telemetry.addData("LeftDistance", chassis.leftDistance());
 
+            telemetry.addData("Elevator height", ElevatorMove);
 
             // Update Telemetry
             telemetry.update();
