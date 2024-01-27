@@ -44,14 +44,13 @@ Elevator elevator;
                         new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
                         new Pose2d(1,0, Rotation2d.fromDegrees(0)),
                         new Pose2d(1.6, -1.4, Rotation2d.fromDegrees(-90)),
-                        new Pose2d(0.8,-2.3, Rotation2d.fromDegrees(-180)))
+                        new Pose2d(0.8,-2.0, Rotation2d.fromDegrees(0)))
                 , new TrajectoryConfig(1, 0.8));
 
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
                  new RamseteCommand(chassis, redBottom),
-                new TurnToAngle(chassis,Rotation2d.fromDegrees(270)),
-                new SpitPixels(band, intake).withTimeout(4000)
+                 new SpitPixels(band, intake).withTimeout(4500)
                  //new Drop_pixels(elevator,arm,claw),
                  //new Drop_pixels(elevator,arm,claw)
         );
