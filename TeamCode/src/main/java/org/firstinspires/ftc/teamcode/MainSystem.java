@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static android.opengl.ETC1.getHeight;
+
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.button.Button;
 import com.arcrobotics.ftclib.command.button.Trigger;
@@ -56,10 +58,11 @@ public class MainSystem extends LinearOpMode {
         // Chassis Movement //Chassis
         chassis.setDefaultCommand(new MoveChassis(chassis,gamepad1));
 
-        //Claw will open/close //Operator
+
+        //Claw will open/close
         Button rightBumper = toolOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
-        rightBumper.whileHeld(new MoveClaw(claw,1));
-        rightBumper.whenReleased(new MoveClaw(claw, 0));
+        rightBumper.whenHeld(new MoveClaw(claw,-1));
+        rightBumper.whenReleased(new MoveClaw(claw, 0.56));
 
         //All mechanisms will close //Operator
         Button buttonX = toolOp.getGamepadButton(GamepadKeys.Button.X);
@@ -69,10 +72,12 @@ public class MainSystem extends LinearOpMode {
         buttonX.whenPressed(new MoveShooter(shooter, 0));
 
 
+
         // Arm change angle //Operator
         Button buttonY = toolOp.getGamepadButton(GamepadKeys.Button.Y);
-        buttonY.toggleWhenPressed(new MoveArm(arm,1));
-        buttonY.toggleWhenPressed(new MoveArm(arm,0));
+        buttonY.whileHeld(new MoveArm(arm,-0.5));
+        buttonY.whenReleased(new MoveArm(arm,0.3));
+
 
          // Intake and Band in //Chassis
         Button buttonA = driverOp.getGamepadButton(GamepadKeys.Button.A);
@@ -84,17 +89,17 @@ public class MainSystem extends LinearOpMode {
         buttonB.whileHeld(new MoveIntake(intake,1));
         buttonB.whileHeld(new MoveBand(band,1));
 
-        // Shooter //Operator
+        // Shooter
         Button leftBumper = toolOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER);
         leftBumper.whileHeld(new MoveShooter(shooter,1));
         leftBumper.whenReleased(new MoveShooter(shooter,0));
 
         //Elevator //Operator
         Button Dpad_up = toolOp.getGamepadButton(GamepadKeys.Button.DPAD_UP);
-        Dpad_up.whenPressed(new ElevatorMove(elevator,1));
+        Dpad_up.whileHeld(new ElevatorMove(elevator,0.5));
 
         Button Dpad_down = toolOp.getGamepadButton(GamepadKeys.Button.DPAD_DOWN);
-        Dpad_down.whenPressed(new ElevatorMove(elevator,0));
+        Dpad_down.whileHeld(new ElevatorMove(elevator,0));
 
 
         waitForStart();
@@ -116,6 +121,9 @@ public class MainSystem extends LinearOpMode {
             telemetry.addData("RightDistance", chassis.rightDistance());
             telemetry.addData("LeftDistance", chassis.leftDistance());
 
+            telemetry.addData("Elevator 1 Height", elevator.elevatorMotor1getCurrentHeight());
+            telemetry.addData("Elevator 2 Height", elevator.elevatorMotor2getCurrentHeight());
+            //Not working yet
 
             // Update Telemetry
             telemetry.update();
