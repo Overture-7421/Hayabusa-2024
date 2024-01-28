@@ -58,7 +58,6 @@ public class MainSystem extends LinearOpMode {
         // Chassis Movement //Chassis
         chassis.setDefaultCommand(new MoveChassis(chassis,gamepad1));
 
-
         //Claw will open/close
         Button rightBumper = toolOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
         rightBumper.whenHeld(new MoveClaw(claw,-1));
@@ -71,13 +70,10 @@ public class MainSystem extends LinearOpMode {
         buttonX.whenPressed(new ElevatorMove(elevator, 0));
         buttonX.whenPressed(new MoveShooter(shooter, 0));
 
-
-
         // Arm change angle //Operator
         Button buttonY = toolOp.getGamepadButton(GamepadKeys.Button.Y);
         buttonY.whileHeld(new MoveArm(arm,-0.5));
         buttonY.whenReleased(new MoveArm(arm,0.3));
-
 
          // Intake and Band in //Chassis
         Button buttonA = driverOp.getGamepadButton(GamepadKeys.Button.A);
@@ -123,7 +119,6 @@ public class MainSystem extends LinearOpMode {
 
             telemetry.addData("Elevator 1 Height", elevator.elevatorMotor1getCurrentHeight());
             telemetry.addData("Elevator 2 Height", elevator.elevatorMotor2getCurrentHeight());
-            //Not working yet
 
             // Update Telemetry
             telemetry.update();
