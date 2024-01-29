@@ -21,10 +21,11 @@ public class Elevator extends SubsystemBase {
     private int rightMotorOffset = 0;
 
     public Elevator(HardwareMap hardwareMap) {
+
         elevatorMotor1 = (DcMotorEx) hardwareMap.get(DcMotor.class, "elevatorMotor1");
         elevatorMotor2 = (DcMotorEx) hardwareMap.get(DcMotor.class, "elevatorMotor2");
 
-        elevatorMotor1PID = new ProfiledPIDController(1, 0.0, 0.0, new TrapezoidProfile.Constraints(10, 5));
+        elevatorMotor1PID = new ProfiledPIDController(25, 0, 0.0, new TrapezoidProfile.Constraints(2, 6));
 
         elevatorMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -64,9 +65,10 @@ public class Elevator extends SubsystemBase {
     }
 
     public void setGoal(double goalHeight) {
-        elevatorMotor1PID.reset(getHeight());
-
-        elevatorMotor1PID.setGoal(goalHeight);
+        if(elevatorMotor1PID.getGoal().position != goalHeight) {
+            elevatorMotor1PID.reset(getHeight());
+            elevatorMotor1PID.setGoal(goalHeight);
+        }
     }
 
     @Override

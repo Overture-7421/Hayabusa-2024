@@ -41,14 +41,13 @@ public class AutonomousBasicLeft extends LinearOpMode {
         Trajectory basicLeft = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                         new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
                         new Pose2d(0.7, 0, Rotation2d.fromDegrees(0)),
-                        new Pose2d(0.7, 0, Rotation2d.fromDegrees(90)))
-                , new TrajectoryConfig(0.5, 0.8));
+                        new Pose2d(0.7, 0, Rotation2d.fromDegrees(90))),
+                        new TrajectoryConfig(1, 0.9));
 
         Trajectory returnTrajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                         new Pose2d(0.8, 0, Rotation2d.fromDegrees(0)),
-                        new Pose2d(0,0, Rotation2d.fromDegrees(0)))
-
-                , new TrajectoryConfig(1, 0.8));
+                        new Pose2d(0,0, Rotation2d.fromDegrees(0))),
+                        new TrajectoryConfig(1, 0.9));
 
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
@@ -56,13 +55,11 @@ public class AutonomousBasicLeft extends LinearOpMode {
                 new TurnToAngle(chassis, Rotation2d.fromDegrees(90)),
                 new SpitPixels(band, intake).withTimeout(4500),
                 new RamseteCommand(chassis, returnTrajectory)
-
         );
 
         waitForStart();
 
         chassis.resetPose(basicLeft.getInitialPose());
-
         CommandScheduler.getInstance().schedule(testCommandGroup);
 
         while (opModeIsActive ()){
@@ -74,8 +71,6 @@ public class AutonomousBasicLeft extends LinearOpMode {
             telemetry.addData("Y", pose.getY());
             telemetry.addData("Heading", pose.getRotation().getDegrees());
             telemetry.update();
-
-
         }
     }
 }

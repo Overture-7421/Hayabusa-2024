@@ -17,7 +17,7 @@ public class TurnToAngle extends CommandBase {
         this.chassis = chassis;
         this.targetHeading = targetHeading;
 
-        pidController = new FRCProfiledPIDController(0.11, 0.0, 0, new FRCTrapezoidProfile.Constraints(90, 45));
+        pidController = new FRCProfiledPIDController(0.1, 0.0, 0, new FRCTrapezoidProfile.Constraints(520, 300));
         addRequirements(chassis);
     }
 
@@ -29,7 +29,8 @@ public class TurnToAngle extends CommandBase {
         double targetDegrees = targetHeading.getDegrees();
         double currentDegrees = chassis.getPose().getRotation().getDegrees();
 
-        pidController.reset(currentDegrees, targetDegrees);
+        pidController.reset(currentDegrees, 0.0);
+        pidController.setGoal(targetDegrees);
     }
 
     @Override
@@ -49,6 +50,6 @@ public class TurnToAngle extends CommandBase {
     public boolean isFinished(){
         double currentDegrees = chassis.getPose().getRotation().getDegrees();
         double targetDegrees = targetHeading.getDegrees();
-        return Math.abs(targetDegrees - currentDegrees) < 0.5;
+        return Math.abs(targetDegrees - currentDegrees) < 1;
     }
 }

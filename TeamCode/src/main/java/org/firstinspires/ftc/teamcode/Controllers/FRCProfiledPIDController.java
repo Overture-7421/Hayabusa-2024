@@ -329,7 +329,9 @@ public class FRCProfiledPIDController {
             m_setpoint.position = setpointMinDistance + measurement;
         }
 
+
         m_setpoint = m_profile.calculate(getPeriod(), m_setpoint, m_goal);
+
         return m_controller.calculate(measurement, m_setpoint.position);
     }
 
