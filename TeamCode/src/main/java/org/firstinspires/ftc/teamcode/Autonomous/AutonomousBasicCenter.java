@@ -50,7 +50,7 @@ public class AutonomousBasicCenter extends LinearOpMode {
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
                 new RamseteCommand(chassis, basicCenter),
-                new SpitPixels(band, intake).withTimeout(4000),
+                //new SpitPixels(band, intake).withTimeout(4000),
                 new RamseteCommand(chassis, returnTrajectory));
 
                 waitForStart();

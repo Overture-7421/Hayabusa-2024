@@ -48,8 +48,8 @@ public class AutonomousBlueBottom extends LinearOpMode {
                         new TrajectoryConfig(1, 0.8));
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
-                 new RamseteCommand(chassis, blueBottom),
-                 new SpitPixels(band, intake).withTimeout(4000)
+                 new RamseteCommand(chassis, blueBottom)
+                 //new SpitPixels(band, intake).withTimeout(4000)
         );
 
         waitForStart();

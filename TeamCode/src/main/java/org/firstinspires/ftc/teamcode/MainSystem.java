@@ -72,7 +72,7 @@ public class MainSystem extends LinearOpMode {
 
         // Arm change angle //Operator
         Button buttonY = toolOp.getGamepadButton(GamepadKeys.Button.Y);
-        buttonY.whileHeld(new MoveArm(arm,-0.5));
+        buttonY.whenPressed(new MoveArm(arm,-0.5));
         buttonY.whenReleased(new MoveArm(arm,0.3));
 
          // Intake and Band in //Chassis
@@ -104,8 +104,6 @@ public class MainSystem extends LinearOpMode {
 
         while (opModeIsActive()) {
             CommandScheduler.getInstance().run();
-
-
             Pose2d pose = chassis.getPose();
 
             // -- TELEMETRY -- //
