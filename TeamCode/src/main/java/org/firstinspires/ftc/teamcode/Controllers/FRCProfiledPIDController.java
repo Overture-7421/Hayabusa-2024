@@ -1,10 +1,8 @@
 package org.firstinspires.ftc.teamcode.Controllers;
-
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-import com.arcrobotics.ftclib.trajectory.TrapezoidProfile;
 import org.firstinspires.ftc.teamcode.Utils.MathUtil;
 
 /**
@@ -18,10 +16,10 @@ public class FRCProfiledPIDController {
     private double m_minimumInput;
     private double m_maximumInput;
 
-    private TrapezoidProfile.Constraints m_constraints;
-    private TrapezoidProfile m_profile;
-    private TrapezoidProfile.State m_goal = new TrapezoidProfile.State();
-    private TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State();
+    private FRCTrapezoidProfile.Constraints m_constraints;
+    private FRCTrapezoidProfile m_profile;
+    private FRCTrapezoidProfile.State m_goal = new FRCTrapezoidProfile.State();
+    private FRCTrapezoidProfile.State m_setpoint = new FRCTrapezoidProfile.State();
 
     /**
      * Allocates a ProfiledPIDController with the given constants for Kp, Ki, and Kd.
@@ -37,10 +35,10 @@ public class FRCProfiledPIDController {
      */
     @SuppressWarnings("this-escape")
     public FRCProfiledPIDController(
-            double Kp, double Ki, double Kd, TrapezoidProfile.Constraints constraints) {
+            double Kp, double Ki, double Kd, FRCTrapezoidProfile.Constraints constraints) {
         m_controller = new FRCPIDController(Kp, Ki, Kd);
         m_constraints = constraints;
-        m_profile = new TrapezoidProfile(m_constraints, new TrapezoidProfile.State());
+        m_profile = new FRCTrapezoidProfile(m_constraints);
         instances++;
     }
 
@@ -166,9 +164,8 @@ public class FRCProfiledPIDController {
      *
      * @param goal The desired goal state.
      */
-    public void setGoal(TrapezoidProfile.State goal) {
+    public void setGoal(FRCTrapezoidProfile.State goal) {
         m_goal = goal;
-        m_profile = new TrapezoidProfile(m_constraints, m_goal);
     }
 
     /**
@@ -177,8 +174,7 @@ public class FRCProfiledPIDController {
      * @param goal The desired goal position.
      */
     public void setGoal(double goal) {
-        m_goal = new TrapezoidProfile.State(goal, 0);
-        m_profile = new TrapezoidProfile(m_constraints, m_goal);
+        m_goal = new FRCTrapezoidProfile.State(goal, 0);
     }
 
     /**
@@ -186,7 +182,7 @@ public class FRCProfiledPIDController {
      *
      * @return The goal.
      */
-    public TrapezoidProfile.State getGoal() {
+    public FRCTrapezoidProfile.State getGoal() {
         return m_goal;
     }
 
@@ -206,9 +202,9 @@ public class FRCProfiledPIDController {
      *
      * @param constraints Velocity and acceleration constraints for goal.
      */
-    public void setConstraints(TrapezoidProfile.Constraints constraints) {
+    public void setConstraints(FRCTrapezoidProfile.Constraints constraints) {
         m_constraints = constraints;
-        m_profile = new TrapezoidProfile(m_constraints, m_goal, m_setpoint);
+        m_profile = new FRCTrapezoidProfile(m_constraints);
     }
 
     /**
@@ -216,7 +212,7 @@ public class FRCProfiledPIDController {
      *
      * @return Velocity and acceleration constraints.
      */
-    public TrapezoidProfile.Constraints getConstraints() {
+    public FRCTrapezoidProfile.Constraints getConstraints() {
         return m_constraints;
     }
 
@@ -225,7 +221,7 @@ public class FRCProfiledPIDController {
      *
      * @return The current setpoint.
      */
-    public TrapezoidProfile.State getSetpoint() {
+    public FRCTrapezoidProfile.State getSetpoint() {
         return m_setpoint;
     }
 
@@ -333,7 +329,7 @@ public class FRCProfiledPIDController {
             m_setpoint.position = setpointMinDistance + measurement;
         }
 
-        m_setpoint = m_profile.calculate(getPeriod());
+        m_setpoint = m_profile.calculate(getPeriod(), m_setpoint, m_goal);
         return m_controller.calculate(measurement, m_setpoint.position);
     }
 
@@ -344,7 +340,7 @@ public class FRCProfiledPIDController {
      * @param goal The new goal of the controller.
      * @return The controller's next output.
      */
-    public double calculate(double measurement, TrapezoidProfile.State goal) {
+    public double calculate(double measurement, FRCTrapezoidProfile.State goal) {
         setGoal(goal);
         return calculate(measurement);
     }
@@ -370,7 +366,7 @@ public class FRCProfiledPIDController {
      * @return The controller's next output.
      */
     public double calculate(
-            double measurement, TrapezoidProfile.State goal, TrapezoidProfile.Constraints constraints) {
+            double measurement, FRCTrapezoidProfile.State goal, FRCTrapezoidProfile.Constraints constraints) {
         setConstraints(constraints);
         return calculate(measurement, goal);
     }
@@ -380,11 +376,9 @@ public class FRCProfiledPIDController {
      *
      * @param measurement The current measured State of the system.
      */
-    public void reset(TrapezoidProfile.State measurement) {
+    public void reset(FRCTrapezoidProfile.State measurement) {
         m_controller.reset();
         m_setpoint = measurement;
-        m_profile = new TrapezoidProfile(m_constraints, m_goal, m_setpoint);
-
     }
 
     /**
@@ -394,7 +388,7 @@ public class FRCProfiledPIDController {
      * @param measuredVelocity The current measured velocity of the system.
      */
     public void reset(double measuredPosition, double measuredVelocity) {
-        reset(new TrapezoidProfile.State(measuredPosition, measuredVelocity));
+        reset(new FRCTrapezoidProfile.State(measuredPosition, measuredVelocity));
     }
 
     /**

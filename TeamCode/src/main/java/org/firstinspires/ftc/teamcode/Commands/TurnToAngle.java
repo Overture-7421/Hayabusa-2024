@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.arcrobotics.ftclib.trajectory.TrapezoidProfile;
 
 import org.firstinspires.ftc.teamcode.Controllers.FRCProfiledPIDController;
+import org.firstinspires.ftc.teamcode.Controllers.FRCTrapezoidProfile;
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
 
 public class TurnToAngle extends CommandBase {
@@ -16,7 +17,7 @@ public class TurnToAngle extends CommandBase {
         this.chassis = chassis;
         this.targetHeading = targetHeading;
 
-        pidController = new FRCProfiledPIDController(0.11, 0.0, 0, new TrapezoidProfile.Constraints(190, 200));
+        pidController = new FRCProfiledPIDController(0.11, 0.0, 0, new FRCTrapezoidProfile.Constraints(90, 45));
         addRequirements(chassis);
     }
 
