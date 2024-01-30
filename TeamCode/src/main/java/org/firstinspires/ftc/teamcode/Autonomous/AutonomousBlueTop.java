@@ -8,6 +8,8 @@ import com.arcrobotics.ftclib.trajectory.TrajectoryConfig;
 import com.arcrobotics.ftclib.trajectory.TrajectoryGenerator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import org.firstinspires.ftc.teamcode.AutonomousCommands.SpitPixels;
 import org.firstinspires.ftc.teamcode.Commands.RamseteCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Band;
@@ -19,7 +21,7 @@ import org.firstinspires.ftc.teamcode.AutonomousCommands.Drop_pixels;
 import java.util.Arrays;
 
 @Autonomous
-public class AutonomousBlueTop extends LinearOpMode {
+public class  AutonomousBlueTop extends LinearOpMode {
     Chassis chassis;
     Band band;
     Intake intake;
@@ -37,23 +39,25 @@ public class AutonomousBlueTop extends LinearOpMode {
         arm = new Arm(hardwareMap);
         elevator = new Elevator(hardwareMap);
 
-        Trajectory testTrajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+        Trajectory blueTop = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                         new Pose2d(0,0,Rotation2d.fromDegrees(0)),
-                        new Pose2d(0.3,0.2,Rotation2d.fromDegrees(90)))
-                , new TrajectoryConfig(1, 0.8));
+                        new Pose2d(0.8,0,Rotation2d.fromDegrees(0)),
+                        new Pose2d(1.4,0.8995,Rotation2d.fromDegrees(90)))
+                , new TrajectoryConfig(0.8, 0.8));
 
 
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
-                 new RamseteCommand(chassis, testTrajectory),
-                 new Drop_pixels(elevator,arm,claw),
-                 new Drop_pixels(elevator,arm,claw)
+                 new RamseteCommand(chassis, blueTop),
+                 new SpitPixels(band, intake).withTimeout(4500)
+                 //new Drop_pixels(elevator,arm,claw),
+                 //new Drop_pixels(elevator,arm,claw)
                 //moveIntakeBand
         );
 
         waitForStart();
 
-        chassis.resetPose(testTrajectory.getInitialPose());
+        chassis.resetPose(blueTop.getInitialPose());
 
         CommandScheduler.getInstance().schedule(testCommandGroup);
 

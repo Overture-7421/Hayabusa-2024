@@ -17,32 +17,40 @@ public class Elevator extends SubsystemBase {
     public static final double COUNTS_PER_REVOLUTION = 288;
     public static final double ELEVATOR_WINCH_CIRCUMFERENCE = 0.10868277; // In Meters
 
-
+    private int leftMotorOffset = 0;
+    private int rightMotorOffset = 0;
 
     public Elevator(HardwareMap hardwareMap) {
         elevatorMotor1 = (DcMotorEx) hardwareMap.get(DcMotor.class, "elevatorMotor1");
         elevatorMotor2 = (DcMotorEx) hardwareMap.get(DcMotor.class, "elevatorMotor2");
 
-        elevatorMotor1PID = new ProfiledPIDController(3, 0.0, 0.0, new TrapezoidProfile.Constraints(100, 50));
+        elevatorMotor1PID = new ProfiledPIDController(1, 0.0, 0.0, new TrapezoidProfile.Constraints(10, 5));
 
-        elevatorMotor1.setDirection(DcMotorSimple.Direction.REVERSE);
+        elevatorMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
         elevatorMotor1.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         elevatorMotor2.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
         elevatorMotor1.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         elevatorMotor2.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+
+        resetZero();
     }
 
-    private double elevatorMotor1getCurrentHeight() {
-        double elevatorMotor1Ticks = elevatorMotor1.getCurrentPosition();
+    public void resetZero() {
+        rightMotorOffset = elevatorMotor1.getCurrentPosition();
+        leftMotorOffset = elevatorMotor2.getCurrentPosition();
+    }
+    public double elevatorMotor1getCurrentHeight() {
+        double elevatorMotor1Ticks = elevatorMotor1.getCurrentPosition() - rightMotorOffset;
         double elevatorMotor1CurrentHeight = elevatorMotor1Ticks / COUNTS_PER_REVOLUTION * ELEVATOR_WINCH_CIRCUMFERENCE;
 
         return elevatorMotor1CurrentHeight;
     }
 
-    private double elevatorMotor2getCurrentHeight() {
-        double elevatorMotor2Ticks = elevatorMotor2.getCurrentPosition();
+    public double elevatorMotor2getCurrentHeight() {
+        double elevatorMotor2Ticks = elevatorMotor2.getCurrentPosition() - leftMotorOffset;
         double elevatorMotor2CurrentHeight = elevatorMotor2Ticks / COUNTS_PER_REVOLUTION * ELEVATOR_WINCH_CIRCUMFERENCE;
 
         return elevatorMotor2CurrentHeight;
@@ -56,7 +64,7 @@ public class Elevator extends SubsystemBase {
     }
 
     public void setGoal(double goalHeight) {
-        elevatorMotor1PID.reset(elevatorMotor1getCurrentHeight());
+        elevatorMotor1PID.reset(getHeight());
 
         elevatorMotor1PID.setGoal(goalHeight);
     }
