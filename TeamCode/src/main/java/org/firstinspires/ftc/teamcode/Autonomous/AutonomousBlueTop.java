@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
-import org.firstinspires.ftc.teamcode.AutonomousCommands.Drop_pixels;
+
 import java.util.Arrays;
 
 @Autonomous
@@ -48,8 +48,7 @@ public class  AutonomousBlueTop extends LinearOpMode {
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
                         new RamseteCommand(chassis, blueTop),
-                        new SpitPixels(band, intake).withTimeout(4500),
-                        new Drop_pixels(elevator,arm,claw)
+                        new SpitPixels(band, intake).withTimeout(10) //4500
         );
 
         waitForStart();

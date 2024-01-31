@@ -7,7 +7,6 @@ import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import java.util.concurrent.TimeUnit;
 
 public class MoveClaw extends CommandBase {
-
     private Claw claw;
     private double ClawMotorPosition;
     private Timing.Timer timer;

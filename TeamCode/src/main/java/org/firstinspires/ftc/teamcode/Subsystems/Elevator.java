@@ -25,7 +25,7 @@ public class Elevator extends SubsystemBase {
         elevatorMotor1 = (DcMotorEx) hardwareMap.get(DcMotor.class, "elevatorMotor1");
         elevatorMotor2 = (DcMotorEx) hardwareMap.get(DcMotor.class, "elevatorMotor2");
 
-        elevatorMotor1PID = new ProfiledPIDController(25, 0, 0.0, new TrapezoidProfile.Constraints(2, 6));
+        elevatorMotor1PID = new ProfiledPIDController(80, 0.0, 0.0, new TrapezoidProfile.Constraints(2, 6));
 
         elevatorMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
 

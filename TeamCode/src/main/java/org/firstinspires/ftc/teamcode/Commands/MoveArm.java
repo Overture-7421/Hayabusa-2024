@@ -19,7 +19,7 @@ public class MoveArm extends CommandBase {
     }
 
     @Override
-    public void initialize(){
+    public void initialize() {
         arm.ArmPosition(ArmAnglePosition);
         //timer.start();
     }
@@ -27,5 +27,6 @@ public class MoveArm extends CommandBase {
     @Override
     public boolean isFinished() {
         return true;
+        //return timer.done();
     }
 }
