@@ -11,9 +11,11 @@ public class ScoreOnBackdrop extends SequentialCommandGroup {
 
     public ScoreOnBackdrop(Elevator elevator, Arm arm, Claw claw) {
         addCommands(
-                new MoveClaw(claw, 0.60),
-                new ParallelCommandGroup(new MoveClaw(claw, 1), new ElevatorMove(elevator,0.18)),
-                new MoveArm(arm,0.3)
+                new MoveClaw(claw, 0.56),
+                new ParallelCommandGroup(new MoveClaw(claw, 1), new ElevatorMove(elevator,0.15)),
+                new MoveArm(arm,100),
+                new MoveClaw(claw, -1)
+
         );
     }
 }

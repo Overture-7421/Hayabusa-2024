@@ -66,10 +66,10 @@ public class MainSystem extends LinearOpMode {
 
                 // -- TEST ARM MOVEMENT -- //
                 Button operatorDpadRight= toolOp.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT);
-                operatorDpadRight.whileHeld(new MoveArm(arm,-0.1));
+                operatorDpadRight.whileHeld(new MoveArm(arm,100));
 
                 Button operatorDpadLeft= toolOp.getGamepadButton(GamepadKeys.Button.DPAD_LEFT);
-                operatorDpadLeft.whileHeld(new MoveArm(arm,1));
+                operatorDpadLeft.whileHeld(new MoveArm(arm,0));
 
                 // -- TEST ELEVATOR MOVEMENT -- //
                 Button operatorButtonDPadUp= toolOp.getGamepadButton(GamepadKeys.Button.DPAD_UP);
@@ -107,8 +107,8 @@ public class MainSystem extends LinearOpMode {
         buttonX.whenReleased(new MoveShooter(shooter,0));
 
         waitForStart();
-
         chassis.resetPose(new Pose2d(0,0, Rotation2d.fromDegrees(0)));
+        CommandScheduler.getInstance().schedule(new MoveClaw(claw, -1));
 
         while (opModeIsActive()) {
             CommandScheduler.getInstance().run();

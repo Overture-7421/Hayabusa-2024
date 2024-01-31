@@ -1,19 +1,20 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.arcrobotics.ftclib.controller.wpilibcontroller.ProfiledPIDController;
-import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.arcrobotics.ftclib.trajectory.TrapezoidProfile;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.Controllers.FRCProfiledPIDController;
+import org.firstinspires.ftc.teamcode.Controllers.FRCTrapezoidProfile;
+
 public class Elevator extends SubsystemBase {
     // Motors Declaration
     private DcMotorEx elevatorMotor1;
     private DcMotorEx elevatorMotor2;
-    private ProfiledPIDController elevatorMotor1PID;
+    private FRCProfiledPIDController elevatorMotor1PID;
     public static final double COUNTS_PER_REVOLUTION = 288;
     public static final double ELEVATOR_WINCH_CIRCUMFERENCE = 0.10868277; // In Meters
 
@@ -25,7 +26,7 @@ public class Elevator extends SubsystemBase {
         elevatorMotor1 = (DcMotorEx) hardwareMap.get(DcMotor.class, "elevatorMotor1");
         elevatorMotor2 = (DcMotorEx) hardwareMap.get(DcMotor.class, "elevatorMotor2");
 
-        elevatorMotor1PID = new ProfiledPIDController(80, 0.0, 0.0, new TrapezoidProfile.Constraints(2, 6));
+        elevatorMotor1PID = new FRCProfiledPIDController(10, 3, 0.0, new FRCTrapezoidProfile.Constraints(2, 1));
 
         elevatorMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
 

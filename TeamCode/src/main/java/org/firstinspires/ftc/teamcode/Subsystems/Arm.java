@@ -11,13 +11,15 @@ public class Arm extends SubsystemBase {
 
     public Arm (HardwareMap hardwareMap){
         // Servos IDs
-        twist_Right = new SimpleServo(hardwareMap, "twist_Right", -0.5, 0.5);
-        twist_Left = new SimpleServo(hardwareMap, "twist_Left", -0.5, 0.5);
+        twist_Right = new SimpleServo(hardwareMap, "twist_Right", -180, 180);
+        twist_Left = new SimpleServo(hardwareMap, "twist_Left", -180, 180);
+
+        twist_Right.setInverted(true);
     }
 
     public double ArmPosition(double ArmAnglePosition) {
-        twist_Right.rotateByAngle(ArmAnglePosition);
-        twist_Left.rotateByAngle(ArmAnglePosition*-1);
+        twist_Right.turnToAngle(ArmAnglePosition);
+        twist_Left.turnToAngle(ArmAnglePosition);
 
         return ArmAnglePosition;
     }
