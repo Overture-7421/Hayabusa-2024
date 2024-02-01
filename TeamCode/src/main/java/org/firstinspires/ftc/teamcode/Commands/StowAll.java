@@ -13,7 +13,7 @@ public class StowAll extends SequentialCommandGroup {
 
     public StowAll(Elevator elevator, Arm arm, Claw claw) {
         addCommands(
-                new MoveClaw(claw,0),
+                new MoveClaw(claw,-1),
                 new MoveArm(arm,1),
                 new ElevatorMove(elevator,0)
         );

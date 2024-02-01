@@ -9,6 +9,7 @@ import com.arcrobotics.ftclib.trajectory.TrajectoryGenerator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.AutonomousCommands.SpitPixels;
 import org.firstinspires.ftc.teamcode.Commands.RamseteCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Band;
@@ -48,7 +49,7 @@ Elevator elevator;
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
                  new RamseteCommand(chassis, redBottom),
-                 //new SpitPixels(band, intake).withTimeout(4500),
+                 new SpitPixels(band, intake).withTimeout(4500),
                  new DropPixels(elevator,arm,claw)
         );
 

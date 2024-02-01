@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 //Teamcode imports
+import org.firstinspires.ftc.teamcode.AutonomousCommands.SpitPixels;
 import org.firstinspires.ftc.teamcode.Commands.RamseteCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Band;
@@ -50,7 +51,7 @@ public class AutonomousRedTop extends LinearOpMode {
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
                 new RamseteCommand(chassis, redTop),
-                //new SpitPixels(band, intake).withTimeout(5400),
+                new SpitPixels(band, intake).withTimeout(5400),
                 new DropPixels(elevator,arm,claw)
         );
 

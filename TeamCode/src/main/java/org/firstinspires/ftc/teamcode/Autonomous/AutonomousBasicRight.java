@@ -53,7 +53,7 @@ public class AutonomousBasicRight extends LinearOpMode {
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
                 new RamseteCommand(chassis, basicRight),
                 new TurnToAngle(chassis,Rotation2d.fromDegrees(-90)),
-                //new SpitPixels(band, intake).withTimeout(4500),
+                new SpitPixels(band, intake).withTimeout(4500),
                 new RamseteCommand(chassis, returnTrajectory)
         );
 
