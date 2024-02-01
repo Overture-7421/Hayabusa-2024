@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 //FTCLib imports
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.arcrobotics.ftclib.trajectory.Trajectory;
@@ -45,16 +46,19 @@ public class AutonomousWEredTop extends LinearOpMode {
         arm = new Arm(hardwareMap);
         elevator = new Elevator(hardwareMap);
 
+        TrajectoryConfig redWETopConfig = new TrajectoryConfig(0.8, 0.8);
+        redWETopConfig.setReversed(true);
         Trajectory redWETop = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                        new Pose2d(0,0,Rotation2d.fromDegrees(0)),
-                        new Pose2d(0.8,0,Rotation2d.fromDegrees(0)),
-                        new Pose2d(1.1,-0.64,Rotation2d.fromDegrees(90))),
-                new TrajectoryConfig(1, 0.8));
+                new Pose2d(0,0,Rotation2d.fromDegrees(0)),
+                new Pose2d(-0.9,1.04,Rotation2d.fromDegrees(-90))), redWETopConfig
+        );
+
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
-                new RamseteCommand(chassis, redWETop)
-                //new ScoreOnBackdrop(elevator,arm,claw),
-                //new StowAll(elevator, arm, claw)
+                new RamseteCommand(chassis, redWETop),
+                new WaitCommand(2000),
+                new ScoreOnBackdrop(elevator,arm,claw),
+                new StowAll(elevator, arm, claw)
         );
 
         waitForStart();
