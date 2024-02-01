@@ -10,6 +10,7 @@ import com.arcrobotics.ftclib.trajectory.TrajectoryGenerator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.AutonomousCommands.SpitPixels;
 import org.firstinspires.ftc.teamcode.Commands.RamseteCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Band;
@@ -45,8 +46,8 @@ public class AutonomousBlueBottom extends LinearOpMode {
                         new TrajectoryConfig(1, 0.8));
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
-                 new RamseteCommand(chassis, blueBottom)
-                 //new SpitPixels(band, intake).withTimeout(4000)
+                 new RamseteCommand(chassis, blueBottom) ,
+                 new SpitPixels(band, intake).withTimeout(4000)
         );
 
         waitForStart();
