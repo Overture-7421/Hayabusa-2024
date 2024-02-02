@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.AutonomousCommands.SpitPixels;
 import org.firstinspires.ftc.teamcode.Commands.RamseteCommand;
 import org.firstinspires.ftc.teamcode.Commands.ScoreOnBackdrop;
 import org.firstinspires.ftc.teamcode.Commands.StowAll;
+import org.firstinspires.ftc.teamcode.Commands.TurnToAngle;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Band;
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
@@ -39,6 +40,10 @@ public class AutonomousWEredTop extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+
+        CommandScheduler.getInstance().cancelAll();
+        CommandScheduler.getInstance().reset();
+
         chassis = new Chassis(hardwareMap);
         band = new Band(hardwareMap);
         intake = new Intake(hardwareMap);
@@ -53,12 +58,21 @@ public class AutonomousWEredTop extends LinearOpMode {
                 new Pose2d(-0.9,1.04,Rotation2d.fromDegrees(-90))), redWETopConfig
         );
 
+        TrajectoryConfig GoPark = new TrajectoryConfig(0.8, 0.8);
+        GoPark.setReversed(true);
+        Trajectory redweTop = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+                        new Pose2d(-0.9,1.04, Rotation2d.fromDegrees(-180)),
+                        //new Pose2d(0,0,Rotation2d.fromDegrees(180)),
+                        new Pose2d(0.15,1.5, Rotation2d.fromDegrees(-90))), GoPark);
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
                 new RamseteCommand(chassis, redWETop),
-                new WaitCommand(2000),
-                new ScoreOnBackdrop(elevator,arm,claw),
-                new StowAll(elevator, arm, claw)
+                new WaitCommand(1000),
+                /*new ScoreOnBackdrop(elevator, arm, claw),
+                new WaitCommand(1000),
+                new StowAll(elevator, arm, claw),*/
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(-180)),
+                new RamseteCommand(chassis, redweTop)
         );
 
         waitForStart();

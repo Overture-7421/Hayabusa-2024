@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Commands;
 
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.Commands.ElevatorMove;
 import org.firstinspires.ftc.teamcode.Commands.MoveArm;
@@ -13,7 +14,8 @@ public class StowAll extends SequentialCommandGroup {
 
     public StowAll(Elevator elevator, Arm arm, Claw claw) {
         addCommands(
-                new MoveClaw(claw,-1),
+                new WaitCommand(1000),
+                new MoveClaw(claw,0.56),
                 new MoveArm(arm,1),
                 new ElevatorMove(elevator,0)
         );

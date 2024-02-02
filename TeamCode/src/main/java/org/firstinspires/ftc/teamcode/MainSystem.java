@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.button.Button;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -33,27 +34,32 @@ import org.firstinspires.ftc.teamcode.Subsystems.Shooter;
 
 @TeleOp
 public class MainSystem extends LinearOpMode {
-    Chassis chassis;
-    Arm arm;
-    Band band;
-    Elevator elevator;
-    Claw claw;
-    Intake intake;
-    Shooter shooter;
-    GamepadEx driverOp;
-    GamepadEx toolOp;
+
 
     @Override
     public void runOpMode() {
-        chassis     = new Chassis(hardwareMap);     // Create an instance of Chassis
-        elevator    = new Elevator(hardwareMap);    // Create an instance of Elevator
-        intake      = new Intake(hardwareMap);      // Create an instance of Intake
-        band        = new Band(hardwareMap);        // Create an instance of Band
-        claw        = new Claw(hardwareMap);        // Create an instance of Claw
-        shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
-        arm         = new Arm(hardwareMap);         // Create an instance of Arm
-        driverOp    = new GamepadEx(gamepad1);      // Create an instance of DriverGamepad
-        toolOp      = new GamepadEx(gamepad2);      // Create an instance of OperatorGamepad
+        /*Chassis chassis;
+        Arm arm;
+        Band band;
+        Elevator elevator;
+        Claw claw;
+        Intake intake;
+        Shooter shooter;
+        GamepadEx driverOp;
+        GamepadEx toolOp;*/
+
+        CommandScheduler.getInstance().cancelAll();
+        CommandScheduler.getInstance().reset();
+
+        Chassis chassis     = new Chassis(hardwareMap);     // Create an instance of Chassis
+        Elevator elevator   = new Elevator(hardwareMap);    // Create an instance of Elevator
+        Intake intake       = new Intake(hardwareMap);      // Create an instance of Intake
+        Band band           = new Band(hardwareMap);        // Create an instance of Band
+        Claw claw           = new Claw(hardwareMap);        // Create an instance of Claw
+        Shooter shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
+        Arm arm             = new Arm(hardwareMap);         // Create an instance of Arm
+        GamepadEx driverOp  = new GamepadEx(gamepad1);      // Create an instance of DriverGamepad
+        GamepadEx toolOp    = new GamepadEx(gamepad2);      // Create an instance of OperatorGamepad
 
         // -- CHASSIS MOVEMENT -- //
         chassis.setDefaultCommand(new MoveChassis(chassis,gamepad1));

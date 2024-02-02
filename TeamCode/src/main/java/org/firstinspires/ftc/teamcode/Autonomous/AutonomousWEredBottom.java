@@ -34,6 +34,10 @@ public class AutonomousWEredBottom extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+
+        CommandScheduler.getInstance().cancelAll();
+        CommandScheduler.getInstance().reset();
+
         chassis = new Chassis(hardwareMap);
         band = new Band(hardwareMap);
         intake = new Intake(hardwareMap);

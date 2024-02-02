@@ -26,7 +26,7 @@ public class Elevator extends SubsystemBase {
         elevatorMotor1 = (DcMotorEx) hardwareMap.get(DcMotor.class, "elevatorMotor1");
         elevatorMotor2 = (DcMotorEx) hardwareMap.get(DcMotor.class, "elevatorMotor2");
 
-        elevatorMotor1PID = new FRCProfiledPIDController(10, 3, 0.0, new FRCTrapezoidProfile.Constraints(2, 1));
+        elevatorMotor1PID = new FRCProfiledPIDController(15, 5, 0.0, new FRCTrapezoidProfile.Constraints(2, 2));
 
         elevatorMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -38,6 +38,9 @@ public class Elevator extends SubsystemBase {
         elevatorMotor2.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         resetZero();
+
+        elevatorMotor1PID.reset(getHeight());
+        elevatorMotor1PID.setGoal(getHeight());
     }
 
     public void resetZero() {

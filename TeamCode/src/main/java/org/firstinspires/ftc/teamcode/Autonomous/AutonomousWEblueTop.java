@@ -11,9 +11,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.AutonomousCommands.SpitPixels;
+import org.firstinspires.ftc.teamcode.Commands.MoveClaw;
 import org.firstinspires.ftc.teamcode.Commands.RamseteCommand;
 import org.firstinspires.ftc.teamcode.Commands.ScoreOnBackdrop;
 import org.firstinspires.ftc.teamcode.Commands.StowAll;
+import org.firstinspires.ftc.teamcode.Commands.TurnToAngle;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Band;
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
@@ -25,22 +27,25 @@ import java.util.Arrays;
 
 @Autonomous
 public class  AutonomousWEblueTop extends LinearOpMode {
-    Chassis chassis;
-    Band band;
-    Intake intake;
-    Claw claw;
-    Arm arm;
-    Elevator elevator;
-
 
     @Override
     public void runOpMode() throws InterruptedException {
-        chassis = new Chassis(hardwareMap);
-        band = new Band(hardwareMap);
-        intake = new Intake(hardwareMap);
-        claw = new Claw(hardwareMap);
-        arm = new Arm(hardwareMap);
-        elevator = new Elevator(hardwareMap);
+        /*Chassis chassis;
+        Band band;
+        Intake intake;
+        Claw claw;
+        Arm arm;
+        Elevator elevator;*/
+
+        CommandScheduler.getInstance().cancelAll();
+        CommandScheduler.getInstance().reset();
+
+        Chassis chassis = new Chassis(hardwareMap);
+        Band band = new Band(hardwareMap);
+        Intake intake = new Intake(hardwareMap);
+        Claw claw = new Claw(hardwareMap);
+        Arm arm = new Arm(hardwareMap);
+        Elevator elevator = new Elevator(hardwareMap);
 
         TrajectoryConfig blueWETopConfig = new TrajectoryConfig(0.8, 0.8);
         blueWETopConfig.setReversed(true);
@@ -49,13 +54,22 @@ public class  AutonomousWEblueTop extends LinearOpMode {
                         new Pose2d(-0.9,-1.04,Rotation2d.fromDegrees(90))), blueWETopConfig
                 );
 
-
+        TrajectoryConfig GoPark = new TrajectoryConfig(0.8, 0.8);
+        GoPark.setReversed(true);
+        Trajectory blueweTop = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+                        new Pose2d(-0.9,-1.04, Rotation2d.fromDegrees(180)),
+                        //new Pose2d(0,0,Rotation2d.fromDegrees(180)),
+                        new Pose2d(0.15,-1.5, Rotation2d.fromDegrees(90))), GoPark
+);
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
                 new RamseteCommand(chassis, blueWETop),
-                new WaitCommand(2000),
-                new ScoreOnBackdrop(elevator,arm,claw),
-                new StowAll(elevator, arm, claw)
+                new WaitCommand(1000),
+                new ScoreOnBackdrop(elevator, arm, claw),
+                new WaitCommand(1000),
+                new StowAll(elevator, arm, claw),
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(180)),
+                new RamseteCommand(chassis, blueweTop)
         );
 
         waitForStart();

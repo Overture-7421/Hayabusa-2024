@@ -14,7 +14,7 @@ public class MoveArm extends CommandBase {
     public MoveArm(Arm subsystem, double ArmAnglePosition){
         this.ArmAnglePosition = ArmAnglePosition;
         arm = subsystem;
-        timer = new Timing.Timer(2, TimeUnit.SECONDS);
+        timer = new Timing.Timer(1, TimeUnit.SECONDS);
         addRequirements(subsystem);
     }
 

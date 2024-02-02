@@ -14,7 +14,7 @@ public class MoveClaw extends CommandBase {
     public MoveClaw(Claw subsystem, double ClawMotorPosition) {
         this.ClawMotorPosition = ClawMotorPosition;
         claw = subsystem;
-        timer = new Timing.Timer(2, TimeUnit.SECONDS);
+        timer = new Timing.Timer(1, TimeUnit.SECONDS);
         addRequirements(subsystem);
     }
 
