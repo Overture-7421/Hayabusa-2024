@@ -46,8 +46,8 @@ public class AutonomousBlueBottom extends LinearOpMode {
                         new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
                         new Pose2d(1,0, Rotation2d.fromDegrees(0)),
                         new Pose2d(1,1, Rotation2d.fromDegrees(90)),
-                        //new Pose2d(1.1,2.2, Rotation2d.fromDegrees(90)),
-                        new Pose2d(1.4,0.8995,Rotation2d.fromDegrees(90))),
+                        new Pose2d(1,2, Rotation2d.fromDegrees(90))),
+                        //new Pose2d(1.4,0.8995,Rotation2d.fromDegrees(90))),
                         new TrajectoryConfig(1, 0.8));
 
         Trajectory pickUpPixels = TrajectoryGenerator.generateTrajectory(Arrays.asList(
@@ -67,7 +67,7 @@ public class AutonomousBlueBottom extends LinearOpMode {
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
                  new RamseteCommand(chassis, blueBottom) ,
-                 new SpitPixels(band, intake).withTimeout(4000)
+                 new SpitPixels(band, intake).withTimeout(4500)
         );
 
         waitForStart();
