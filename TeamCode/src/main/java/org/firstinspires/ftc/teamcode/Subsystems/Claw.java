@@ -19,7 +19,6 @@ public class Claw extends SubsystemBase {
     }
 
     public void ClawPosition(double ClawMotorPosition) {
-        // Set the position of servos using Main System values
        grab_RightServo.setPosition(ClawMotorPosition);
        grab_LeftServo.setPosition(ClawMotorPosition);
 

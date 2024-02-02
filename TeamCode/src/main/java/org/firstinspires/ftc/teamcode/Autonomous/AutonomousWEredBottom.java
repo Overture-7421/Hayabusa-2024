@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
-
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.geometry.Pose2d;
@@ -12,23 +11,26 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.AutonomousCommands.SpitPixels;
 import org.firstinspires.ftc.teamcode.Commands.RamseteCommand;
+import org.firstinspires.ftc.teamcode.Commands.ScoreOnBackdrop;
+import org.firstinspires.ftc.teamcode.Commands.StowAll;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Band;
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
-
+import org.firstinspires.ftc.teamcode.AutonomousCommands.DropPixels;
 import java.util.Arrays;
 
 @Autonomous
-public class AutonomousBasicCenter extends LinearOpMode {
+public class AutonomousWEredBottom extends LinearOpMode {
     Chassis chassis;
     Band band;
     Intake intake;
-    Arm arm;
     Claw claw;
+    Arm arm;
     Elevator elevator;
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -39,27 +41,28 @@ public class AutonomousBasicCenter extends LinearOpMode {
         chassis = new Chassis(hardwareMap);
         band = new Band(hardwareMap);
         intake = new Intake(hardwareMap);
-        arm = new Arm(hardwareMap);
         claw = new Claw(hardwareMap);
+        arm = new Arm(hardwareMap);
+        elevator = new Elevator(hardwareMap);
 
-        Trajectory basicCenter = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+        Trajectory redWEBottom = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                         new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
-                        new Pose2d(0.6, 0, Rotation2d.fromDegrees(0))),
-                        new TrajectoryConfig(1, 0.8));
+                        new Pose2d(1.4,0, Rotation2d.fromDegrees(0)),
+                        new Pose2d(1.4,-1, Rotation2d.fromDegrees(-90)),
+                        new Pose2d(1.4,-1.9, Rotation2d.fromDegrees(-90)),
+                        new Pose2d(0.3,-1.9, Rotation2d.fromDegrees(90))),
+                new TrajectoryConfig(1, 0.8));
 
-        Trajectory returnTrajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                        new Pose2d(0.6, 0, Rotation2d.fromDegrees(0)),
-                        new Pose2d(0.1,0, Rotation2d.fromDegrees(0))),
-                        new TrajectoryConfig(1,0.8));
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
-                new RamseteCommand(chassis, basicCenter),
-                new SpitPixels(band, intake).withTimeout(4000),
-                new RamseteCommand(chassis, returnTrajectory));
+                new RamseteCommand(chassis, redWEBottom)
+                //new ScoreOnBackdrop(elevator,arm,claw),
+                //new StowAll(elevator, arm, claw)
+        );
 
-                waitForStart();
+        waitForStart();
 
-        chassis.resetPose(basicCenter.getInitialPose());
+        chassis.resetPose(redWEBottom.getInitialPose());
 
         CommandScheduler.getInstance().schedule(testCommandGroup);
 

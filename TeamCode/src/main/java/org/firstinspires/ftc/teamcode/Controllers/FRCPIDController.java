@@ -51,7 +51,7 @@ public class FRCPIDController {
     private double m_positionTolerance = 0.05;
     private double m_velocityTolerance = Double.POSITIVE_INFINITY;
 
-    private double lastTimeStamp;
+    private double lastTimeStamp = 0.0;
     private double m_setpoint;
     private double m_measurement;
 
@@ -360,7 +360,11 @@ public class FRCPIDController {
         m_haveMeasurement = true;
 
         double currentTimeStamp = (double) System.nanoTime() / 1E9;
-        if (lastTimeStamp == 0) lastTimeStamp = currentTimeStamp;
+        if (lastTimeStamp == 0) {
+            lastTimeStamp = currentTimeStamp;
+            return 0.0;
+        }
+
         m_period = currentTimeStamp - lastTimeStamp;
         lastTimeStamp = currentTimeStamp;
 

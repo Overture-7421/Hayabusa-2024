@@ -1,10 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
-import static android.opengl.ETC1.getHeight;
-
+import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.button.Button;
-import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.geometry.Pose2d;
@@ -20,6 +18,9 @@ import org.firstinspires.ftc.teamcode.Commands.MoveChassis;
 import org.firstinspires.ftc.teamcode.Commands.MoveIntake;
 import org.firstinspires.ftc.teamcode.Commands.MoveShooter;
 import org.firstinspires.ftc.teamcode.Commands.MoveClaw;
+import org.firstinspires.ftc.teamcode.AutonomousCommands.DropPixels;
+import org.firstinspires.ftc.teamcode.Commands.StowAll;
+import org.firstinspires.ftc.teamcode.Commands.ScoreOnBackdrop;
 
 // Subsystems Import
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
@@ -33,94 +34,104 @@ import org.firstinspires.ftc.teamcode.Subsystems.Shooter;
 
 @TeleOp
 public class MainSystem extends LinearOpMode {
-    Chassis chassis;
-    Arm arm;
-    Band band;
-    Elevator elevator;
-    Claw claw;
-    Intake intake;
-    Shooter shooter;
-    GamepadEx driverOp;
-    GamepadEx toolOp;
+
 
     @Override
     public void runOpMode() {
-        chassis     = new Chassis(hardwareMap);     // Create an instance of Chassis
-        elevator    = new Elevator(hardwareMap);    // Create an instance of Elevator
-        intake      = new Intake(hardwareMap);      // Create an instance of Intake
-        band        = new Band(hardwareMap);        // Create an instance of Band
-        claw        = new Claw(hardwareMap);        // Create an instance of Claw
-        shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
-        arm         = new Arm(hardwareMap);         // Create an instance of Arm
-        driverOp    = new GamepadEx(gamepad1);      // Create an instance of DriverGamepad
-        toolOp      = new GamepadEx(gamepad2);      // Create an instance of OperatorGamepad
+        /*Chassis chassis;
+        Arm arm;
+        Band band;
+        Elevator elevator;
+        Claw claw;
+        Intake intake;
+        Shooter shooter;
+        GamepadEx driverOp;
+        GamepadEx toolOp;*/
 
-        // Chassis Movement //Chassis
+        CommandScheduler.getInstance().cancelAll();
+        CommandScheduler.getInstance().reset();
+
+        Chassis chassis     = new Chassis(hardwareMap);     // Create an instance of Chassis
+        Elevator elevator   = new Elevator(hardwareMap);    // Create an instance of Elevator
+        Intake intake       = new Intake(hardwareMap);      // Create an instance of Intake
+        Band band           = new Band(hardwareMap);        // Create an instance of Band
+        Claw claw           = new Claw(hardwareMap);        // Create an instance of Claw
+        Shooter shooter     = new Shooter(hardwareMap);     // Create an instance of Shooter
+        Arm arm             = new Arm(hardwareMap);         // Create an instance of Arm
+        GamepadEx driverOp  = new GamepadEx(gamepad1);      // Create an instance of DriverGamepad
+        GamepadEx toolOp    = new GamepadEx(gamepad2);      // Create an instance of OperatorGamepad
+
+        // -- CHASSIS MOVEMENT -- //
         chassis.setDefaultCommand(new MoveChassis(chassis,gamepad1));
 
-        //Claw will open/close
-        Button rightBumper = toolOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
-        rightBumper.whenHeld(new MoveClaw(claw,-1));
-        rightBumper.whenReleased(new MoveClaw(claw, 0.56));
+        // ------------------ TESTING ------------------ //
+            // -- TEST CLAW MOVEMENT -- //
+                Button operatorButtonY= toolOp.getGamepadButton(GamepadKeys.Button.Y);
+                operatorButtonY.whenHeld(new MoveClaw(claw,-1));
+                operatorButtonY.whenReleased(new MoveClaw(claw,0.56));
 
-        //All mechanisms will close //Operator
-        Button buttonX = toolOp.getGamepadButton(GamepadKeys.Button.X);
-        buttonX.whenPressed(new MoveArm(arm, 0));
-        buttonX.whenPressed(new MoveClaw(claw, 0));
-        buttonX.whenPressed(new ElevatorMove(elevator, 0));
-        buttonX.whenPressed(new MoveShooter(shooter, 0));
+                // -- TEST ARM MOVEMENT -- //
+                Button operatorDpadRight= toolOp.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT);
+                operatorDpadRight.whileHeld(new MoveArm(arm,100));
 
-        // Arm change angle //Operator
-        Button buttonY = toolOp.getGamepadButton(GamepadKeys.Button.Y);
-        buttonY.whileHeld(new MoveArm(arm,-0.5));
-        buttonY.whenReleased(new MoveArm(arm,0.3));
+                Button operatorDpadLeft= toolOp.getGamepadButton(GamepadKeys.Button.DPAD_LEFT);
+                operatorDpadLeft.whileHeld(new MoveArm(arm,0));
 
-         // Intake and Band in //Chassis
-        Button buttonA = driverOp.getGamepadButton(GamepadKeys.Button.A);
-        buttonA.whileHeld(new MoveIntake(intake,-1));
-        buttonA.whileHeld(new MoveBand(band,-1));
+                // -- TEST ELEVATOR MOVEMENT -- //
+                Button operatorButtonDPadUp= toolOp.getGamepadButton(GamepadKeys.Button.DPAD_UP);
+                operatorButtonDPadUp.whenPressed(new ElevatorMove(elevator, 0.15));
 
-        // Intake and Band out //Chassis
-        Button buttonB = driverOp.getGamepadButton(GamepadKeys.Button.B);
-        buttonB.whileHeld(new MoveIntake(intake,1));
-        buttonB.whileHeld(new MoveBand(band,1));
+                Button operatorButtonDPadDown= toolOp.getGamepadButton(GamepadKeys.Button.DPAD_DOWN);
+                operatorButtonDPadDown.whenPressed(new ElevatorMove(elevator, 0));
+        // ------------------ TESTING ------------------ //
 
-        // Shooter
-        Button leftBumper = toolOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER);
-        leftBumper.whileHeld(new MoveShooter(shooter,1));
-        leftBumper.whenReleased(new MoveShooter(shooter,0));
 
-        //Elevator //Operator
-        Button Dpad_up = toolOp.getGamepadButton(GamepadKeys.Button.DPAD_UP);
-        Dpad_up.whileHeld(new ElevatorMove(elevator,0.5));
+        // -- DRIVER INTAKE AND BAND IN -- //
+        Button driverRightBumper = driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
+        driverRightBumper.whileHeld(new MoveIntake(intake,1));
+        driverRightBumper.whileHeld(new MoveBand(band,1));
 
-        Button Dpad_down = toolOp.getGamepadButton(GamepadKeys.Button.DPAD_DOWN);
-        Dpad_down.whileHeld(new ElevatorMove(elevator,0));
+        // -- DRIVER INTAKE AND BAND OUT -- //
+        Button driverLeftBumper = driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER);
+        driverLeftBumper.whileHeld(new MoveIntake(intake,-1));
+        driverLeftBumper.whileHeld(new MoveBand(band,-1));
 
+        // -- OPERATOR SCORE ON BACKDROP COMMAND -- //
+            // -- SCORE ON BACKDROP -- //
+            Button rightBumper = toolOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
+            rightBumper.whenPressed(new ScoreOnBackdrop(elevator, arm, claw));
+
+            // -- STOW ALL -- //
+            Button leftBumper = toolOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER);
+            leftBumper.whenPressed(new StowAll(elevator, arm, claw));
+        // -- OPERATOR SCORE ON BACKDROP COMMAND -- //
+
+
+        // -- PLANE SHOOTER -- //
+        Button buttonX= toolOp.getGamepadButton(GamepadKeys.Button.X);
+        buttonX.whileHeld(new MoveShooter(shooter,1));
+        buttonX.whenReleased(new MoveShooter(shooter,0));
 
         waitForStart();
-
         chassis.resetPose(new Pose2d(0,0, Rotation2d.fromDegrees(0)));
+        CommandScheduler.getInstance().schedule(new MoveClaw(claw, -1));
 
         while (opModeIsActive()) {
             CommandScheduler.getInstance().run();
-
-
             Pose2d pose = chassis.getPose();
 
-            // -- TELEMETRY -- //
+            // -- ODOMETRY TELEMETRY -- //
             telemetry.addData("X", pose.getX());
             telemetry.addData("Y", pose.getY());
             telemetry.addData("Heading", pose.getRotation().getDegrees());
 
-            // Distance per side in CM
             telemetry.addData("RightDistance", chassis.rightDistance());
             telemetry.addData("LeftDistance", chassis.leftDistance());
 
-            telemetry.addData("Elevator 1 Height", elevator.elevatorMotor1getCurrentHeight());
-            telemetry.addData("Elevator 2 Height", elevator.elevatorMotor2getCurrentHeight());
+            // -- ELEVATOR TELEMETRY -- //
+            telemetry.addData("Elevator Height", elevator.getHeight());
 
-            // Update Telemetry
+            // -- UPDATE TELEMETRY -- //
             telemetry.update();
         }
     }

@@ -2,34 +2,41 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.arcrobotics.ftclib.trajectory.Trajectory;
 import com.arcrobotics.ftclib.trajectory.TrajectoryConfig;
 import com.arcrobotics.ftclib.trajectory.TrajectoryGenerator;
+//robot core imports
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+//Teamcode imports
 import org.firstinspires.ftc.teamcode.AutonomousCommands.SpitPixels;
 import org.firstinspires.ftc.teamcode.Commands.RamseteCommand;
+import org.firstinspires.ftc.teamcode.Commands.ScoreOnBackdrop;
+import org.firstinspires.ftc.teamcode.Commands.StowAll;
+import org.firstinspires.ftc.teamcode.Commands.TurnToAngle;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Band;
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
-
+import org.firstinspires.ftc.teamcode.AutonomousCommands.DropPixels;
 import java.util.Arrays;
 
 @Autonomous
-public class AutonomousBasicCenter extends LinearOpMode {
+public class AutonomousWEredTop extends LinearOpMode {
     Chassis chassis;
     Band band;
     Intake intake;
-    Arm arm;
     Claw claw;
+    Arm arm;
     Elevator elevator;
 
+//creo que vuela
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -39,27 +46,36 @@ public class AutonomousBasicCenter extends LinearOpMode {
         chassis = new Chassis(hardwareMap);
         band = new Band(hardwareMap);
         intake = new Intake(hardwareMap);
-        arm = new Arm(hardwareMap);
         claw = new Claw(hardwareMap);
+        arm = new Arm(hardwareMap);
+        elevator = new Elevator(hardwareMap);
 
-        Trajectory basicCenter = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                        new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
-                        new Pose2d(0.6, 0, Rotation2d.fromDegrees(0))),
-                        new TrajectoryConfig(1, 0.8));
+        TrajectoryConfig redWETopConfig = new TrajectoryConfig(0.8, 0.8);
+        redWETopConfig.setReversed(true);
+        Trajectory redWETop = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+                new Pose2d(0,0,Rotation2d.fromDegrees(0)),
+                new Pose2d(-0.8,1.04,Rotation2d.fromDegrees(-90))), redWETopConfig
+        );
 
-        Trajectory returnTrajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                        new Pose2d(0.6, 0, Rotation2d.fromDegrees(0)),
-                        new Pose2d(0.1,0, Rotation2d.fromDegrees(0))),
-                        new TrajectoryConfig(1,0.8));
+        TrajectoryConfig GoPark = new TrajectoryConfig(0.8, 0.8);
+        GoPark.setReversed(true);
+        Trajectory redweTop = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+                        new Pose2d(-0.9,1.04, Rotation2d.fromDegrees(-180)),
+                        new Pose2d(0.135,1.4, Rotation2d.fromDegrees(-90))), GoPark);
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
-                new RamseteCommand(chassis, basicCenter),
-                new SpitPixels(band, intake).withTimeout(4000),
-                new RamseteCommand(chassis, returnTrajectory));
+                new RamseteCommand(chassis, redWETop),
+                new WaitCommand(1000),
+                new ScoreOnBackdrop(elevator, arm, claw),
+                new WaitCommand(1000),
+                new StowAll(elevator, arm, claw),
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(-180)),
+                new RamseteCommand(chassis, redweTop)
+        );
 
-                waitForStart();
+        waitForStart();
 
-        chassis.resetPose(basicCenter.getInitialPose());
+        chassis.resetPose(redWETop.getInitialPose());
 
         CommandScheduler.getInstance().schedule(testCommandGroup);
 

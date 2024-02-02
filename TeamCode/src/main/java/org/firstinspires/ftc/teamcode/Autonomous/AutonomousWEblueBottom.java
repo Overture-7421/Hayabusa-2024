@@ -12,6 +12,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.AutonomousCommands.SpitPixels;
 import org.firstinspires.ftc.teamcode.Commands.RamseteCommand;
+import org.firstinspires.ftc.teamcode.Commands.ScoreOnBackdrop;
+import org.firstinspires.ftc.teamcode.Commands.StowAll;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Band;
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
@@ -22,7 +24,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import java.util.Arrays;
 
 @Autonomous
-public class AutonomousBasicCenter extends LinearOpMode {
+public class AutonomousWEblueBottom extends LinearOpMode {
     Chassis chassis;
     Band band;
     Intake intake;
@@ -42,24 +44,23 @@ public class AutonomousBasicCenter extends LinearOpMode {
         arm = new Arm(hardwareMap);
         claw = new Claw(hardwareMap);
 
-        Trajectory basicCenter = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+        Trajectory blueWEBottom = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                         new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
-                        new Pose2d(0.6, 0, Rotation2d.fromDegrees(0))),
-                        new TrajectoryConfig(1, 0.8));
-
-        Trajectory returnTrajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                        new Pose2d(0.6, 0, Rotation2d.fromDegrees(0)),
-                        new Pose2d(0.1,0, Rotation2d.fromDegrees(0))),
-                        new TrajectoryConfig(1,0.8));
+                        new Pose2d(1.4,0, Rotation2d.fromDegrees(0)),
+                        new Pose2d(1.4,1, Rotation2d.fromDegrees(90)),
+                        new Pose2d(1.4,1.9, Rotation2d.fromDegrees(90)),
+                        new Pose2d(0.3,1.9, Rotation2d.fromDegrees(-90))),
+                new TrajectoryConfig(1, 0.8));
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
-                new RamseteCommand(chassis, basicCenter),
-                new SpitPixels(band, intake).withTimeout(4000),
-                new RamseteCommand(chassis, returnTrajectory));
+                new RamseteCommand(chassis, blueWEBottom)
+                //new ScoreOnBackdrop(elevator,arm,claw),
+                //new StowAll(elevator, arm, claw)
+        );
 
-                waitForStart();
+        waitForStart();
 
-        chassis.resetPose(basicCenter.getInitialPose());
+        chassis.resetPose(blueWEBottom.getInitialPose());
 
         CommandScheduler.getInstance().schedule(testCommandGroup);
 
@@ -72,7 +73,6 @@ public class AutonomousBasicCenter extends LinearOpMode {
             telemetry.addData("Y", pose.getY());
             telemetry.addData("Heading", pose.getRotation().getDegrees());
             telemetry.update();
-
 
         }
     }
