@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
-//FTCLib imports
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -37,7 +36,7 @@ public class AutonomousWEredTop extends LinearOpMode {
     Arm arm;
     Elevator elevator;
 
-
+//creo que vuela
     @Override
     public void runOpMode() throws InterruptedException {
 
