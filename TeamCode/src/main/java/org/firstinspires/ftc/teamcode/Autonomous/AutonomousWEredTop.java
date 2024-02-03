@@ -68,7 +68,8 @@ public class AutonomousWEredTop extends LinearOpMode {
                 new WaitCommand(1000),
                 new ScoreOnBackdrop(elevator, arm, claw),
                 new WaitCommand(1000),
-                //new StowAll(elevator, arm, claw),
+                new StowAll(elevator, arm, claw),
+                new WaitCommand(1000),
                 new TurnToAngle(chassis, Rotation2d.fromDegrees(-180)),
                 new RamseteCommand(chassis, redweTop)
         );

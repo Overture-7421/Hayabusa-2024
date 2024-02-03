@@ -63,7 +63,8 @@ public class AutonomousWEblueBottom extends LinearOpMode {
                 new RamseteCommand(chassis, blueWEBottom),
                 new TurnToAngle(chassis, Rotation2d.fromDegrees(-90)),
                 new ScoreOnBackdrop(elevator,arm,claw),
-                //new StowAll(elevator, arm, claw)
+                new WaitCommand(1000),
+                new StowAll(elevator, arm, claw),
                 new WaitCommand(1000),
                 new TurnToAngle(chassis, Rotation2d.fromDegrees(180)),
                 new RamseteCommand(chassis, Park)
