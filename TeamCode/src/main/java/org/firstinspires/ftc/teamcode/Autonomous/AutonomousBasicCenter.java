@@ -56,9 +56,8 @@ public class AutonomousBasicCenter extends LinearOpMode {
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
                 new RamseteCommand(chassis, basicCenter),
                 new SpitPixels(band, intake).withTimeout(4000),
-                new TurnToAngle(chassis, Rotation2d.fromDegrees(180)),
-                new RamseteCommand(chassis, returnTrajectory));
-
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(180)));
+                //new RamseteCommand(chassis, returnTrajectory));
                 waitForStart();
 
         chassis.resetPose(basicCenter.getInitialPose());
