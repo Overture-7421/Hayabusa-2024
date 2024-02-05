@@ -44,9 +44,9 @@ public class AutonomousBasicLeft extends LinearOpMode {
 
         Trajectory basicLeft = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                         new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
-                        new Pose2d(0.7, 0, Rotation2d.fromDegrees(0)),
-                        new Pose2d(0.7, 0, Rotation2d.fromDegrees(90))),
-                        new TrajectoryConfig(1, 0.9));
+                        new Pose2d(0.5, 0, Rotation2d.fromDegrees(0)),
+                        new Pose2d(0.6, 0.3, Rotation2d.fromDegrees(90))),
+                        new TrajectoryConfig(0.8, 0.7));
 
         Trajectory returnTrajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                         new Pose2d(0.8, 0, Rotation2d.fromDegrees(0)),
@@ -56,7 +56,6 @@ public class AutonomousBasicLeft extends LinearOpMode {
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
                 new RamseteCommand(chassis, basicLeft),
-                new TurnToAngle(chassis, Rotation2d.fromDegrees(90)),
                 new SpitPixels(band, intake).withTimeout(4500),
                 new RamseteCommand(chassis, returnTrajectory)
         );

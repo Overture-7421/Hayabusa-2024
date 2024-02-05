@@ -61,12 +61,12 @@ public class  AutonomousBlueTop extends LinearOpMode {
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
                         new RamseteCommand(chassis, blueTop),
-                        new SpitPixels(band, intake).withTimeout(3000),
-                        new TurnToAngle(chassis, Rotation2d.fromDegrees(-90)),
+                        new SpitPixels(band, intake).withTimeout(4500)
+                        /*new TurnToAngle(chassis, Rotation2d.fromDegrees(-90)),
                         new RamseteCommand(chassis, pickUpPixels),
                         new BandAndIntake(band, intake).withTimeout(4500),
                         new TurnToAngle(chassis, Rotation2d.fromDegrees(90)),
-                        new RamseteCommand(chassis, returnToParking)
+                        new RamseteCommand(chassis, returnToParking)*/
         );
 
         waitForStart();

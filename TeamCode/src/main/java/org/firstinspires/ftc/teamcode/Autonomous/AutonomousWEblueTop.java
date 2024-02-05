@@ -56,7 +56,7 @@ public class  AutonomousWEblueTop extends LinearOpMode {
 
         TrajectoryConfig GoPark = new TrajectoryConfig(0.8, 0.8);
         GoPark.setReversed(true);
-        Trajectory blueweTop = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+        Trajectory Park = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                         new Pose2d(-0.9,-1.04, Rotation2d.fromDegrees(180)),
                         //new Pose2d(0,0,Rotation2d.fromDegrees(180)),
                         new Pose2d(0.15,-1.5, Rotation2d.fromDegrees(90))), GoPark
@@ -64,12 +64,12 @@ public class  AutonomousWEblueTop extends LinearOpMode {
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
                 new RamseteCommand(chassis, blueWETop),
-                new WaitCommand(1000),
                 new ScoreOnBackdrop(elevator, arm, claw),
                 new WaitCommand(1000),
                 new StowAll(elevator, arm, claw),
+                new WaitCommand(1000),
                 new TurnToAngle(chassis, Rotation2d.fromDegrees(180)),
-                new RamseteCommand(chassis, blueweTop)
+                new RamseteCommand(chassis, Park)
         );
 
         waitForStart();
