@@ -10,6 +10,7 @@ import com.arcrobotics.ftclib.trajectory.TrajectoryGenerator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.AutonomousCommands.GrabPixels;
 import org.firstinspires.ftc.teamcode.AutonomousCommands.SpitPixels;
 import org.firstinspires.ftc.teamcode.Commands.MoveClaw;
 import org.firstinspires.ftc.teamcode.Commands.RamseteCommand;
@@ -47,27 +48,46 @@ public class  AutonomousWEblueTop extends LinearOpMode {
         Arm arm = new Arm(hardwareMap);
         Elevator elevator = new Elevator(hardwareMap);
 
-        TrajectoryConfig blueWETopConfig = new TrajectoryConfig(0.8, 0.8);
+        TrajectoryConfig blueWETopConfig = new TrajectoryConfig(0.5, 0.5);
         blueWETopConfig.setReversed(true);
         Trajectory blueWETop = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                         new Pose2d(0,0,Rotation2d.fromDegrees(0)),
                         new Pose2d(-0.9,-1.04,Rotation2d.fromDegrees(90))), blueWETopConfig
                 );
+        TrajectoryConfig GoPixelConfig = new TrajectoryConfig(0.7, 0.7);
+        GoPixelConfig.setReversed(true);
+        Trajectory GoPixel = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+                        new Pose2d(-0.9,-1.04, Rotation2d.fromDegrees(0)),
+                        new Pose2d(-1.2,-1.04, Rotation2d.fromDegrees(0)),
+                        //new Pose2d(-0.6,1, Rotation2d.fromDegrees(-90)),
+                        new Pose2d(-1.2,1.5, Rotation2d.fromDegrees(-90))), GoPixelConfig );
 
-        TrajectoryConfig GoPark = new TrajectoryConfig(0.8, 0.8);
+        TrajectoryConfig GoElevatorConfig = new TrajectoryConfig(0.7, 0.7);
+        GoElevatorConfig.setReversed(true);
+        Trajectory GoElevator = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+                new Pose2d(-0.4,1.8, Rotation2d.fromDegrees(90)),
+                new Pose2d(-0.5,1, Rotation2d.fromDegrees(90)),
+                new Pose2d(-0.9,-1.04, Rotation2d.fromDegrees(90))), GoElevatorConfig );
+
+        TrajectoryConfig GoPark = new TrajectoryConfig(0.5, 0.5);
         GoPark.setReversed(true);
         Trajectory blueweTop = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                         new Pose2d(-0.9,-1.04, Rotation2d.fromDegrees(180)),
                         //new Pose2d(0,0,Rotation2d.fromDegrees(180)),
-                        new Pose2d(0.15,-1.5, Rotation2d.fromDegrees(90))), GoPark
+                        new Pose2d(0.12,-1.5, Rotation2d.fromDegrees(90))), GoPark
 );
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
                 new RamseteCommand(chassis, blueWETop),
+                 /*new ScoreOnBackdrop(elevator, arm, claw),
                 new WaitCommand(1000),
-                new ScoreOnBackdrop(elevator, arm, claw),
+                new StowAll(elevator, arm, claw),*/
                 new WaitCommand(1000),
-                new StowAll(elevator, arm, claw),
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(0)),
+                new RamseteCommand(chassis, GoPixel),
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(90)),
+                new GrabPixels(band, intake).withTimeout(4500),
+                new RamseteCommand(chassis, GoElevator),
                 new TurnToAngle(chassis, Rotation2d.fromDegrees(180)),
                 new RamseteCommand(chassis, blueweTop)
         );
