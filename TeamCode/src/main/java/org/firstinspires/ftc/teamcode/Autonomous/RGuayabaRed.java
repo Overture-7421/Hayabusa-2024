@@ -28,54 +28,64 @@ import org.firstinspires.ftc.teamcode.AutonomousCommands.DropPixels;
 import java.util.Arrays;
 
 @Autonomous
-public class AutonomousWEredTop extends LinearOpMode {
-    Chassis chassis;
-    Band band;
-    Intake intake;
-    Claw claw;
-    Arm arm;
-    Elevator elevator;
+public class RGuayabaRed extends LinearOpMode {
 
-//creo que vuela
+    //creo que vuela
     @Override
     public void runOpMode() throws InterruptedException {
 
         CommandScheduler.getInstance().cancelAll();
         CommandScheduler.getInstance().reset();
 
-        chassis = new Chassis(hardwareMap);
-        band = new Band(hardwareMap);
-        intake = new Intake(hardwareMap);
-        claw = new Claw(hardwareMap);
-        arm = new Arm(hardwareMap);
-        elevator = new Elevator(hardwareMap);
+        Chassis chassis = new Chassis(hardwareMap);
+        Band band = new Band(hardwareMap);
+        Intake intake = new Intake(hardwareMap);
+        Claw claw = new Claw(hardwareMap);
+        Arm arm = new Arm(hardwareMap);
+        Elevator elevator = new Elevator(hardwareMap);
 
-        TrajectoryConfig redWETopConfig = new TrajectoryConfig(0.5, 0.5);
-        redWETopConfig.setReversed(true);
-        Trajectory redWETop = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+        TrajectoryConfig RGuayabaRed = new TrajectoryConfig(0.5, 0.5);
+        RGuayabaRed.setReversed(true);
+        Trajectory BasicCenter = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                 new Pose2d(0,0,Rotation2d.fromDegrees(0)),
-                new Pose2d(-0.9,1.04,Rotation2d.fromDegrees(-90))), redWETopConfig
-        );
+                new Pose2d(-0.9,0,Rotation2d.fromDegrees(0))), RGuayabaRed);
+
+        TrajectoryConfig GoplaceOnBackdrop = new TrajectoryConfig(0.5, 0.5);
+        GoplaceOnBackdrop.setReversed(true);
+        Trajectory GoplaceOn = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+                        new Pose2d(-0.7, 0, Rotation2d.fromDegrees(-90)),
+                        new Pose2d(-0.7, 0.8995, Rotation2d.fromDegrees(-90))),GoplaceOnBackdrop);
 
         TrajectoryConfig GoPark = new TrajectoryConfig(0.5, 0.5);
         GoPark.setReversed(true);
-        Trajectory redweTop = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                        new Pose2d(-0.9,1.04, Rotation2d.fromDegrees(-180)),
-                        new Pose2d(0.135,1.4, Rotation2d.fromDegrees(-90))), GoPark);
+        Trajectory GoP = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+                        new Pose2d(-0.8, 0.8995, Rotation2d.fromDegrees(-180)),
+                        new Pose2d(-0.15, 0.8995, Rotation2d.fromDegrees(-180))),GoPark);
+
+
+        /*Trajectory GoPark2 = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+                        new Pose2d(-0.15, 0.8995, Rotation2d.fromDegrees(90)),
+                        new Pose2d(-0.15, 1, Rotation2d.fromDegrees(90))),
+                new TrajectoryConfig(0.6, 0.4));*/
+
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
-                new RamseteCommand(chassis, redWETop),
-                new WaitCommand(1000),
+                new RamseteCommand(chassis, BasicCenter),
+                new SpitPixels(band, intake).withTimeout(4500),
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(-90)),
+                new RamseteCommand(chassis, GoplaceOn),
                 new ScoreOnBackdrop(elevator, arm, claw),
                 new WaitCommand(1000),
                 new StowAll(elevator, arm, claw),
                 new TurnToAngle(chassis, Rotation2d.fromDegrees(-180)),
-                new RamseteCommand(chassis, redweTop)
+                new RamseteCommand(chassis, GoP),
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(90))
+                //new RamseteCommand(chassis, GoPark2)
         );
 
         waitForStart();
 
-        chassis.resetPose(redWETop.getInitialPose());
+        chassis.resetPose(BasicCenter.getInitialPose());
 
         CommandScheduler.getInstance().schedule(testCommandGroup);
 

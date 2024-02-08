@@ -79,15 +79,15 @@ public class  AutonomousWEblueTop extends LinearOpMode {
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
                 new RamseteCommand(chassis, blueWETop),
-                 /*new ScoreOnBackdrop(elevator, arm, claw),
+                 new ScoreOnBackdrop(elevator, arm, claw),
                 new WaitCommand(1000),
-                new StowAll(elevator, arm, claw),*/
+                new StowAll(elevator, arm, claw),
                 new WaitCommand(1000),
-                new TurnToAngle(chassis, Rotation2d.fromDegrees(0)),
+                /*new TurnToAngle(chassis, Rotation2d.fromDegrees(0)),
                 new RamseteCommand(chassis, GoPixel),
                 new TurnToAngle(chassis, Rotation2d.fromDegrees(90)),
                 new GrabPixels(band, intake).withTimeout(4500),
-                new RamseteCommand(chassis, GoElevator),
+                new RamseteCommand(chassis, GoElevator),*/
                 new TurnToAngle(chassis, Rotation2d.fromDegrees(180)),
                 new RamseteCommand(chassis, blueweTop)
         );
