@@ -83,6 +83,8 @@ public class RGuayabaRed extends LinearOpMode {
                 //new RamseteCommand(chassis, GoPark2)
         );
 
+        //Etsa baranch jala""?
+
         waitForStart();
 
         chassis.resetPose(BasicCenter.getInitialPose());
