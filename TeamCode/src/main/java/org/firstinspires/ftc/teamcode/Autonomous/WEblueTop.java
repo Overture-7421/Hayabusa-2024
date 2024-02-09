@@ -10,9 +10,6 @@ import com.arcrobotics.ftclib.trajectory.TrajectoryGenerator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.AutonomousCommands.GrabPixels;
-import org.firstinspires.ftc.teamcode.AutonomousCommands.SpitPixels;
-import org.firstinspires.ftc.teamcode.Commands.MoveClaw;
 import org.firstinspires.ftc.teamcode.Commands.RamseteCommand;
 import org.firstinspires.ftc.teamcode.Commands.ScoreOnBackdrop;
 import org.firstinspires.ftc.teamcode.Commands.StowAll;
@@ -27,7 +24,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import java.util.Arrays;
 
 @Autonomous
-public class  AutonomousWEblueTop extends LinearOpMode {
+public class WEblueTop extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {

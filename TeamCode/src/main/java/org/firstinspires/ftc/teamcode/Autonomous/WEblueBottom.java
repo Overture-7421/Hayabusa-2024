@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.arcrobotics.ftclib.trajectory.Trajectory;
@@ -10,7 +11,6 @@ import com.arcrobotics.ftclib.trajectory.TrajectoryGenerator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.AutonomousCommands.SpitPixels;
 import org.firstinspires.ftc.teamcode.Commands.RamseteCommand;
 import org.firstinspires.ftc.teamcode.Commands.TurnToAngle;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import java.util.Arrays;
 
 @Autonomous
-public class AutonomousBasicRight extends LinearOpMode {
+public class WEblueBottom extends LinearOpMode {
     Chassis chassis;
     Band band;
     Intake intake;
@@ -43,27 +43,33 @@ public class AutonomousBasicRight extends LinearOpMode {
         arm = new Arm(hardwareMap);
         claw = new Claw(hardwareMap);
 
-        Trajectory basicRight = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+        Trajectory blueWEBottom = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                         new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
-                        new Pose2d(0.8, 0, Rotation2d.fromDegrees(0 ))),
+                        new Pose2d(1,0, Rotation2d.fromDegrees(0)),
+                        new Pose2d(1.3,1, Rotation2d.fromDegrees(90)),
+                        new Pose2d(0.45,2.42, Rotation2d.fromDegrees(180))),
                 new TrajectoryConfig(1, 0.8));
 
-        Trajectory returnTrajectory = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                        new Pose2d(0.8, 0, Rotation2d.fromDegrees(0)),
-                        new Pose2d(0,0, Rotation2d.fromDegrees(0)))
-                , new TrajectoryConfig(1, 0.8));
-
+        Trajectory Park = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+                new Pose2d(0.45,2.42, Rotation2d.fromDegrees(180)),
+                new Pose2d(0.0,2.42, Rotation2d.fromDegrees(180))),
+                //new Pose2d(0.135,1.4, Rotation2d.fromDegrees(90))),
+        new TrajectoryConfig(1, 0.8));
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
-                new RamseteCommand(chassis, basicRight),
-                new TurnToAngle(chassis,Rotation2d.fromDegrees(-90)),
-                new SpitPixels(band, intake).withTimeout(4500),
-                new RamseteCommand(chassis, returnTrajectory)
+                new RamseteCommand(chassis, blueWEBottom),
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(-90)),
+                //new ScoreOnBackdrop(elevator,arm,claw),
+                //new StowAll(elevator, arm, claw)
+                new WaitCommand(1000),
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(180)),
+                new RamseteCommand(chassis, Park)
+
         );
 
         waitForStart();
 
-        chassis.resetPose(basicRight.getInitialPose());
+        chassis.resetPose(blueWEBottom.getInitialPose());
 
         CommandScheduler.getInstance().schedule(testCommandGroup);
 
@@ -76,7 +82,6 @@ public class AutonomousBasicRight extends LinearOpMode {
             telemetry.addData("Y", pose.getY());
             telemetry.addData("Heading", pose.getRotation().getDegrees());
             telemetry.update();
-
 
         }
     }

@@ -50,6 +50,6 @@ public class TurnToAngle extends CommandBase {
     public boolean isFinished(){
         double currentDegrees = chassis.getPose().getRotation().getDegrees();
         double targetDegrees = targetHeading.getDegrees();
-        return Math.abs(targetDegrees - currentDegrees) < 1;
+        return Math.abs(targetDegrees - currentDegrees) < 3;
     }
 }

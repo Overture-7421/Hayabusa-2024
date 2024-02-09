@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
-import com.acmerobotics.dashboard.canvas.Rotation;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.geometry.Pose2d;
@@ -11,7 +10,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.AutonomousCommands.SpitPixels;
 import org.firstinspires.ftc.teamcode.Commands.RamseteCommand;
-import org.firstinspires.ftc.teamcode.Commands.TurnToAngle;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Band;
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
@@ -22,7 +20,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import java.util.Arrays;
 
 @Autonomous
-public class AutonomousBasicLeft extends LinearOpMode {
+public class BasicLeft extends LinearOpMode {
     Chassis chassis;
     Band band;
     Intake intake;

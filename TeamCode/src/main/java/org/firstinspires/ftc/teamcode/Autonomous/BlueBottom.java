@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import java.util.Arrays;
 
 @Autonomous
-public class AutonomousBlueBottom extends LinearOpMode {
+public class BlueBottom extends LinearOpMode {
     Chassis chassis;
     Band band;
     Intake intake;
