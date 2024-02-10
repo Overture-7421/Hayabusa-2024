@@ -31,22 +31,15 @@ import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Shooter;
 
+//Camera Import
 
 @TeleOp
 public class MainSystem extends LinearOpMode {
 
+    private static final boolean USE_WEBCAM = true;
 
     @Override
     public void runOpMode() {
-        /*Chassis chassis;
-        Arm arm;
-        Band band;
-        Elevator elevator;
-        Claw claw;
-        Intake intake;
-        Shooter shooter;
-        GamepadEx driverOp;
-        GamepadEx toolOp;*/
 
         CommandScheduler.getInstance().cancelAll();
         CommandScheduler.getInstance().reset();
@@ -134,5 +127,6 @@ public class MainSystem extends LinearOpMode {
             // -- UPDATE TELEMETRY -- //
             telemetry.update();
         }
+
     }
 }

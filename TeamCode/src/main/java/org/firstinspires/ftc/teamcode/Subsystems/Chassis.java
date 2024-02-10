@@ -55,18 +55,18 @@ public class Chassis extends SubsystemBase {
 
     }
 
-    // Set Speed Function
+     //Set Speed Function
     public void setSpeed(double linearSpeed, double angularSpeed){
         right_Drive.setPower(linearSpeed + angularSpeed);
         left_Drive.setPower(linearSpeed - angularSpeed);
     }
 
-    // Get Right Distance (Position)
-    public double rightDistance(){
+     //Get Right Distance (Position)
+    public double rightDistance() {
         return (right_Drive.getCurrentPosition() - rightOffset) * M_PER_TICK;
     }
 
-    // Get Left Distance (Position)
+     //Get Left Distance (Position)
     public double leftDistance(){
         return (left_Drive.getCurrentPosition() - leftOffset) * M_PER_TICK;
     }
