@@ -38,16 +38,6 @@ public class MainSystem extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        /*Chassis chassis;
-        Arm arm;
-        Band band;
-        Elevator elevator;
-        Claw claw;
-        Intake intake;
-        Shooter shooter;
-        GamepadEx driverOp;
-        GamepadEx toolOp;*/
-
         CommandScheduler.getInstance().cancelAll();
         CommandScheduler.getInstance().reset();
 
