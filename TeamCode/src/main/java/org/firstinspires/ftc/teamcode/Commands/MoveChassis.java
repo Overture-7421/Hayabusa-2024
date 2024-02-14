@@ -27,6 +27,6 @@ public class MoveChassis extends CommandBase {
         left = JoystickHandler.handleJoystickInput(left);
 
 
-        chassis.setSpeed(left, right);
+        chassis.setSpeed(left/2.5, right/2.5);
     }
 }

@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.arcrobotics.ftclib.trajectory.Trajectory;
@@ -24,12 +23,11 @@ import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
 import org.firstinspires.ftc.teamcode.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
-import org.firstinspires.ftc.teamcode.AutonomousCommands.DropPixels;
+
 import java.util.Arrays;
-import java.util.jar.Attributes;
 
 @Autonomous
-public class RGuayabaBlue extends LinearOpMode {
+public class Valentines extends LinearOpMode {
 
     //creo que vuela
     @Override
@@ -49,26 +47,26 @@ public class RGuayabaBlue extends LinearOpMode {
         RGuayabaRed.setReversed(true);
         Trajectory BasicCenter = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                 new Pose2d(0,0,Rotation2d.fromDegrees(0)),
-                new Pose2d(-1.12,0,Rotation2d.fromDegrees(0))), RGuayabaRed);
+                new Pose2d(-1.05,0,Rotation2d.fromDegrees(0))), RGuayabaRed);
 
         TrajectoryConfig GoplaceOnBackdrop = new TrajectoryConfig(0.5, 0.5);
         GoplaceOnBackdrop.setReversed(true);
         Trajectory GoplaceOn = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                new Pose2d(-1.12, 0, Rotation2d.fromDegrees(100)),
+                new Pose2d(-1.05, 0, Rotation2d.fromDegrees(100)),
                 new Pose2d(-0.6, -1.2, Rotation2d.fromDegrees(90))),GoplaceOnBackdrop);
 
         TrajectoryConfig GoPark = new TrajectoryConfig(0.5, 0.5);
         GoPark.setReversed(true);
         Trajectory GoP = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                 new Pose2d(-0.6, -1.2, Rotation2d.fromDegrees(0)),
-                new Pose2d(-1, -1, Rotation2d.fromDegrees(70)),
-                new Pose2d(-1.3, -1.2, Rotation2d.fromDegrees(90))),GoPark);
+                new Pose2d(-1, -1.2, Rotation2d.fromDegrees(0)),
+                new Pose2d(-1.3, -1.5, Rotation2d.fromDegrees(80))),GoPark);
 
 
-        Trajectory GoPark2 = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                        new Pose2d(-0.2, -1, Rotation2d.fromDegrees(90)),
-                        new Pose2d(-0.1, -1, Rotation2d.fromDegrees(90))),
-                new TrajectoryConfig(0.6, 0.4));
+        /*Trajectory GoPark2 = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+                        new Pose2d(-1.3, -1.2, Rotation2d.fromDegrees(90)),
+                        new Pose2d(-1.5, -1.4, Rotation2d.fromDegrees(90))),
+                new TrajectoryConfig(0.6, 0.4));*/
 
 
         SequentialCommandGroup testCommandGroup = new SequentialCommandGroup(
@@ -98,7 +96,7 @@ public class RGuayabaBlue extends LinearOpMode {
             telemetry.addData("X", pose.getX());
             telemetry.addData("Y", pose.getY());
             telemetry.addData("Heading", pose.getRotation().getDegrees());
-            telemetry.addData("Name", RGuayabaRed);
+            telemetry.addData("Elevator Height", elevator.getHeight());
             telemetry.update();
 
 

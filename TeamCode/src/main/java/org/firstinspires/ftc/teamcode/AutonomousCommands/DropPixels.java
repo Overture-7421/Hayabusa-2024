@@ -15,7 +15,7 @@ public class DropPixels extends SequentialCommandGroup {
     public DropPixels(Elevator elevator, Arm arm, Claw claw) {
         addCommands(
                 new MoveClaw(claw, 0.60),
-                new ParallelCommandGroup(new MoveClaw(claw, 1), new ElevatorMove(elevator,0.18)),
+                new ParallelCommandGroup(new MoveClaw(claw, 1), new ElevatorMove(elevator,0.30)),
                 new MoveArm(arm,0.3)
                 //new MoveClaw(claw,-1)
         );
