@@ -1,3 +1,16 @@
+/*
+    __  __                  __                     ______          __
+   / / / /___ ___  ______ _/ /_  __  ___________ _/ ____/___  ____/ /__
+  / /_/ / __ `/ / / / __ `/ __ \/ / / / ___/ __ `/ /   / __ \/ __  / _ \
+ / __  / /_/ / /_/ / /_/ / /_/ / /_/ (__  ) /_/ / /___/ /_/ / /_/ /  __/
+/_/ /_/\__,_/\__, /\__,_/_.___/\__,_/____/\__,_/\____/\____/\__,_/\___/
+            /____/
+
+This is the code to control team Overture 23619's robot "Hayabusa".
+Future iterations may change the overall functionality, though it is all used for the 2024 Centerstage FTC competition by FIRST.
+All rights reserved. Copyright Overture 23619.
+*/
+
 package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.command.Command;
