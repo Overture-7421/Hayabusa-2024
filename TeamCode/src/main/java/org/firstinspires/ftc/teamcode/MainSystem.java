@@ -7,7 +7,7 @@
             /____/
 
 This is the code to control team Overture 23619's robot "Hayabusa".
-Future iterations may change the overall functionality, though it is all used for the 2024 Centerstage FTC competition by FIRST.
+Future iterations may change the overall functionality, though it is all used for the 2024 CENTERSTAGE FTC competition by FIRST.
 All rights reserved. Copyright Overture 23619. Overture holds the right to modify and distribute this code.
 */
 
