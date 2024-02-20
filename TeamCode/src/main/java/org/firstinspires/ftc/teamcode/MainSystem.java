@@ -72,7 +72,7 @@ public class MainSystem extends LinearOpMode {
 
                 // -- TEST ARM MOVEMENT -- //
                 Button operatorDpadRight= toolOp.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT);
-                operatorDpadRight.whileHeld(new MoveArm(arm,100));
+                operatorDpadRight.whileHeld(new MoveArm(arm,60));
 
                 Button operatorDpadLeft= toolOp.getGamepadButton(GamepadKeys.Button.DPAD_LEFT);
                 operatorDpadLeft.whileHeld(new MoveArm(arm,0));

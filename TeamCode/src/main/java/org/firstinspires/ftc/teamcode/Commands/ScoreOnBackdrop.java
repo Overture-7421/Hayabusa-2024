@@ -12,8 +12,8 @@ public class ScoreOnBackdrop extends SequentialCommandGroup {
 
     public ScoreOnBackdrop(Elevator elevator, Arm arm, Claw claw) {
         addCommands(
-                new ElevatorMove(elevator, 0.30).withTimeout(3000),
-                new MoveArm(arm,100),
+                new ElevatorMove(elevator, 0.25).withTimeout(3000),
+                new MoveArm(arm,40),
                 new MoveClaw(claw, -1),
                 new WaitCommand(1000)
         );
